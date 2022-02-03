@@ -41,7 +41,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # added gems
 # gem 'api-pagination'
-# gem 'audited'
+gem 'audited'
 gem 'awesome_print'
 # gem 'cancancan'
 # gem 'carrierwave'
