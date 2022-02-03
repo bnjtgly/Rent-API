@@ -3,23 +3,23 @@
 class JsonWebToken
   class << self
 
-    # def encode_5minutes(payload)
-    #   # set token expiration time
-    #   exp = 5.minutes.from_now
-    #   payload[:exp] = exp.to_i
-    #
-    #   # this encodes the user data(payload) with our secret key
-    #   JWT.encode(payload, Rails.application.secret_key_base)
-    # end
-    #
-    # def encode_1hour(payload)
-    #   # set token expiration time
-    #   exp = 1.hour.from_now
-    #   payload[:exp] = exp.to_i
-    #
-    #   # this encodes the user data(payload) with our secret key
-    #   JWT.encode(payload, Rails.application.secret_key_base)
-    # end
+    def encode_5minutes(payload)
+      # set token expiration time
+      exp = 5.minutes.from_now
+      payload[:exp] = exp.to_i
+
+      # this encodes the user data(payload) with our secret key
+      JWT.encode(payload, Rails.application.secret_key_base)
+    end
+
+    def encode_1hour(payload)
+      # set token expiration time
+      exp = 1.hour.from_now
+      payload[:exp] = exp.to_i
+
+      # this encodes the user data(payload) with our secret key
+      JWT.encode(payload, Rails.application.secret_key_base)
+    end
 
     def encode_24hours(payload)
       # set token expiration time

@@ -16,6 +16,12 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'e031cc3e097a62b5ffa3a4fda81357720a0001d82849b368b155a64a2f52ca1a0ee42345ac58407680de8b639803a498e5761912c6cffa2a6aef62eaaed64e61'
 
+  # Devise JWT config
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.secret_key_base
+    jwt.expiration_time = 5.minutes.to_i
+  end
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -277,10 +283,11 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
+  config.warden do |manager|
+    manager.failure_app = CustomFailureApp
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
