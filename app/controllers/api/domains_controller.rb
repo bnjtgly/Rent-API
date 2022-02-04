@@ -1,7 +1,7 @@
 module Api
   class DomainsController < ApplicationController
     # before_action :authenticate_user!
-    after_action { pagy_metadata(@pagy) if @pagy }
+    after_action { pagy_headers_merge(@pagy) if @pagy }
 
     # GET /api/domains
     def index
@@ -11,7 +11,7 @@ module Api
 
       @domains = @domains.where(domain_number: params[:domain_number]) unless params[:domain_number].blank?
 
-      @pagination = pagy_metadata(pagy)
+      pagy_headers_merge(pagy)
 
       render 'api/domains/index'
     end
