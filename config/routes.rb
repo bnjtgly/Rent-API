@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # This is for our Client or External api (Outside and Limited Access)
   namespace :api do
     resources :domains, only: [:index]
+    resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index]
   end
 

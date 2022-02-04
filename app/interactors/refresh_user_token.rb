@@ -32,8 +32,6 @@ class RefreshUserToken
       @user = UserRole.joins(:user, :role).where(user: {id: decoded_auth_token[:sub]}).select('*').first
       @jwt_denylist = JwtDenylist.where(jti: decoded_auth_token[:jti]).first
 
-      ap decoded_auth_token[:refresh_token]
-
       if !@jwt_denylist.nil?
         context.fail!(error: { user: ['Access denied!. Token has expired. Already logged out.'] })
       elsif @user && @user.refresh_token.eql?(decoded_auth_token[:refresh_token])
