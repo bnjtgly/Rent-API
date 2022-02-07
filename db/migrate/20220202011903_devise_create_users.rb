@@ -33,6 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.datetime :locked_at
 
       t.references :api_client, null: false, foreign_key: true, type: :uuid
+      t.references :domain_control_level, null: false, foreign_key: true, type: :uuid
       t.references :gender, references: :domain_references, foreign_key: { to_table: :domain_references}, type: :uuid
       t.references :mobile_country_code, references: :domain_references, foreign_key: { to_table: :domain_references}, type: :uuid
       t.references :sign_up_with, references: :domain_references, foreign_key: { to_table: :domain_references}, type: :uuid
