@@ -32,13 +32,17 @@ sign_up_with_ref = DomainReference.create(sort_order: '100', domain_id: sign_up_
 sign_up_with_ref1 = DomainReference.create(sort_order: '200', domain_id: sign_up_with.id, display: 'Email', value_str: 'email')
 
 mobile_country_code = Domain.create(domain_number: 1301, name: 'Mobile Country Code', domain_def: 'Mobile country code.')
-mobile_country_code_ref = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, display: '+61', value_str: '61', metadata: { country: 'AU' })
+mobile_country_code_ref = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, display: '+61', value_str: '61',
+                                                 metadata: { country: 'AU', image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/au-flag.png'})
 
 # Create superadmin account
-user = User.create(email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator', date_of_birth: '1993-01-01',
-             mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456789, gender_id: gender_ref.id, api_client_id: api_client.id)
-user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith', date_of_birth: '1994-10-10', sign_up_with_id: sign_up_with_ref1.id,
-                   mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, gender_id: gender_ref.id, api_client_id: api_client2.id)
+user = User.create(email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator',
+                   date_of_birth: '1993-01-01', mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456789,
+                   refresh_token: SecureRandom.uuid, gender_id: gender_ref.id, api_client_id: api_client.id)
+# Create user: tenant
+user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith',
+                    date_of_birth: '1994-10-10', sign_up_with_id: sign_up_with_ref1.id, mobile_country_code_id: mobile_country_code_ref.id,
+                    mobile: 9123456790, refresh_token: SecureRandom.uuid, gender_id: gender_ref.id, api_client_id: api_client2.id)
 
 # Assign role to user
 UserRole.create(user_id: user.id, role_id: role.id)
