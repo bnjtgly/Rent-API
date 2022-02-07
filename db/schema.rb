@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.integer "domain_number"
     t.string "name"
     t.string "domain_def"
+    t.string "sector", default: "PRIVATE"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

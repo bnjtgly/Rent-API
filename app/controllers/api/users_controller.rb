@@ -1,6 +1,7 @@
 module Api
   class UsersController < ApplicationController
     before_action :authenticate_user!
+    authorize_resource class: Api::UsersController
 
     # GET /api/users
     def index

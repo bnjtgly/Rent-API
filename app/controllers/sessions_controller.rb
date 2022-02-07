@@ -19,10 +19,10 @@ class SessionsController < Devise::SessionsController
     api_client = ApiClient.where(id: current_user.api_client_id).first
 
     data = if api_client.name.eql?('Tenant Application Web') || api_client.name.eql?('Tenant Application Admin')
-             # WEB
+             # WEB. Refresh token is needed for nuxt.
              { message: 'You are logged in.', token: @token, refreshToken: login_refresh_token(@token) } if login_refresh_token(@token)
            else
-             # Mobile
+             # Mobile. Use /refresh_me for refresh token.
              { message: 'You are logged in.', token: @token }
            end
 
