@@ -3,6 +3,6 @@ class Role < ApplicationRecord
   before_update :upcase
 
   def upcase
-    self.name = name.try(:upcase)
+    self.role_name = role_name.try(:upcase)
   end
 end
