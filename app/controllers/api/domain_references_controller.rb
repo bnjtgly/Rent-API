@@ -45,7 +45,7 @@ module Api
         @domain = @domain.where(domains: { name: params[:name] }) unless params[:name].blank?
         @domain = @domain.where(domains: { domain_number: params[:domain_number] }) unless params[:domain_number].blank?
 
-        @domain = @domain.first
+        # @domain = @domain.first
 
         return render 'api/domain_references/index' if @domain
       end

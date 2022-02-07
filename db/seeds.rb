@@ -30,6 +30,8 @@ user_status = Domain.create(domain_number: 1101, domain_control_level_id: ctrl_l
 user_status_ref = DomainReference.create(sort_order: '100', domain_id: user_status.id, domain_control_level_id: ctrl_lvl3.id, display: 'Active', value_str: 'active')
 DomainReference.create(sort_order: '200', domain_id: user_status.id, domain_control_level_id: ctrl_lvl3.id, display: 'Disabled', value_str: 'disabled')
 DomainReference.create(sort_order: '300', domain_id: user_status.id, domain_control_level_id: ctrl_lvl3.id, display: 'Banned', value_str: 'banned')
+DomainReference.create(sort_order: '400', domain_id: user_status.id, domain_control_level_id: ctrl_lvl.id, display: 'God', value_str: 'God')
+
 
 sign_up_with = Domain.create(domain_number: 1201, domain_control_level_id: ctrl_lvl3.id, name: 'Signup With', domain_def: 'Platform used in registration.')
 sign_up_with_ref = DomainReference.create(sort_order: '100', domain_id: sign_up_with.id, domain_control_level_id: ctrl_lvl3.id, display: 'Google', value_str: 'google')
@@ -40,7 +42,7 @@ mobile_country_code_ref = DomainReference.create(sort_order: '100', domain_id: m
                                                  metadata: { country: 'AU', image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/au-flag.png'})
 
 # Create superadmin account
-user = User.create(domain_control_level_id: ctrl_lvl3.id, email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator',
+user = User.create(domain_control_level_id: ctrl_lvl.id, email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator',
                    date_of_birth: '1993-01-01', mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456789,
                    refresh_token: SecureRandom.uuid, gender_id: gender_ref.id, api_client_id: api_client.id)
 # Create user: tenant
