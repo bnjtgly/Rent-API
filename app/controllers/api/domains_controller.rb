@@ -1,14 +1,18 @@
 module Api
   class DomainsController < ApplicationController
-    # before_action :authenticate_user!, except: [:index]
-    # before_action :authenticate_user!
-    # authorize_resource class: Api::DomainsController
-
     after_action { pagy_headers_merge(@pagy) if @pagy }
 
     # GET /api/domains
     def index
-      pagy, @domains = pagy(Domain.includes(:domain_references))
+      pagy, @domains = pagy(Domain.includes(:domain_references).references(:domain_references))
+
+      user_role = if user_signed_in?
+                    current_user.user_role.role
+                  else
+                    Role.where(role_name: 'PUBLIC').first
+                  end
+
+      @domains = @domains.where(":user_role = ANY(domain_references.role)", user_role: user_role.id)
 
       @domains = @domains.where('LOWER(name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
 
@@ -18,35 +22,5 @@ module Api
 
       render 'api/domains/index'
     end
-
-    # GET /api/domains/public
-    # def public
-    #   pagy, @domains = pagy(Domain.includes(:domain_references))
-    #
-    #   # List all Allowed Domain References
-    #   allowed_domain_list = [
-    #     {
-    #       domain_number: 1301,
-    #       domain_name: 'Mobile Country Code'
-    #     }
-    #   ]
-    #
-    #   if !params[:domain_number].blank? || !params[:name].blank?
-    #     allowed_domain_list.each do |domain|
-    #       @domain_exist = true if domain[:domain_number].eql?(params[:domain_number]) || domain[:domain_name].downcase.eql?(params[:name].downcase)unless params[:name].blank?
-    #     end
-    #   end
-    #
-    #   if @domain_exist
-    #     @domains = @domains.where('LOWER(name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
-    #     @domains = @domains.where(domain_number: params[:domain_number]) unless params[:domain_number].blank?
-    #
-    #     pagy_headers_merge(pagy)
-    #
-    #     render 'api/domains/index'
-    #   else
-    #     render json: { message: 'AccessDenied! (You are not authorized to access this page.)' }, status: :unauthorized
-    #   end
-    # end
   end
 end
