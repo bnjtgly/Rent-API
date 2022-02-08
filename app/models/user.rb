@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   belongs_to :api_client
+  belongs_to :control_level
   has_one :user_role, dependent: :destroy
 
   # Domain References Association

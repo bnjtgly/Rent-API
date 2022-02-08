@@ -2,6 +2,7 @@ class CreateDomainReferences < ActiveRecord::Migration[6.1]
   def change
     create_table :domain_references, id: :uuid do |t|
       t.references :domain, null: false, foreign_key: true, type: :uuid
+      t.references :control_level, null: false, foreign_key: true, type: :uuid
       t.string :sort_order
       t.string :display
       t.string :value_str
