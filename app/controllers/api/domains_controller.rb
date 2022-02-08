@@ -9,7 +9,7 @@ module Api
       user_role = if user_signed_in?
                     current_user.user_role.role
                   else
-                    Role.where(role_name: 'PUBLIC').first
+                    Role.where(role_name: 'GUEST').first
                   end
 
       @domains = @domains.where(":user_role = ANY(domain_references.role)", user_role: user_role.id)
