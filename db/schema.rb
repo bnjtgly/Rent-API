@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "domain_control_levels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "control_levels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "sort_order"
     t.string "control_level"
     t.string "control_level_def"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
 
   create_table "domain_references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "domain_id", null: false
-    t.uuid "domain_control_level_id", null: false
+    t.uuid "control_level_id", null: false
     t.string "sort_order"
     t.string "display"
     t.string "value_str"
@@ -66,18 +66,18 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["domain_control_level_id"], name: "index_domain_references_on_domain_control_level_id"
+    t.index ["control_level_id"], name: "index_domain_references_on_control_level_id"
     t.index ["domain_id"], name: "index_domain_references_on_domain_id"
   end
 
   create_table "domains", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "domain_control_level_id", null: false
+    t.uuid "control_level_id", null: false
     t.integer "domain_number"
     t.string "name"
     t.string "domain_def"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["domain_control_level_id"], name: "index_domains_on_domain_control_level_id"
+    t.index ["control_level_id"], name: "index_domains_on_control_level_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.uuid "api_client_id", null: false
-    t.uuid "domain_control_level_id", null: false
+    t.uuid "control_level_id", null: false
     t.uuid "gender_id"
     t.uuid "mobile_country_code_id"
     t.uuid "sign_up_with_id"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["api_client_id"], name: "index_users_on_api_client_id"
-    t.index ["domain_control_level_id"], name: "index_users_on_domain_control_level_id"
+    t.index ["control_level_id"], name: "index_users_on_control_level_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["gender_id"], name: "index_users_on_gender_id"
     t.index ["mobile_country_code_id"], name: "index_users_on_mobile_country_code_id"
@@ -128,13 +128,13 @@ ActiveRecord::Schema.define(version: 2022_02_03_055840) do
     t.index ["user_status_id"], name: "index_users_on_user_status_id"
   end
 
-  add_foreign_key "domain_references", "domain_control_levels"
+  add_foreign_key "domain_references", "control_levels"
   add_foreign_key "domain_references", "domains"
-  add_foreign_key "domains", "domain_control_levels"
+  add_foreign_key "domains", "control_levels"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "users", "api_clients"
-  add_foreign_key "users", "domain_control_levels"
+  add_foreign_key "users", "control_levels"
   add_foreign_key "users", "domain_references", column: "gender_id"
   add_foreign_key "users", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "users", "domain_references", column: "sign_up_with_id"

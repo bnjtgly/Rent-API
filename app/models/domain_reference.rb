@@ -1,4 +1,4 @@
 class DomainReference < ApplicationRecord
   belongs_to :domain
-  belongs_to :domain_control_level
+  belongs_to :control_level
 end

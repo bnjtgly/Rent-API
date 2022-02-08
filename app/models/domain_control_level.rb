@@ -1,2 +1,0 @@
-class DomainControlLevel < ApplicationRecord
-end
