@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :authorization
-  skip_before_action :authenticate_user!
   respond_to :json
 
   def create
@@ -58,7 +57,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def assign_user_role(user)
     role_user = Role.where(role_name: 'USER').first
-    # role_superadmin = Role.where(role_name: 'SUPERADMIN').first.id
 
     if user && role_user
       user_role = UserRole.create(user_id: user.id, role_id: role_user.id)

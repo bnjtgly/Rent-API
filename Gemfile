@@ -40,18 +40,18 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # added gems
-# gem 'api-pagination'
+gem 'api-pagination'
 gem 'audited'
 gem 'awesome_print'
 gem 'cancancan'
-# gem 'carrierwave'
-# gem 'carrierwave-base64'
+gem 'carrierwave'
+gem 'carrierwave-base64'
 gem 'devise'
 gem 'devise-jwt'
 # gem 'fog-aws'
-# gem 'httparty'
+gem 'httparty'
 gem 'interactor-rails'
 gem 'jwt'
 gem 'pagy'
 # gem 'sendgrid-ruby'
-# gem 'strip_attributes'
+gem 'strip_attributes'
