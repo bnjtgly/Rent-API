@@ -3,7 +3,7 @@ module Custom
     def login_refresh_token(token)
       @token = token
       if login_refresh_me
-        if login_refresh_me.role_name.eql?('SUPERADMIN')
+        if login_refresh_me.user_role.role.role_name.eql?('SUPERADMIN')
           JsonWebToken.encode_24hours(refresh_token: decoded_auth_token[:refresh_token],
                                       sub: decoded_auth_token[:sub],
                                       scp: decoded_auth_token[:scp],
@@ -23,7 +23,7 @@ module Custom
 
     def login_refresh_me
       if decoded_auth_token
-        @user = UserRole.joins(:user, :role).where(user: {id: decoded_auth_token[:sub]}).select('*').first
+        @user = User.where(id: decoded_auth_token[:sub]).first
         @jwt_denylist = JwtDenylist.where(jti: decoded_auth_token[:jti]).first
 
         if @user && @user.refresh_token.eql?(decoded_auth_token[:refresh_token])

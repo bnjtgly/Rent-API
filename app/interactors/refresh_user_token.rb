@@ -7,7 +7,7 @@ class RefreshUserToken
 
   def call
     if refresh_me
-      if refresh_me.role_name.eql?('SUPERADMIN')
+      if refresh_me.user_role.role.role_name.eql?('SUPERADMIN')
         context.token = JsonWebToken.encode_24hours(refresh_token: decoded_auth_token[:refresh_token],
                                                     sub: decoded_auth_token[:sub],
                                                     scp: decoded_auth_token[:scp],
@@ -29,7 +29,7 @@ class RefreshUserToken
 
   def refresh_me
     if decoded_auth_token
-      @user = UserRole.joins(:user, :role).where(user: {id: decoded_auth_token[:sub]}).select('*').first
+      @user = User.where(id: decoded_auth_token[:sub]).first
       @jwt_denylist = JwtDenylist.where(jti: decoded_auth_token[:jti]).first
 
       if !@jwt_denylist.nil?

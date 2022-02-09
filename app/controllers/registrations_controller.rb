@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  include Custom::GlobalRefreshToken
   before_action :authorization
   respond_to :json
 
@@ -34,7 +35,17 @@ class RegistrationsController < Devise::RegistrationsController
 
   def register_success
     if assign_user_role(@user)
-      render json: { message: 'Success' }
+
+      data = if current_user.api_client.name.eql?('Tenant Application Web') || current_user.api_client.name.eql?('Tenant Application Admin')
+               # WEB. Refresh token is needed for nuxt.
+               token = request.env['warden-jwt_auth.token']
+               { message: 'Success', token: token }
+             else
+               # Mobile.
+               { message: 'Success' }
+             end
+
+      render json: data, status: :ok
     else
       render json: { error: { message: 'An error has occurred while assigning a role.' } }
     end
