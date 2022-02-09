@@ -19,7 +19,7 @@ Ask for the database.yml and master.key files.
 
 ## Running app on localhost
 1. Clone repo or pull master
-2. `cd advanceme-api`
+2. `cd sr_tenant_application_api`
 3. `bundle install`
 4. `rails s` to run local server -- app will now be up on **localhost:3000**
 
