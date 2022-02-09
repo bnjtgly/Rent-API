@@ -16,9 +16,7 @@ class SessionsController < Devise::SessionsController
 
   def respond_with(_resource, _opts = {})
     @token = request.env['warden-jwt_auth.token']
-    api_client = ApiClient.where(id: current_user.api_client_id).first
-
-    data = if api_client.name.eql?('Tenant Application Web') || api_client.name.eql?('Tenant Application Admin')
+    data = if current_user.api_client.name.eql?('Tenant Application Web') || current_user.api_client.name.eql?('Tenant Application Admin')
              # WEB. Refresh token is needed for nuxt.
              { message: 'You are logged in.', token: @token, refreshToken: login_refresh_token(@token) } if login_refresh_token(@token)
            else
