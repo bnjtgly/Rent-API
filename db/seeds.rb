@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 api_client_admin = ApiClient.create(name: 'Tenant Application Admin')
-api_client_web = ApiClient.create(name: 'Tenant Application WEB')
+api_client_web = ApiClient.create(name: 'V')
 api_client_ios = ApiClient.create(name: 'Tenant Application IOS')
 api_client_android = ApiClient.create(name: 'Tenant Application ANDROID')
 
@@ -63,3 +63,15 @@ user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_nam
 # Assign role to user
 UserRole.create(user_id: user.id, role_id: role_admin.id)
 UserRole.create(user_id: user1.id, role_id: role_user.id)
+
+# # otp_verifications ex.
+# otp_verification = OtpVerification.create(mobile_country_code: 63, mobile: 9123456790, otp: '432098')
+#
+# user_verifications ex.
+UserVerification.create(user_id: user1.id, otp_verification_id: otp_verification.id, is_mobile_verified: true,
+                                            is_email_verified: true, is_email_verified_token: 'fcma1ZX3Mkfbq8R33_gJDA')
+
+UserVerification.create(user_id: 'ee4a928c-6794-4111-8e5d-44a8273ba3e4', otp_verification_id: '5acd5200-3039-4174-90e3-addee4c8b18f', is_mobile_verified: true, is_email_verified: true, is_email_verified_token: 'fcma1ZX3Mkfbq8R33_gJDA')
+
+
+
