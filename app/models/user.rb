@@ -1,6 +1,8 @@
 class User < ApplicationRecord
+  strip_attributes
   belongs_to :api_client
   has_one :user_role, dependent: :destroy
+  has_one :user_verification, dependent: :destroy
 
   # Domain References Association
   # List all domain_references columns in users table.

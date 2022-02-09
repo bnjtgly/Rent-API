@@ -1,7 +1,7 @@
-class UserRole < ApplicationRecord
+class UserVerification < ApplicationRecord
   strip_attributes
   belongs_to :user
-  belongs_to :role
+  belongs_to :otp_verification
 
   audited associated_with: :user
 end

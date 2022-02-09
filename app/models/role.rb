@@ -1,4 +1,5 @@
 class Role < ApplicationRecord
+  strip_attributes
   before_save :upcase
   before_update :upcase
 
