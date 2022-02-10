@@ -37,7 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
     if assign_user_role(@user)
 
       data = if current_user.api_client.name.eql?('Tenant Application Web') || current_user.api_client.name.eql?('Tenant Application Admin')
-               # WEB. Refresh token is needed for nuxt.
+               # WEB. Refresh token is needed for FE(nuxtjs).
                token = request.env['warden-jwt_auth.token']
                { message: 'Success', token: token }
              else
@@ -70,7 +70,7 @@ class RegistrationsController < Devise::RegistrationsController
     role_user = Role.where(role_name: 'USER').first
 
     if user && role_user
-      user_role = UserRole.create(user_id: user.id, role_id: role_user.id)
+      user_role = UserRole.create(user_id: user.id, role_id: role_user.id, audit_comment: 'Create User Role',)
       if user_role.id
         true
       else
