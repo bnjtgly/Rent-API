@@ -56,17 +56,12 @@ user = User.create(email: 'superadmin@sr.tenant.com', password: '@Test123', firs
                    refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_admin.id)
 
 # Create user: tenant
-user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith',
-                    date_of_birth: '1994-10-10', mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790,
+user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith', date_of_birth: '1994-10-10',
+                    mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, is_email_verified: true, is_mobile_verified: true,
                     refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id)
 
 # Assign role to user
 UserRole.create(user_id: user.id, role_id: role_admin.id)
 UserRole.create(user_id: user1.id, role_id: role_user.id)
 
-# otp_verifications ex.
-otp_verification = OtpVerification.create(mobile_country_code: 63, mobile: 9123456790, otp: '432098')
-
-# user_verifications ex.
-UserVerification.create(user_id: user1.id, otp_verification_id: otp_verification.id, is_mobile_verified: true,
-                                            is_email_verified: true, is_email_verified_token: 'fcma1ZX3Mkfbq8R33_gJDA')
+OtpVerification.create(user_id: user1.id, mobile_country_code: 61, mobile: 9123456790, otp: 432098)

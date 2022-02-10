@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_061236) do
+ActiveRecord::Schema.define(version: 2022_02_10_102127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -76,11 +76,13 @@ ActiveRecord::Schema.define(version: 2022_02_09_061236) do
   end
 
   create_table "otp_verifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
     t.integer "mobile_country_code"
     t.bigint "mobile"
     t.string "otp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_otp_verifications_on_user_id"
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -99,20 +101,6 @@ ActiveRecord::Schema.define(version: 2022_02_09_061236) do
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
-  create_table "user_verifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "otp_verification_id", null: false
-    t.boolean "is_mobile_verified", default: false
-    t.boolean "is_email_verified", default: false
-    t.string "is_email_verified_token"
-    t.string "otp"
-    t.datetime "otp_sent_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["otp_verification_id"], name: "index_user_verifications_on_otp_verification_id"
-    t.index ["user_id"], name: "index_user_verifications_on_user_id"
-  end
-
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -127,6 +115,11 @@ ActiveRecord::Schema.define(version: 2022_02_09_061236) do
     t.bigint "mobile"
     t.string "avatar"
     t.string "refresh_token"
+    t.boolean "is_email_verified", default: false
+    t.boolean "is_mobile_verified", default: false
+    t.string "is_email_verified_token"
+    t.string "otp"
+    t.datetime "otp_sent_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["api_client_id"], name: "index_users_on_api_client_id"
@@ -138,10 +131,9 @@ ActiveRecord::Schema.define(version: 2022_02_09_061236) do
   end
 
   add_foreign_key "domain_references", "domains"
+  add_foreign_key "otp_verifications", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
-  add_foreign_key "user_verifications", "otp_verifications"
-  add_foreign_key "user_verifications", "users"
   add_foreign_key "users", "api_clients"
   add_foreign_key "users", "domain_references", column: "gender_id"
   add_foreign_key "users", "domain_references", column: "mobile_country_code_id"
