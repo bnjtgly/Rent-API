@@ -43,6 +43,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.bigint :mobile
       t.string :avatar
       t.string :refresh_token
+      t.boolean :is_email_verified, default: false
+      t.boolean :is_mobile_verified, default: false
+      t.string :is_email_verified_token
+      t.string :otp
+      t.datetime :otp_sent_at
 
       t.timestamps null: false
     end

@@ -2,7 +2,6 @@ class User < ApplicationRecord
   strip_attributes
   belongs_to :api_client
   has_one :user_role, dependent: :destroy
-  has_one :user_verification, dependent: :destroy
 
   # Domain References Association
   # List all domain_references columns in users table.
@@ -16,6 +15,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :jwt_authenticatable, :registerable, jwt_revocation_strategy: JwtDenylist
 
+  before_create :generate_email_verification_token
   before_save :titleize
   before_update :titleize
 
@@ -37,6 +37,26 @@ class User < ApplicationRecord
   def titleize
     self.first_name = first_name.try(:downcase).try(:titleize)
     self.last_name = last_name.try(:downcase).try(:titleize)
+  end
+
+  # OTP
+  # def generate_otp!
+  #   self.otp = loop do
+  #     random_token = SecureRandom.random_number(10 ** 6).to_s.rjust(6, '0')
+  #     break random_token unless User.exists?(otp: random_token)
+  #   end
+  #   self.otp_sent_at = Time.now.utc + 10.minutes
+  #   self.audit_comment = 'Generate OTP'
+  #   save!
+  # end
+
+  # Email Verification token
+  def generate_email_verification_token
+    self.is_email_verified_token = loop do
+      random_email_verified_token = SecureRandom.urlsafe_base64.to_s
+      break random_email_verified_token unless User.exists?(is_email_verified_token: random_email_verified_token)
+    end
+    self.audit_comment = 'Generate Email Token'
   end
 
   def jwt_payload
