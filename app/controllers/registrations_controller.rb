@@ -34,9 +34,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    if assign_user_role(@user)
+    if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code: @user.ref_mobile_country_code.value_str, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
 
-      data = if current_user.api_client.name.eql?('Tenant Application Web') || current_user.api_client.name.eql?('Tenant Application Admin')
+      data = if @user.api_client.name.eql?('Tenant Application WEB') || @user.api_client.name.eql?('Tenant Application Admin')
                # WEB. Refresh token is needed for FE(nuxtjs).
                token = request.env['warden-jwt_auth.token']
                { message: 'Success', token: token }
@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
 
       render json: data, status: :ok
     else
-      render json: { error: { message: 'An error has occurred while assigning a role.' } }
+      render json: { error: { message: 'An error has occurred while setting up user.' } }
     end
 
   end

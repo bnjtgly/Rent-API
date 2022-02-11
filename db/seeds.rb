@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 api_client_admin = ApiClient.create(name: 'Tenant Application Admin')
-api_client_web = ApiClient.create(name: 'V')
+api_client_web = ApiClient.create(name: 'Tenant Application WEB')
 api_client_ios = ApiClient.create(name: 'Tenant Application IOS')
 api_client_android = ApiClient.create(name: 'Tenant Application ANDROID')
 
