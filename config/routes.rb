@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :domains, only: [:index]
     resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index]
+
+    post 'users/mobile_verification', to: 'users#mobile_verification'
   end
 
   devise_for :users, path: '', path_names: {

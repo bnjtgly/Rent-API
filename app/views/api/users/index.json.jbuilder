@@ -7,6 +7,8 @@ json.user do
   json.date_of_birth @user.date_of_birth_format
   json.mobile_number @user.mobile_number
   json.avatar @user.avatar
+  json.is_mobile_verified @user.is_mobile_verified
+  json.is_email_verified @user.is_email_verified
 
   json.gender do
     if @user.ref_gender
