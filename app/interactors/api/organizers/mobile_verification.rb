@@ -3,8 +3,7 @@ module Api
     class MobileVerification
       include Interactor::Organizer
 
-      # organize VerifyOtp, UpdateIsMobileVerified, DestroyOtp
-      organize VerifyOtp
+      organize VerifyOtp, UpdateIsMobileVerified, DestroyOtp
     end
   end
 end
