@@ -64,4 +64,4 @@ user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_nam
 UserRole.create(user_id: user.id, role_id: role_admin.id)
 UserRole.create(user_id: user1.id, role_id: role_user.id)
 
-OtpVerification.create(user_id: user1.id, mobile_country_code: 61, mobile: 9123456790, otp: 432098)
+OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098)

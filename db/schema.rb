@@ -77,11 +77,12 @@ ActiveRecord::Schema.define(version: 2022_02_10_102127) do
 
   create_table "otp_verifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.integer "mobile_country_code"
+    t.uuid "mobile_country_code_id"
     t.bigint "mobile"
     t.string "otp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["mobile_country_code_id"], name: "index_otp_verifications_on_mobile_country_code_id"
     t.index ["user_id"], name: "index_otp_verifications_on_user_id"
   end
 
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_102127) do
   end
 
   add_foreign_key "domain_references", "domains"
+  add_foreign_key "otp_verifications", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "otp_verifications", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

@@ -34,8 +34,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code: @user.ref_mobile_country_code.value_str, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
-
+    # if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code: @user.ref_mobile_country_code.value_str, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
+    if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
+      ap "#####MOBILE OTP#####"
+      ap @user.otp
       data = if @user.api_client.name.eql?('Tenant Application WEB') || @user.api_client.name.eql?('Tenant Application Admin')
                # WEB. Refresh token is needed for FE(nuxtjs).
                token = request.env['warden-jwt_auth.token']
