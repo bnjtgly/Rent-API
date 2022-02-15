@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  include Custom::GlobalRefreshToken
   before_action :authorization
   respond_to :json
 
@@ -34,25 +33,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    # Generate OTP for Mobile verification
-    @user.generate_otp!
-    if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
-      ap "#####MOBILE OTP#####"
-      ap @user.otp
-      data = if @user.api_client.name.eql?('Tenant Application WEB') || @user.api_client.name.eql?('Tenant Application Admin')
-               # WEB. Refresh token is needed for FE(nuxtjs).
-               token = request.env['warden-jwt_auth.token']
-               { message: 'Success', token: token }
-             else
-               # Mobile.
-               { message: 'Success' }
-             end
-
-      render json: data, status: :ok
+    if setup_user
+      render json: { message: 'Success' }, status: :ok
     else
       render json: { error: { message: 'An error has occurred while setting up user.' } }
     end
-
   end
 
   def register_failed
@@ -69,20 +54,15 @@ class RegistrationsController < Devise::RegistrationsController
     nil
   end
 
-  def assign_user_role(user)
+  def setup_user
     role_user = Role.where(role_name: 'USER').first
 
-    if user && role_user
-      user_role = UserRole.create(user_id: user.id, role_id: role_user.id, audit_comment: 'Create User Role',)
-      if user_role.id
-        true
-      else
-        User.find(user.id).destroy unless user_role.id
-        false
-      end
-    else
-      User.find(user.id).destroy if user
-      false
+    if @user.create_user_role(role_id: role_user.id, audit_comment: 'Create User Role')
+      @user.generate_otp!
+      @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
+      # SMS notification here
+      ap "OTP"
+      ap @user.otp
     end
   end
 end

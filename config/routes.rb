@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :users, param: :user_id, only: %i[index]
 
     post 'users/mobile_verification', to: 'users#mobile_verification'
+    post 'users/resend_otp', to: 'users#resend_otp'
   end
 
   devise_for :users, path: '', path_names: {

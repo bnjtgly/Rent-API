@@ -16,7 +16,7 @@ class Ability
       if user_role.role_name.eql?('USER')
         can [:index], Api::DomainsController
         can [:index], Api::DomainReferencesController
-        can %i[index mobile_verification], Api::UsersController
+        can %i[index mobile_verification resend_otp], Api::UsersController
       end
     else
       # Public/Guest
