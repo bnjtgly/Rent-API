@@ -17,7 +17,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :jwt_authenticatable, :registerable, jwt_revocation_strategy: JwtDenylist
 
   before_create :generate_email_verification_token
-  before_create :generate_otp
   before_save :titleize
   before_update :titleize
 
@@ -40,13 +39,15 @@ class User < ApplicationRecord
     self.last_name = last_name.try(:downcase).try(:titleize)
   end
 
-  def generate_otp
+  # OTP Function
+  def generate_otp!
     self.otp = loop do
       random_token = SecureRandom.random_number(10 ** 6).to_s.rjust(6, '0')
       break random_token unless User.exists?(otp: random_token)
     end
     self.otp_sent_at = Time.now.utc + 10.minutes
     self.audit_comment = 'Generate OTP'
+    save!
   end
 
   # Email Verification token
