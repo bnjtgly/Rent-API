@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 api_client_admin = ApiClient.create(name: 'Tenant Application Admin')
-api_client_web = ApiClient.create(name: 'Tenant Application WEB')
-api_client_ios = ApiClient.create(name: 'Tenant Application IOS')
-api_client_android = ApiClient.create(name: 'Tenant Application ANDROID')
+api_client_web = ApiClient.create(name: 'Tenant Application Web')
+api_client_ios = ApiClient.create(name: 'Tenant Application Ios')
+api_client_android = ApiClient.create(name: 'Tenant Application Android')
 
 role_admin = Role.create(role_name: 'SUPERADMIN', role_def: 'Tenant Application super administrator.')
 role_user = Role.create(role_name: 'USER', role_def: 'Tenant Application users/tenants.')

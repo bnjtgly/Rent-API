@@ -23,5 +23,16 @@ module Api
         render json: { error: interact.error }, status: 422
       end
     end
+
+    # POST /api/users/resend_otp
+    def resend_otp
+      interact = Api::UpdateOtpVerification.call(current_user: current_user)
+
+      if interact.success?
+        render json: { message: 'Success' }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
   end
 end
