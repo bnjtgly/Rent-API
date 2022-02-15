@@ -34,7 +34,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    # if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code: @user.ref_mobile_country_code.value_str, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
+    # Generate OTP for Mobile verification
+    @user.generate_otp!
     if assign_user_role(@user) && @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
       ap "#####MOBILE OTP#####"
       ap @user.otp

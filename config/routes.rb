@@ -18,4 +18,6 @@ Rails.application.routes.draw do
 
   post 'authentication', to: 'authentication#authentication'
   post 'refresh_me', to: 'refresh_token#refresh_me'
+  post 'password/forgot', to: 'passwords#forgot'
+  post 'password/reset', to: 'passwords#reset'
 end
