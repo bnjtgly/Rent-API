@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  # This is for our own api (Super Admin)
+  namespace :admin_api do
+    resources :api_clients, param: :api_client_id
+  end
+
   # This is for our Client or External api (Outside and Limited Access)
   namespace :api do
     resources :domains, only: [:index]

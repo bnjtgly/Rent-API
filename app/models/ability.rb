@@ -6,22 +6,11 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    if user.id
-      user_role = UserRole.joins(:user, :role).where(user: {id: user.id}).select('roles.*').first
-      # ADMIN
-      # For multiple roles.
-      can :manage, :all if ['SUPERADMIN'].include? user_role.role_name
+    can :manage, :all if ['SUPERADMIN'].include? user.user_role.role.role_name
 
-      # USER
-      if user_role.role_name.eql?('USER')
-        can [:index], Api::DomainsController
-        can [:index], Api::DomainReferencesController
-        can %i[index mobile_verification resend_otp], Api::UsersController
-      end
+    if user.user_role.role.role_name.eql?('USER')
+      can %i[index mobile_verification resend_otp], Api::UsersController
     else
-      # Public/Guest
-      can [:index], Api::DomainsController
-      can [:index], Api::DomainReferencesController
       # can %i[confirm_email], Api::UsersController
     end
 
