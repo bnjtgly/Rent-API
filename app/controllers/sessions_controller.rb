@@ -18,10 +18,10 @@ class SessionsController < Devise::SessionsController
     @token = request.env['warden-jwt_auth.token']
     data = if current_user.api_client.name.eql?('Tenant Application Web') || current_user.api_client.name.eql?('Tenant Application Admin')
              # WEB. Refresh token is needed for nuxt.
-             { message: 'You are logged in.', token: @token, refreshToken: login_refresh_token(@token) } if login_refresh_token(@token)
+             { message: 'You are logged in.', access_token: @token, refresh_token: login_refresh_token(@token) }
            else
              # Mobile. Use /refresh_me for refresh token.
-             { message: 'You are logged in.', token: @token }
+             { message: 'You are logged in.', access_token: @token }
            end
 
     render json: data, status: :ok
