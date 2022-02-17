@@ -11,6 +11,7 @@ module Custom
                                    aud: decoded_auth_token[:aud],
                                    iat: Time.now.to_i,
                                    jti: decoded_auth_token[:jti])
+
         # if login_refresh_me.user_role.role.role_name.eql?('SUPERADMIN')
         #   JsonWebToken.encode_2hours(refresh_token: decoded_auth_token[:refresh_token],
         #                               sub: decoded_auth_token[:sub],
