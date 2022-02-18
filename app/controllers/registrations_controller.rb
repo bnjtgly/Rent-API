@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  include EmailConcern
+  include SmsConcern
   before_action :authorization
   respond_to :json
 
@@ -11,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     if interact.success?
       super
       @user = User.where(id: current_user.id).first
-      # Email/SMS Registration confirmation here.
+      email_verification({ user_id: @user.id, subject: 'Verify Email Address', template_name: 'basic', template_version: 'v1' })
     else
       render json: { error: interact.error }, status: 422
     end
@@ -60,9 +62,9 @@ class RegistrationsController < Devise::RegistrationsController
     if @user.create_user_role(role_id: role_user.id, audit_comment: 'Create User Role')
       @user.generate_otp!
       @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
-      # SMS notification here
-      ap "OTP"
-      ap @user.otp
+
+      sms_message = "Rento: Your security code is: #{@user.otp}. It expires in 10 minutes. Dont share this code with anyone."
+      send_sms("+#{@user.ref_mobile_country_code.value_str}#{@user.mobile}", sms_message, 'Rento')
     end
   end
 end

@@ -21,6 +21,9 @@ when 'development', 'staging'
   api_client_web.update(api_key: '295d1181-d22f-4e3c-b2e7-06a0d2e2e2e7', secret_key: '86M0tiX9iF_CsN-s5xdGMA')
   api_client_ios.update(api_key: 'ba1ea606-adc2-4d01-b3ed-3af2ad462628', secret_key: 'b9O70KcJrYucFARw1NLyjQ')
   api_client_android.update(api_key: '53ae18cf-6bfc-4837-84b5-a6073380f221', secret_key: 'Jmj0y-vYAX45Cs_67rqlPA')
+
+  # SendgridTemplate
+  SendgridTemplate.create(name: 'basic', version: 'v1', code: 'd-41e045ae78b24c0786d1c1d9329522aa')
 else
   # type code here
 end
@@ -43,11 +46,18 @@ sign_up_with_ref1 = DomainReference.create(sort_order: '200', domain_id: sign_up
 
 mobile_country_code = Domain.create(domain_number: 1301, name: 'User Mobile Country Code', domain_def: 'Mobile country code.')
 # Metadata image for testing only
-mobile_country_code_ref = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_guest.id}],
+mobile_country_code_ref = DomainReference.create(sort_order: '200', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_guest.id}],
                                                  display: '+61', value_str: '61',
                                                  metadata: {
-                                                   country: 'AU',
+                                                   country: %w[AU Australia],
                                                    image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/au-flag.png'
+                                                 })
+# For development testing only
+mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_guest.id}],
+                                                 display: '+63', value_str: '63',
+                                                 metadata: {
+                                                   country: %w[PH Philippines],
+                                                   image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/ph-flag.png'
                                                  })
 
 # Create superadmin account
