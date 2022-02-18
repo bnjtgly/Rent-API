@@ -1,7 +1,7 @@
 class SendOtp
   include Interactor
-  # include EmailConcern
-  # include SmsConcern
+  include EmailConcern
+  include SmsConcern
 
   delegate :data, to: :context
 
@@ -21,11 +21,11 @@ class SendOtp
         @user.generate_otp!
 
         if @user.mobile && @user.mobile_country_code_id
-          # SMS send OTP
-          ap "SEND OTP to mobile"
+          sms_message = "Rento: Your security code is: #{@user.otp}. It expires in 10 minutes. Dont share this code with anyone."
+          send_sms(@user.mobile_number, sms_message, 'Rento')
         end
-        # Send OTP to email
-        ap @user.otp
+
+        email_otp({ user_id: @user.id, subject: 'Forgot Password', template_name: 'basic', template_version: 'v1' })
       else
         context.fail!(error: { user: ['We do not recognize your Account. Please try again.'] })
       end

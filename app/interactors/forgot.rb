@@ -12,6 +12,7 @@ class Forgot
 
   def build
     @user = User.where(email: payload[:email]).first
+    @user.update(audit_comment: 'Forgot Password')
 
     context.user = @user
   end
