@@ -1,6 +1,7 @@
 module Api
   class UpdateOtpVerification
     include Interactor
+    include SmsConcern
 
     delegate :current_user, to: :context
 
@@ -21,9 +22,8 @@ module Api
         else
           @user.generate_otp!
           @user.otp_verification.update(otp: @user.otp, audit_comment: 'Resend OTP')
-          # SMS notification here
-          ap "Please check your mobile phone for OTP"
-          ap @user.otp
+          sms_message = "Rento: Your security code is: #{@user.otp}. It expires in 10 minutes. Dont share this code with anyone."
+          send_sms(@user.mobile_number, sms_message, 'Rento')
         end
       else
         context.fail!(error: { user: ['We do not recognize your Account. Please try again.'] })

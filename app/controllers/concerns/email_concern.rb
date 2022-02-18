@@ -4,7 +4,6 @@ module EmailConcern
   require 'sendgrid-ruby'
   include SendGrid
 
-
   # Verify email address.
   def email_verification(params)
     # Always include template_name & template_version params
@@ -33,6 +32,42 @@ module EmailConcern
             subject: "Rento - #{params[:subject]}",
             name: @user.first_name || 'Tenant',
             body: message_body
+          }
+        ],
+        from: {
+          email: 'benjie.tigley@simplerent.com.au'
+        },
+        template_id: @sendgrid_template.code
+      }
+
+      sg = SendGrid::API.new(api_key: ENV.fetch('SENDGRID_API_KEY') { SrTenantApplicationApi.credentials[:sendgrid_api_key] })
+      response = sg.client.mail._('send').post(request_body: sg_data)
+      ap response.status_code
+    end
+  rescue StandardError => e
+    ap e
+    ap e.backtrace
+  end
+
+  def email_otp(params)
+    # Always include template_name & template_version params
+
+    init_mailer params
+
+    init_template params
+
+    if @sendgrid_template
+      sg_data = {
+        personalizations: [
+          to: [
+            {
+              email: @user.email
+            }
+          ],
+          dynamic_template_data: {
+            subject: "Rento OTP - #{params[:subject]}",
+            name: @user.first_name || 'Tenant',
+            body: "<p>Your security code is: <b>#{@user.otp}</b>. It expires in 10 minutes.</p> <br> <p>Dont share this code with anyone.</p>"
           }
         ],
         from: {
