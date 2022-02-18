@@ -10,7 +10,7 @@ module Api
                       Role.where(role_name: 'GUEST').first
                     end
 
-        @domain = Domain.includes(:domain_references).references(:domain_references)
+        @domain = Domain.includes(:domain_references).references(:domain_references).order('domain_references.sort_order')
         @domain = @domain.where(":user_role = ANY(domain_references.role)", user_role: user_role.id)
 
         @domain = @domain.where(domains: { name: params[:name] }) unless params[:name].blank?

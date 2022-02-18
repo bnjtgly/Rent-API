@@ -4,7 +4,7 @@ module Api
 
     # GET /api/domains
     def index
-      pagy, @domains = pagy(Domain.includes(:domain_references).references(:domain_references))
+      pagy, @domains = pagy(Domain.includes(:domain_references).references(:domain_references).order('domain_references.sort_order'))
 
       user_role = if user_signed_in?
                     current_user.user_role.role
