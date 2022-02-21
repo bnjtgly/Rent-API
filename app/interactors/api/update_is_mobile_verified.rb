@@ -1,5 +1,6 @@
 module Api
   class UpdateIsMobileVerified
+    include SmsConcern
     include Interactor
 
     delegate :data, to: :context
@@ -21,7 +22,8 @@ module Api
             mobile: @user.otp_verification.mobile,
             is_mobile_verified: true
           )
-          # SMS notification here.
+          sms_message = 'Rento: Congratulations your mobile number has been verified!'
+          send_sms("+#{@user.ref_mobile_country_code.value_str}#{@user.mobile}", sms_message, 'Rento')
         else
           context.fail!(error: { otp: ['Please try again. OTP cannot be recognized.'] })
         end
