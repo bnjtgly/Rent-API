@@ -6,8 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     params[:user][:api_client_id] = ApiClient.where(api_key: decoded_auth_token[:api_key]).first.id
-    params[:user][:user_status_id] = DomainReference.where(domain_id: Domain.where(domain_number: 1101, name: 'User Status').first.id,
-                                                           value_str: 'active').first.id
+    params[:user][:user_status_id] = DomainReference.includes(:domain).where(domains: {domain_number: 1101}, domain_references: {value_str: 'active'}).first.id
     interact = Registration.call(data: params)
 
     if interact.success?

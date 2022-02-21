@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain_id", "display", "value_str"], name: "index_domain_references_on_domain_id_and_display_and_value_str", unique: true
     t.index ["domain_id"], name: "index_domain_references_on_domain_id"
   end
 
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.string "domain_def"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain_number", "name"], name: "index_domains_on_domain_number_and_name", unique: true
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.string "role_def"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["role_name"], name: "index_roles_on_role_name", unique: true
   end
 
   create_table "sendgrid_templates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

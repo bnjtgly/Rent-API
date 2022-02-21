@@ -12,7 +12,7 @@ module Api
                     Role.where(role_name: 'GUEST').first
                   end
 
-      @domains = @domains.where(":user_role = ANY(domain_references.role)", user_role: user_role.id)
+      @domains = @domains.where(':user_role = ANY(domain_references.role)', user_role: user_role.id)
 
       @domains = @domains.where('LOWER(name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
 
