@@ -7,30 +7,29 @@ class RefreshUserToken
 
   def call
     if refresh_me
-      context.token = JsonWebToken.encode_5minutes(refresh_token: decoded_auth_token[:refresh_token],
-                                                   sub: decoded_auth_token[:sub],
-                                                   scp: decoded_auth_token[:scp],
-                                                   aud: decoded_auth_token[:aud],
-                                                   iat: Time.now.to_i,
-                                                   jti: decoded_auth_token[:jti])
-      context.api_client = refresh_me.api_client.name
-      # if refresh_me.user_role.role.role_name.eql?('SUPERADMIN')
-      #   # context.token = JsonWebToken.encode_24hours(refresh_token: decoded_auth_token[:refresh_token],
-      #   context.token = JsonWebToken.encode_1hour(refresh_token: decoded_auth_token[:refresh_token],
-      #                                               sub: decoded_auth_token[:sub],
-      #                                               scp: decoded_auth_token[:scp],
-      #                                               aud: decoded_auth_token[:aud],
-      #                                               iat: Time.now.to_i,
-      #                                               jti: decoded_auth_token[:jti])
-      # else
-      #   context.token = JsonWebToken.encode_5minutes(refresh_token: decoded_auth_token[:refresh_token],
-      #                                                sub: decoded_auth_token[:sub],
-      #                                                scp: decoded_auth_token[:scp],
-      #                                                aud: decoded_auth_token[:aud],
-      #                                                iat: Time.now.to_i,
-      #                                                jti: decoded_auth_token[:jti])
-      # end
+      # context.token = JsonWebToken.encode_5minutes(refresh_token: decoded_auth_token[:refresh_token],
+      #                                              sub: decoded_auth_token[:sub],
+      #                                              scp: decoded_auth_token[:scp],
+      #                                              aud: decoded_auth_token[:aud],
+      #                                              iat: Time.now.to_i,
+      #                                              jti: decoded_auth_token[:jti])
 
+      if refresh_me.user_role.role.role_name.eql?('SUPERADMIN')
+        context.token = JsonWebToken.encode_24hours(refresh_token: decoded_auth_token[:refresh_token],
+                                                    sub: decoded_auth_token[:sub],
+                                                    scp: decoded_auth_token[:scp],
+                                                    aud: decoded_auth_token[:aud],
+                                                    iat: Time.now.to_i,
+                                                    jti: decoded_auth_token[:jti])
+      else
+        context.token = JsonWebToken.encode_5minutes(refresh_token: decoded_auth_token[:refresh_token],
+                                                     sub: decoded_auth_token[:sub],
+                                                     scp: decoded_auth_token[:scp],
+                                                     aud: decoded_auth_token[:aud],
+                                                     iat: Time.now.to_i,
+                                                     jti: decoded_auth_token[:jti])
+      end
+      context.api_client = refresh_me.api_client.name
     end
   end
 

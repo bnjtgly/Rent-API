@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # This is for our own api (Super Admin)
   namespace :admin_api do
     resources :api_clients, param: :api_client_id
+    resources :domains, param: :domain_id
   end
 
   # This is for our Client or External api (Outside and Limited Access)
