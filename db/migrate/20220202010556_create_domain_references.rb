@@ -12,6 +12,6 @@ class CreateDomainReferences < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :domain_references, %i[display value_str], unique: true
+    add_index :domain_references, %i[domain_id display value_str], unique: true
   end
 end

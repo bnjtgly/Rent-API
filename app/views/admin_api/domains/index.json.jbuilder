@@ -6,6 +6,8 @@ json.data do
     json.domain_number data.domain_number
     json.name data.name
     json.domain_def data.domain_def
+    json.created_at data.created_at
+    json.updated_at data.updated_at
     json.domain_references data.domain_references
   end
 end

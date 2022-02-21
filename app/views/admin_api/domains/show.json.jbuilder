@@ -4,6 +4,8 @@ json.id @domain.id
 json.domain_number @domain.domain_number
 json.name @domain.name
 json.domain_def @domain.domain_def
+json.created_at @domain.created_at
+json.updated_at @domain.updated_at
 
 if @domain.domain_references
   json.domain_references do
@@ -16,6 +18,8 @@ if @domain.domain_references
       json.is_deleted data.is_deleted
       json.role data.role
       json.metadata data.metadata
+      json.created_at data.created_at
+      json.updated_at data.updated_at
     end
   end
 end

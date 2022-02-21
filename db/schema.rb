@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["display", "value_str"], name: "index_domain_references_on_display_and_value_str", unique: true
+    t.index ["domain_id", "display", "value_str"], name: "index_domain_references_on_domain_id_and_display_and_value_str", unique: true
     t.index ["domain_id"], name: "index_domain_references_on_domain_id"
   end
 
