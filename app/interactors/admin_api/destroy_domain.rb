@@ -13,8 +13,8 @@ module AdminApi
     private
 
     def build
-      @domain = Domain.where(id: id).first
-      @domain_references = DomainReference.where(domain_id: id).first
+      @domain = Domain.where(id: id).load_async.first
+      @domain_references = DomainReference.where(domain_id: id).load_async.first
       if @domain
         if @domain_references
           context.fail!(error: { id: ['This Domain is used in Domain References'] })

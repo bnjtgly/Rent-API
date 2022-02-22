@@ -26,8 +26,8 @@ module AdminApi
     private
 
     def init
-      @domain_reference = DomainReference.where(id: domain_reference_id).first
-      @domain = Domain.where(id: @domain_reference.domain_id).first
+      @domain_reference = DomainReference.where(id: domain_reference_id).load_async.first
+      @domain = Domain.where(id: @domain_reference.domain_id).load_async.first
     end
 
     def persist!
