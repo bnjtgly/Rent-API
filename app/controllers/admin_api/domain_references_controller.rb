@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AdminApi
   class DomainReferencesController < ApplicationController
     before_action :authenticate_user!
@@ -9,9 +11,13 @@ module AdminApi
     def index
       pagy, @domain_references = pagy(DomainReference.joins(:domain))
 
-      @domain_references = @domain_references.where('LOWER(domains.name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
+      unless params[:name].blank?
+        @domain_references = @domain_references.where('LOWER(domains.name) LIKE ?', "%#{params[:name].downcase}%")
+      end
 
-      @domain_references = @domain_references.where(domain: { domain_number: params[:domain_number] }) unless params[:domain_number].blank?
+      unless params[:domain_number].blank?
+        @domain_references = @domain_references.where(domain: { domain_number: params[:domain_number] })
+      end
 
       @pagination = pagy_metadata(pagy)
 
@@ -22,7 +28,11 @@ module AdminApi
     def show
       @domain_reference = DomainReference.includes(:domain).where(domain_references: { id: params[:domain_reference_id] }).first
 
-      render 'admin_api/domain_references/show'
+      if !@domain_reference.nil?
+        render 'admin_api/domain_references/show'
+      else
+        render json: { error: { domain_id: ['Not Found.'] } }, status: :not_found
+      end
     end
 
     # POST /admin_api/domain_references
@@ -31,7 +41,7 @@ module AdminApi
 
       if interact.success?
         @domain_reference = interact.domain_reference
-        render 'admin_api/domain_references/create'
+        render json: { message: 'Success' }
       else
         render json: { error: interact.error }, status: 422
       end

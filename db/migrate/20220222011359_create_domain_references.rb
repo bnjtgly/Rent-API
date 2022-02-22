@@ -1,4 +1,4 @@
-class CreateDomainReferences < ActiveRecord::Migration[6.1]
+class CreateDomainReferences < ActiveRecord::Migration[7.0]
   def change
     create_table :domain_references, id: :uuid do |t|
       t.references :domain, null: false, foreign_key: true, type: :uuid

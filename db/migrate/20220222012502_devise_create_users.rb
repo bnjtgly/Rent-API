@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseCreateUsers < ActiveRecord::Migration[6.1]
+class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users, id: :uuid do |t|
       ## Database authenticatable

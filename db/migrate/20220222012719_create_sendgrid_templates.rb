@@ -1,4 +1,4 @@
-class CreateSendgridTemplates < ActiveRecord::Migration[6.1]
+class CreateSendgridTemplates < ActiveRecord::Migration[7.0]
   def change
     create_table :sendgrid_templates, id: :uuid do |t|
       t.string :name

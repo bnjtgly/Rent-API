@@ -1,7 +1,5 @@
-module Organizers
-  class ResetPassword
-    include Interactor::Organizer
+class Organizers::ResetPassword
+  include Interactor::Organizer
 
-    organize VerifyOtp, Reset, DestroyOtp
-  end
+  organize VerifyOtp, Reset, DestroyOtp
 end
