@@ -5,8 +5,9 @@ class RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   def create
-    params[:user][:api_client_id] = ApiClient.where(api_key: decoded_auth_token[:api_key]).first.id
-    params[:user][:user_status_id] = DomainReference.includes(:domain).where(domains: {domain_number: 1101}, domain_references: {value_str: 'active'}).first.id
+    params[:user][:api_client_id] = ApiClient.where(api_key: decoded_auth_token[:api_key]).load_async.first.id
+    params[:user][:user_status_id] = DomainReference.includes(:domain).where(
+      domains: { domain_number: 1101 }, domain_references: { value_str: 'active' }).load_async.first.id
     interact = Registration.call(data: params)
 
     if interact.success?
