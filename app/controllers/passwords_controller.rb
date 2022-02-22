@@ -1,5 +1,4 @@
 class PasswordsController < ApplicationController
-
   # POST /password/forgot
   def forgot
     interact = Organizers::ForgotPassword.call(data: params)
@@ -21,5 +20,4 @@ class PasswordsController < ApplicationController
       render json: { error: interact.error }, status: 422
     end
   end
-
 end

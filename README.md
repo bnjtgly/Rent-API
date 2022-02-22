@@ -1,8 +1,8 @@
 # SimpleRent Tenant Application API
 
 ## Prerequisites
-[![Ruby Style Guide](https://img.shields.io/badge/ruby-2.7.4-brightgreen)](https://rubystyle.guide)
-[![Ruby Style Guide](https://img.shields.io/badge/rails-6.1.4-brightgreen)](https://rubystyle.guide)
+[![Ruby Style Guide](https://img.shields.io/badge/ruby-3.1.0-brightgreen)](https://rubystyle.guide)
+[![Ruby Style Guide](https://img.shields.io/badge/rails-7.0.2-brightgreen)](https://rubystyle.guide)
 
 ### First-time setup
 1. install Ruby

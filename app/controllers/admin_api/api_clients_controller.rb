@@ -24,6 +24,8 @@ module AdminApi
     def show
       @api_client = ApiClient.find(params[:api_client_id])
       render 'admin_api/api_clients/show'
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: { api_client_id: ['Not Found.'] } }, status: :not_found
     end
 
     # POST /admin_api/api_clients

@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Defines the root path route ("/")
+  # root "articles#index"
 
   # This is for our own api (Super Admin)
   namespace :admin_api do
     resources :api_clients, param: :api_client_id
     resources :domains, param: :domain_id
     resources :domain_references, param: :domain_reference_id
-    resources :users, param: :user_id, only: %i[index]
+    resources :users, param: :user_id, only: %i[index show create update destroy]
   end
 
   # This is for our Client or External api (Outside and Limited Access)

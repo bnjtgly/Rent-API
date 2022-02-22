@@ -3,9 +3,8 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
+#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create(name: "Luke", movie: movies.first)
 api_client_admin = ApiClient.create(name: 'Tenant Application Admin')
 api_client_web = ApiClient.create(name: 'Tenant Application Web')
 api_client_ios = ApiClient.create(name: 'Tenant Application Ios')

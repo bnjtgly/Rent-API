@@ -7,6 +7,7 @@ class SessionsController < Devise::SessionsController
 
     if interact.success?
       super
+      # render json: {message: 'success'}
     else
       render json: { error: interact.error }, status: 422
     end

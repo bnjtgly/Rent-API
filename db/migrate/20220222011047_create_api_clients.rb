@@ -1,4 +1,4 @@
-class CreateApiClients < ActiveRecord::Migration[6.1]
+class CreateApiClients < ActiveRecord::Migration[7.0]
   def change
     create_table :api_clients, id: :uuid do |t|
       t.string :name

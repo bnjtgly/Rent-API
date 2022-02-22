@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_17_091637) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -21,8 +20,8 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.string "api_key", limit: 36, null: false
     t.string "secret_key"
     t.boolean "is_deleted", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "audits", force: :cascade do |t|
@@ -56,8 +55,8 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.jsonb "metadata", default: "{}", null: false
     t.string "status", default: "Active"
     t.boolean "is_deleted", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["domain_id", "display", "value_str"], name: "index_domain_references_on_domain_id_and_display_and_value_str", unique: true
     t.index ["domain_id"], name: "index_domain_references_on_domain_id"
   end
@@ -66,15 +65,15 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.integer "domain_number"
     t.string "name"
     t.string "domain_def"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["domain_number", "name"], name: "index_domains_on_domain_number_and_name", unique: true
   end
 
-  create_table "jwt_denylist", force: :cascade do |t|
+  create_table "jwt_denylists", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
-    t.index ["jti"], name: "index_jwt_denylist_on_jti"
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
   create_table "otp_verifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -82,8 +81,8 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.uuid "mobile_country_code_id"
     t.bigint "mobile"
     t.string "otp"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["mobile_country_code_id"], name: "index_otp_verifications_on_mobile_country_code_id"
     t.index ["user_id"], name: "index_otp_verifications_on_user_id"
   end
@@ -91,8 +90,8 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "role_name"
     t.string "role_def"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["role_name"], name: "index_roles_on_role_name", unique: true
   end
 
@@ -100,15 +99,15 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.string "name"
     t.string "version"
     t.string "code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "role_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_roles_on_role_id"
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
@@ -132,8 +131,8 @@ ActiveRecord::Schema.define(version: 2022_02_17_091637) do
     t.string "is_email_verified_token"
     t.string "otp"
     t.datetime "otp_sent_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["api_client_id"], name: "index_users_on_api_client_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["gender_id"], name: "index_users_on_gender_id"

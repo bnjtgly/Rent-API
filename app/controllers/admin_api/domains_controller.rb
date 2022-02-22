@@ -21,9 +21,12 @@ module AdminApi
     # GET /admin_api/domains/1
     def show
       @domain = Domain.includes(:domain_references).where(domains: { id: params[:domain_id] }).first
-      @domain = Domain.includes(:domain_references).where(domains: { id: params[:domain_id] }, domain_references: { is_deleted: params[:is_deleted] }).first unless params[:is_deleted].blank?
-
-      render 'admin_api/domains/show'
+      # @domain = Domain.includes(:domain_references).where(domains: { id: params[:domain_id] }, domain_references: { is_deleted: params[:is_deleted] }).first
+      if !@domain.nil?
+        render 'admin_api/domains/show'
+      else
+        render json: { error: { domain_id: ['Not Found.'] } }, status: :not_found
+      end
     end
 
     # POST /admin_api/domains
