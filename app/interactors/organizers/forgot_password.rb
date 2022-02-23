@@ -1,5 +1,7 @@
-class Organizers::ForgotPassword
-  include Interactor::Organizer
+module Organizers
+  class ForgotPassword
+    include Interactor::Organizer
 
-  organize Forgot, SendOtp
+    organize Forgot, SendOtp
+  end
 end

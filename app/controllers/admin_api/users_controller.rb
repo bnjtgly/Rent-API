@@ -32,5 +32,17 @@ module AdminApi
       render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
     end
 
+    # POST /admin_api/users
+    def create
+      interact = AdminApi::CreateUser.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @user = interact.user
+        render 'admin_api/users/create'
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
   end
 end
