@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   include EmailConcern
   include SmsConcern
-  include RackSessionFixController
+  include RackSessionFix
   before_action :authorization
   respond_to :json
 

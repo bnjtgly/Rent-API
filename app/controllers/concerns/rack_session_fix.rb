@@ -1,4 +1,4 @@
-module RackSessionFixController
+module RackSessionFix
   extend ActiveSupport::Concern
 
   class FakeRackSession < Hash
