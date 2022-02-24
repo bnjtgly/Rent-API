@@ -55,7 +55,7 @@ when 'development', 'staging'
   api_client_android.update(api_key: '53ae18cf-6bfc-4837-84b5-a6073380f221', secret_key: 'Jmj0y-vYAX45Cs_67rqlPA')
 
   # SendgridTemplate
-  SendgridTemplate.create(name: 'basic', version: 'v1', code: 'd-41e045ae78b24c0786d1c1d9329522aa')
+  SendgridTemplate.create(name: 'rento', version: 'v1', code: 'd-11741a7563124a79b1736dbdc78b5a78')
 
   # Create superadmin account
   user = User.create(email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator',

@@ -25,7 +25,7 @@ class SendOtp
           send_sms(@user.mobile_number, sms_message, 'Rento')
         end
 
-        email_otp({ user_id: @user.id, subject: 'Forgot Password', template_name: 'basic', template_version: 'v1' })
+        email_otp({ user_id: @user.id, subject: 'Forgot Password', template_name: 'rento', template_version: 'v1' })
       else
         context.fail!(error: { user: ['We do not recognize your Account. Please try again.'] })
       end

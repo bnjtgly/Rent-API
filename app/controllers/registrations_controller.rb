@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     if interact.success?
       super
       @user = User.where(id: current_user.id).first
-      email_verification({ user_id: @user.id, subject: 'Verify Email Address', template_name: 'basic', template_version: 'v1' })
+      email_verification({ user_id: @user.id, subject: 'Verify Email Address', template_name: 'rento', template_version: 'v1' })
     else
       render json: { error: interact.error }, status: 422
     end
