@@ -20,14 +20,11 @@ module AdminApi
 
       pagy, @users = pagy(@users, items: items_per_page)
       @pagination = pagy_metadata(pagy)
-
-      render 'admin_api/users/index'
     end
 
     # GET /admin_api/users/1
     def show
       @user = User.find(params[:user_id])
-      render 'admin_api/users/show'
     rescue ActiveRecord::RecordNotFound
       render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
     end
@@ -38,7 +35,6 @@ module AdminApi
 
       if interact.success?
         @user = interact.user
-        render 'admin_api/users/create'
       else
         render json: { error: interact.error }, status: 422
       end
