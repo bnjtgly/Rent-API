@@ -19,8 +19,6 @@ module Api
       @domains = @domains.where(domain_number: params[:domain_number]) unless params[:domain_number].blank?
 
       pagy_headers_merge(pagy)
-
-      render 'api/domains/index'
     end
   end
 end

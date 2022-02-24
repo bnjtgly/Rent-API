@@ -20,17 +20,13 @@ module AdminApi
       end
 
       @pagination = pagy_metadata(pagy)
-
-      render 'admin_api/domain_references/index'
     end
 
     # GET /admin_api/domain_references/1
     def show
       @domain_reference = DomainReference.includes(:domain).where(domain_references: { id: params[:domain_reference_id] }).first
 
-      if !@domain_reference.nil?
-        render 'admin_api/domain_references/show'
-      else
+      if @domain_reference.nil?
         render json: { error: { domain_id: ['Not Found.'] } }, status: :not_found
       end
     end
@@ -53,7 +49,6 @@ module AdminApi
 
       if interact.success?
         @domain_reference = interact.domain_reference
-        render 'admin_api/domain_references/show'
       else
         render json: { error: interact.error }, status: 422
       end

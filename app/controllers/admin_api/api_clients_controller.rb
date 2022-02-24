@@ -16,14 +16,11 @@ module AdminApi
       @api_clients = @api_clients.where(is_deleted: params[:is_deleted]) unless params[:is_deleted].blank?
 
       @pagination = pagy_metadata(pagy)
-
-      render 'admin_api/api_clients/index'
     end
 
     # GET /admin_api/api_clients/1
     def show
       @api_client = ApiClient.find(params[:api_client_id])
-      render 'admin_api/api_clients/show'
     rescue ActiveRecord::RecordNotFound
       render json: { error: { api_client_id: ['Not Found.'] } }, status: :not_found
     end
@@ -34,7 +31,6 @@ module AdminApi
 
       if interact.success?
         @api_client = interact.api_client
-        render 'admin_api/api_clients/create'
       else
         render json: { error: interact.error }, status: 422
       end

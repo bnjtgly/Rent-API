@@ -14,17 +14,13 @@ module AdminApi
       @domains = @domains.where(domain_number: params[:domain_number]) unless params[:domain_number].blank?
 
       @pagination = pagy_metadata(pagy)
-
-      render 'admin_api/domains/index'
     end
 
     # GET /admin_api/domains/1
     def show
       @domain = Domain.includes(:domain_references).where(domains: { id: params[:domain_id] }).first
       # @domain = Domain.includes(:domain_references).where(domains: { id: params[:domain_id] }, domain_references: { is_deleted: params[:is_deleted] }).first
-      if !@domain.nil?
-        render 'admin_api/domains/show'
-      else
+      if @domain.nil?
         render json: { error: { domain_id: ['Not Found.'] } }, status: :not_found
       end
     end
@@ -35,7 +31,6 @@ module AdminApi
 
       if interact.success?
         @domain = interact.domain
-        render 'admin_api/domains/create'
       else
         render json: { error: interact.error }, status: 422
       end
