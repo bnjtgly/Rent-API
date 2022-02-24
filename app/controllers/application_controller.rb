@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::ImplicitRender
   include Pagy::Backend
 
   before_action :configure_permitted_parameters, if: :devise_controller?
