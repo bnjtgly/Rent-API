@@ -18,6 +18,7 @@
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
+/public/uploads/*
 
 # Ignore uploaded files in development.
 /storage/*

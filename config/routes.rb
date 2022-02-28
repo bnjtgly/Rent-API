@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     post 'users/mobile_verification', to: 'users#mobile_verification'
     post 'users/resend_otp', to: 'users#resend_otp'
     post 'users/resend_email_verification', to: 'users#resend_email_verification'
+    post 'users/setup_avatar', to: 'users#setup_avatar'
+
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
   end
 
