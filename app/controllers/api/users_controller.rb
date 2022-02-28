@@ -53,5 +53,17 @@ module Api
         render json: { error: interact.error }, status: 422
       end
     end
+
+    # POST /api/users/setup_avatar
+    def setup_avatar
+      interact = Api::CreateOrUpdateAvatar.call(data: params, current_user: current_user)
+
+      if interact.success?
+        render json: { message: 'Success' }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
   end
 end

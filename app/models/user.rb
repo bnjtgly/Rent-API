@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   strip_attributes
+  mount_base64_uploader :avatar, AvatarUploader
+  
   belongs_to :api_client
   has_one :user_role, dependent: :destroy
   has_one :otp_verification, dependent: :destroy
