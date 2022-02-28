@@ -35,7 +35,7 @@ module EmailConcern
           }
         ],
         from: {
-          email: 'benjie.tigley@simplerent.com.au'
+          email: 'no-reply@rento.com'
         },
         template_id: @sendgrid_template.code
       }
@@ -71,7 +71,7 @@ module EmailConcern
           }
         ],
         from: {
-          email: 'benjie.tigley@simplerent.com.au'
+          email: 'no-reply@rento.com'
         },
         template_id: @sendgrid_template.code
       }

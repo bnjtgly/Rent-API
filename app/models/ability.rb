@@ -6,22 +6,15 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    can :manage, :all if ['SUPERADMIN'].include? user.user_role.role.role_name
-
-    if user.user_role.role.role_name.eql?('USER')
-      can %i[index mobile_verification resend_otp], Api::UsersController
+    if !user.id.nil?
+      can :manage, :all if user.user_role.role.role_name.eql?('SUPERADMIN')
+      if user.user_role.role.role_name.eql?('USER')
+        can %i[index mobile_verification resend_otp resend_email_verification], Api::UsersController
+      end
     else
-      # can %i[confirm_email], Api::UsersController
+      can %i[confirm_email], Api::UsersController
     end
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
+
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions

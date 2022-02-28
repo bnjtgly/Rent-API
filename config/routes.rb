@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
     post 'users/mobile_verification', to: 'users#mobile_verification'
     post 'users/resend_otp', to: 'users#resend_otp'
+    post 'users/resend_email_verification', to: 'users#resend_email_verification'
+    get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
   end
 
   devise_for :users, path: '', path_names: {
