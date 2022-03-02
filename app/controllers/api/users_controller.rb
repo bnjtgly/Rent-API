@@ -56,7 +56,6 @@ module Api
 
     # POST /api/users/setup_avatar
     def setup_avatar
-      ap "Test"
       interact = Api::CreateOrUpdateAvatar.call(data: params, current_user: current_user)
 
       if interact.success?
