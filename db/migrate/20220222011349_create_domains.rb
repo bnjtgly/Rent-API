@@ -7,6 +7,6 @@ class CreateDomains < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :domains, %i[domain_number name], unique: true
+    add_index :domains, :domain_number, unique: true
   end
 end
