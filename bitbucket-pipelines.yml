@@ -1,0 +1,21 @@
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: ruby:2.6.6
+
+pipelines:
+  branches:
+    deploy-to-dev:
+      - step:
+          name: Deploying to Heroku (tenant-application-api-staging)
+          deployment: test
+          caches:
+            - bundler
+          script:
+            - export HEROKU_APP_NAME=$HEROKU_APP_NAME_DEV
+            - echo "$HEROKU_APP_NAME"
+            - chmod 755 heroku-deploy.sh
+            - ./heroku-deploy.sh
+definitions:
+  caches:
+    bundler: ./vendor
