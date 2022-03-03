@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiClient < ApplicationRecord
   strip_attributes
   before_create :generate_api_key, :generate_secret_key

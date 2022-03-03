@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "api_clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -67,7 +72,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
     t.string "domain_def"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["domain_number", "name"], name: "index_domains_on_domain_number_and_name", unique: true
+    t.index ["domain_number"], name: "index_domains_on_domain_number", unique: true
+  end
+
+  create_table "flatmates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "identities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incomes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "jwt_denylists", force: :cascade do |t|
@@ -87,6 +107,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
     t.index ["user_id"], name: "index_otp_verifications_on_user_id"
   end
 
+  create_table "pets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.jsonb "details", default: "{}", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "role_name"
     t.string "role_def"
@@ -101,6 +137,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tenant_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "property_id", null: false
+    t.uuid "tenant_application_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_tenant_applications_on_property_id"
+    t.index ["tenant_application_status_id"], name: "index_tenant_applications_on_tenant_application_status_id"
+    t.index ["user_id"], name: "index_tenant_applications_on_user_id"
   end
 
   create_table "user_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -144,6 +191,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_012719) do
   add_foreign_key "domain_references", "domains"
   add_foreign_key "otp_verifications", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "otp_verifications", "users"
+  add_foreign_key "tenant_applications", "domain_references", column: "tenant_application_status_id"
+  add_foreign_key "tenant_applications", "properties"
+  add_foreign_key "tenant_applications", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "users", "api_clients"

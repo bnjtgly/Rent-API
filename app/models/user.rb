@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   strip_attributes
   mount_base64_uploader :avatar, AvatarUploader
@@ -5,6 +7,7 @@ class User < ApplicationRecord
   belongs_to :api_client
   has_one :user_role, dependent: :destroy
   has_one :otp_verification, dependent: :destroy
+  has_many :tenant_applications, dependent: :destroy
 
   # Domain References Association
   # List all domain_references columns in users table.

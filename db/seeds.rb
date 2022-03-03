@@ -47,6 +47,13 @@ mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: 
                                                     image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/ph-flag.png'
                                                   })
 
+application_status = Domain.create(domain_number: 1401, name: 'Application Status', domain_def: 'Status of tenants application.')
+application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Accepted', value_str: 'accepted')
+application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Pending', value_str: 'pending')
+DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Viewed', value_str: 'viewed')
+DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Denied', value_str: 'denied')
+
+
 case Rails.env
 when 'development', 'staging'
   api_client_admin.update(api_key: '99ffe86f-ef93-4a12-be45-9e8c714e042a', secret_key: 'Ik4eHiqUivF-SqcUJdDUlQ')
@@ -78,6 +85,36 @@ when 'development', 'staging'
   UserRole.create(user_id: user2.id, role_id: role_user.id, audit_comment: 'Seed data.')
 
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
+
+  # Testing database design
+
+  property1 = Property.create(details: {
+    id: SecureRandom.uuid,
+    name: 'Treehouse hosted by Mikheyla Fox',
+    desc: '',
+    address: 'Dromana, Victoria, Australia',
+    bedrooms: '5',
+    bathrooms: '2',
+    garage: '2',
+    availability: '8',
+    rent_per_week: '750'
+  })
+
+  property2 = Property.create(details: {
+    id: SecureRandom.uuid,
+    name: 'Resort Style Coastal Cottage - Walk to Beach',
+    desc: '',
+    address: 'Fourth Avenue, New Norfolk TAS, Australia',
+    bedrooms: '4',
+    bathrooms: '1',
+    garage: '1',
+    availability: '5',
+    rent_per_week: '450'
+  })
+
+  TenantApplication.create(user_id: user1.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
+  TenantApplication.create(user_id: user1.id, property_id: property2.id, tenant_application_status_id: application_status_ref2.id)
+  TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
 else
   # type code here
 end

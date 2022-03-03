@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :domains, only: [:index]
     resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index]
+    resources :properties, param: :property_id, only: %i[index]
 
     post 'users/mobile_verification', to: 'users#mobile_verification'
     post 'users/resend_otp', to: 'users#resend_otp'
