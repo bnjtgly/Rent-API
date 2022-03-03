@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Domain < ApplicationRecord
   strip_attributes
   has_many :domain_references

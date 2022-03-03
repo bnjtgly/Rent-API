@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   strip_attributes
   mount_base64_uploader :avatar, AvatarUploader
