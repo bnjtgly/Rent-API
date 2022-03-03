@@ -9,7 +9,7 @@ class Ability
     if !user.id.nil?
       can :manage, :all if user.user_role.role.role_name.eql?('SUPERADMIN')
       if user.user_role.role.role_name.eql?('USER')
-        can %i[index mobile_verification resend_otp resend_email_verification setup_avatar], Api::UsersController
+        can %i[index mobile_verification resend_otp resend_email_verification setup_avatar personal_info], Api::UsersController
         can %i[index], Api::TenantApplicationsController
         can %i[index], Api::PropertiesController
       end
