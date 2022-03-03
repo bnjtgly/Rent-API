@@ -1,0 +1,2 @@
+class EmpDocument < ApplicationRecord
+end
