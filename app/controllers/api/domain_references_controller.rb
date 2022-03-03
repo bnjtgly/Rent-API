@@ -19,7 +19,6 @@ module Api
         @domain = @domain.first
 
         return if @domain
-        # return render 'api/domain_references/index' if @domain
       end
 
       render json: {}

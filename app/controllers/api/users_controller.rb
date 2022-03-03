@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
 
-    # GET /api/users
+    # GET /api/tenant_applications
     def index
       @user = User.where(id: current_user.id).first
       unless @user
