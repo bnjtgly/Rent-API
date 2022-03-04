@@ -112,6 +112,10 @@ when 'development', 'staging'
     rent_per_week: '450'
   })
 
+  UserProperty.create(user_id: user1.id, property_id: property1.id)
+  UserProperty.create(user_id: user2.id, property_id: property1.id)
+  UserProperty.create(user_id: user2.id, property_id: property2.id)
+
   TenantApplication.create(user_id: user1.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user1.id, property_id: property2.id, tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)

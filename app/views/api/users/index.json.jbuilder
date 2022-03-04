@@ -10,6 +10,7 @@ json.user do
   json.gender @user.ref_gender.display
   json.mobile_country_code @user.ref_mobile_country_code.display
   json.mobile @user.mobile
+  json.phone @user.phone
   json.mobile_number @user.mobile_number
   json.sign_up_with @user.ref_sign_up_with.display
   json.avatar @user.avatar

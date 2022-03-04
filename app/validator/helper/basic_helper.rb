@@ -8,6 +8,8 @@ module Helper
     ENGLISH_ALPHABETS_ONLY_MESSAGE = 'Only english alphabets are allowed (letters only).'
     NAME_EXIST_MESSAGE = 'Name already exist.'
     VALID_NUMBER_MESSAGE = 'Please enter valid number.'
+    VALID_PHONE_MESSAGE = 'Please enter a valid phone number.'
+    VALID_MOBILE_MESSAGE = 'Please enter a valid mobile number.'
     VALID_DATE_MESSAGE = 'Please enter valid date. Date must be YYYY-MM-DD.'
     VALID_BOOLEAN_MESSAGE = 'Please enter a valid value. Must be true or false'
     VALID_BASE64_MESSAGE = 'Please enter a valid base64.'

@@ -1,8 +1,8 @@
-# require 'rtesseract'
+# frozen_string_literal: true
 
 module Api
   class UsersController < ApplicationController
-    include Custom::Ocr
+    # include Custom::Ocr
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
 
@@ -67,20 +67,5 @@ module Api
         render json: { error: interact.error }, status: 422
       end
     end
-
-    # def personal_info
-    #   source = 'app/assets/img/bill.JPG'
-    #   data = extract_text source
-    #
-    #   # Process text
-    #   # Return text
-    #     # If correct
-    #       # Save (Update interactor)
-    #     # Else
-    #       # Save (Update interactor)
-    #
-    #   render json: { message: data }
-    # end
-
   end
 end

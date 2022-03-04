@@ -12,6 +12,7 @@ json.gender @user.ref_gender.display
 json.mobile_country_code @user.ref_mobile_country_code.display
 json.mobile @user.mobile
 json.mobile_number @user.mobile_number
+json.phone @user.phone
 
 json.sign_up_with @user.ref_sign_up_with.display
 json.date_of_birth @user.date_of_birth_format
