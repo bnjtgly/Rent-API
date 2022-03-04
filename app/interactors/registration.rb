@@ -25,6 +25,8 @@ class Registration
       email: data[:user][:email],
       password: data[:user][:password],
       password_confirmation: data[:user][:password_confirmation],
+      first_name: data[:user][:first_name],
+      last_name: data[:user][:last_name],
       mobile_country_code_id: data[:user][:mobile_country_code_id],
       mobile: data[:user][:mobile],
       sign_up_with_id: data[:user][:sign_up_with_id],

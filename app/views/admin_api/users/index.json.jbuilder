@@ -12,6 +12,7 @@ json.data do
     json.gender data.ref_gender.display
     json.mobile_country_code data.ref_mobile_country_code.display
     json.mobile data.mobile
+    json.phone data.phone
     json.mobile_number data.mobile_number
     json.sign_up_with data.ref_sign_up_with.display
     json.date_of_birth data.date_of_birth_format

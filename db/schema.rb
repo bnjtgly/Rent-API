@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_04_033148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["domain_number"], name: "index_domains_on_domain_number", unique: true
+  end
+
+  create_table "emp_documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "flatmates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -150,6 +160,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
     t.index ["user_id"], name: "index_tenant_applications_on_user_id"
   end
 
+  create_table "user_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "property_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_user_properties_on_property_id"
+    t.index ["user_id"], name: "index_user_properties_on_user_id"
+  end
+
   create_table "user_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "role_id", null: false
@@ -171,6 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
     t.string "last_name"
     t.datetime "date_of_birth"
     t.bigint "mobile"
+    t.string "phone"
     t.string "avatar"
     t.string "refresh_token"
     t.boolean "is_email_verified", default: false
@@ -194,6 +214,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_041103) do
   add_foreign_key "tenant_applications", "domain_references", column: "tenant_application_status_id"
   add_foreign_key "tenant_applications", "properties"
   add_foreign_key "tenant_applications", "users"
+  add_foreign_key "user_properties", "properties"
+  add_foreign_key "user_properties", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "users", "api_clients"

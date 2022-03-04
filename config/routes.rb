@@ -16,16 +16,17 @@ Rails.application.routes.draw do
   namespace :api do
     resources :domains, only: [:index]
     resources :domain_references, only: [:index]
-    resources :users, param: :user_id, only: %i[index]
+    resources :users, param: :user_id, only: %i[index update]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
-    resources :properties, param: :property_id, only: %i[index]
+    resources :user_properties, param: :user_property_id, only: %i[index]
 
     post 'users/mobile_verification', to: 'users#mobile_verification'
     post 'users/resend_otp', to: 'users#resend_otp'
     post 'users/resend_email_verification', to: 'users#resend_email_verification'
     post 'users/setup_avatar', to: 'users#setup_avatar'
 
-    get 'users/personal_info', to: 'users#personal_info'
+    post 'profile/update_personal_info', to: 'profile#update_personal_info'
+
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
   end
 

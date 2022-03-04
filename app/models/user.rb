@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :user_role, dependent: :destroy
   has_one :otp_verification, dependent: :destroy
   has_many :tenant_applications, dependent: :destroy
+  has_many :user_properties, dependent: :destroy
 
   # Domain References Association
   # List all domain_references columns in users table.

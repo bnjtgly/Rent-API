@@ -41,6 +41,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string :last_name
       t.datetime :date_of_birth
       t.bigint :mobile
+      t.string :phone
       t.string :avatar
       t.string :refresh_token
       t.boolean :is_email_verified, default: false

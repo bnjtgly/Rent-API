@@ -16,7 +16,7 @@ class RegistrationValidator
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates_confirmation_of :password
-  validate :email_exist, :api_client_id_exist, :required, :password_requirements, :valid_sign_up_with_id, :valid_mobile_country_code_id, :mobile_number_exist
+  validate :email_exist, :api_client_id_exist, :required, :password_requirements, :valid_mobile, :valid_sign_up_with_id, :valid_mobile_country_code_id, :mobile_number_exist
 
   def submit
     init
@@ -39,10 +39,10 @@ class RegistrationValidator
     errors.add(:email, REQUIRED_MESSAGE) if email.blank?
     errors.add(:password, REQUIRED_MESSAGE) if password.blank?
     errors.add(:password_confirmation, REQUIRED_MESSAGE) if password_confirmation.blank?
-    errors.add(:first_name, REQUIRED_MESSAGE) if password_confirmation.blank?
-    errors.add(:last_name, REQUIRED_MESSAGE) if password_confirmation.blank?
-    errors.add(:mobile_country_code_id, REQUIRED_MESSAGE) if password_confirmation.blank?
-    errors.add(:mobile, REQUIRED_MESSAGE) if password_confirmation.blank?
+    errors.add(:first_name, REQUIRED_MESSAGE) if first_name.blank?
+    errors.add(:last_name, REQUIRED_MESSAGE) if last_name.blank?
+    errors.add(:mobile_country_code_id, REQUIRED_MESSAGE) if mobile_country_code_id.blank?
+    errors.add(:mobile, REQUIRED_MESSAGE) if mobile.blank?
   end
 
   def password_requirements
@@ -64,6 +64,15 @@ class RegistrationValidator
     mb_exist = User.where(mobile: mobile, mobile_country_code_id: mobile_country_code_id).first
 
     errors.add(:mobile_number, 'Mobile number already exist. Please try again using different mobile number.') if mb_exist
+  end
+
+  def valid_mobile
+    mobile_number = Phonelib.parse(mobile)
+    if %w[development staging].any? { |keyword| Rails.env.include?(keyword) }
+      errors.add(:mobile, VALID_MOBILE_MESSAGE) unless mobile_number.valid_for_country? 'PH'
+    else
+      errors.add(:mobile, VALID_MOBILE_MESSAGE) unless mobile_number.valid_for_country? 'AU'
+    end
   end
 
   def valid_sign_up_with_id
