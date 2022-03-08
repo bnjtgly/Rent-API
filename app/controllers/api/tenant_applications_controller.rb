@@ -2,6 +2,7 @@
 
 module Api
   class TenantApplicationsController < ApplicationController
+    include ProfileConcern
     before_action :authenticate_user!
     authorize_resource class: Api::TenantApplicationsController
     after_action { pagy_headers_merge(@pagy) if @pagy }

@@ -1,4 +1,4 @@
-module UserProfileDetails
+module ProfileConcern
   extend ActiveSupport::Concern
   def get_profile_diff(old, new)
     old.diff(new)

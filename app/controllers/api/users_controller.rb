@@ -2,7 +2,6 @@
 
 module Api
   class UsersController < ApplicationController
-    include UserProfileDetails
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
 
