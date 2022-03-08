@@ -2,15 +2,26 @@
 
 module Api
   class UsersController < ApplicationController
-    # include Custom::Ocr
+    include UserProfileDetails
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
 
-    # GET /api/tenant_applications
+    # GET /api/users
     def index
       @user = User.where(id: current_user.id).first
       unless @user
         render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
+      end
+    end
+
+    def update_personal_info
+      interact = Api::UpdateUserPersonalInfo.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @user = interact.user
+        render 'api/users/show'
+      else
+        render json: { error: interact.error }, status: 422
       end
     end
 
@@ -69,3 +80,6 @@ module Api
     end
   end
 end
+
+
+

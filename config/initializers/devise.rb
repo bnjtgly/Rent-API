@@ -19,7 +19,7 @@ Devise.setup do |config|
   # Devise JWT config
   config.jwt do |jwt|
     jwt.secret = Rails.application.secret_key_base
-    jwt.expiration_time = 5.minutes.to_i
+      jwt.expiration_time = 5.minutes.to_i
   end
 
   # ==> Controller configuration
