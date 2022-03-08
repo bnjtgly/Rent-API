@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -24,8 +24,7 @@ Rails.application.routes.draw do
     post 'users/resend_otp', to: 'users#resend_otp'
     post 'users/resend_email_verification', to: 'users#resend_email_verification'
     post 'users/setup_avatar', to: 'users#setup_avatar'
-
-    post 'profile/update_personal_info', to: 'profile#update_personal_info'
+    post 'users/update_personal_info', to: 'users#update_personal_info'
 
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
   end

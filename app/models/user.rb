@@ -10,6 +10,12 @@ class User < ApplicationRecord
   has_many :tenant_applications, dependent: :destroy
   has_many :user_properties, dependent: :destroy
 
+  has_many :addresses, dependent: :destroy
+  has_many :identities, dependent: :destroy
+  has_many :incomes, dependent: :destroy
+  has_many :flatmates, dependent: :destroy
+  has_many :pets, dependent: :destroy
+
   # Domain References Association
   # List all domain_references columns in users table.
   belongs_to :ref_gender, class_name: 'DomainReference', foreign_key: 'gender_id', optional: true
@@ -27,6 +33,7 @@ class User < ApplicationRecord
   before_update :titleize
 
   audited associated_with: :api_client
+  has_associated_audits
 
   def complete_name
     "#{first_name} #{last_name}".squish

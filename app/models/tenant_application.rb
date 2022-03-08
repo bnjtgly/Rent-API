@@ -4,6 +4,7 @@ class TenantApplication < ApplicationRecord
   strip_attributes
   belongs_to :user
   belongs_to :property
+  has_many :tenant_application_histories
 
   # Domain References Association
   # List all domain_references columns in users table.

@@ -49,9 +49,72 @@ mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: 
 
 application_status = Domain.create(domain_number: 1401, name: 'Application Status', domain_def: 'Status of tenants application.')
 application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Accepted', value_str: 'accepted')
-application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Pending', value_str: 'pending')
-DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Viewed', value_str: 'viewed')
-DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Denied', value_str: 'denied')
+application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Reviewed', value_str: 'reviewed')
+application_status_ref3 = DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Pending', value_str: 'pending')
+DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Rejected', value_str: 'rejected')
+DomainReference.create(sort_order: '500', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Draft', value_str: 'draft')
+DomainReference.create(sort_order: '600', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Closed', value_str: 'closed')
+
+# Identities
+identity_type = Domain.create(domain_number: 1501, name: 'Identity Type', domain_def: 'Identity ID type.')
+identity_type_ref = DomainReference.create(sort_order: '100', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Driver's License", value_str: 'driver license')
+DomainReference.create(sort_order: '200', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Australian Passport', value_str: 'australian passport')
+DomainReference.create(sort_order: '300', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Overseas Passport', value_str: 'overseas passport')
+
+# Incomes
+income_source = Domain.create(domain_number: 1601, name: 'Income Source', domain_def: 'Source of income.')
+income_source_ref = DomainReference.create(sort_order: '100', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Salary", value_str: 'salary')
+income_source_ref2 = DomainReference.create(sort_order: '200', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Allowance", value_str: 'allowance')
+DomainReference.create(sort_order: '300', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Pension", value_str: 'pension')
+DomainReference.create(sort_order: '400', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Overtime", value_str: 'overtime')
+DomainReference.create(sort_order: '500', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Commission", value_str: 'commission')
+DomainReference.create(sort_order: '600', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Bonus", value_str: 'bonus')
+
+income_frequency = Domain.create(domain_number: 1701, name: 'Income Frequency', domain_def: 'Frequency of income.')
+income_frequency_ref = DomainReference.create(sort_order: '100', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Weekly", value_str: 'weekly')
+DomainReference.create(sort_order: '200', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Fortnightly", value_str: 'fortnightly')
+income_frequency_ref2 = DomainReference.create(sort_order: '300', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Monthly", value_str: 'monthly')
+DomainReference.create(sort_order: '400', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Yearly", value_str: 'yearly')
+
+# Pets
+pet_type = Domain.create(domain_number: 1801, name: 'Pet Type', domain_def: 'Type of pet.')
+pet_type_ref = DomainReference.create(sort_order: '100', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Dog", value_str: 'dog')
+DomainReference.create(sort_order: '200', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Cat", value_str: 'cat')
+DomainReference.create(sort_order: '300', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Bird", value_str: 'bird')
+DomainReference.create(sort_order: '400', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabbit", value_str: 'rabbit')
+DomainReference.create(sort_order: '500', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Pig", value_str: 'pig')
+DomainReference.create(sort_order: '600', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Fish", value_str: 'fish')
+
+pet_gender = Domain.create(domain_number: 1901, name: 'Pet Gender', domain_def: 'Gender of pet.')
+pet_gender_ref = DomainReference.create(sort_order: '100', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Male", value_str: 'male')
+DomainReference.create(sort_order: '200', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Female", value_str: 'Female')
+
+pet_weight = Domain.create(domain_number: 2001, name: 'Pet Weight', domain_def: 'Weight of pet.')
+pet_weight_ref = DomainReference.create(sort_order: '100', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "0-10 kg", value_str: '0-10kg')
+DomainReference.create(sort_order: '200', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "11-25 kg", value_str: '11-25kg')
+DomainReference.create(sort_order: '300', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "26-50 kg", value_str: '26-50kg')
+DomainReference.create(sort_order: '400', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "51+ kg", value_str: '51+kg')
+
+# Employments
+employment_status = Domain.create(domain_number: 2101, name: 'Employment Status', domain_def: 'Status of employment.')
+employment_status_ref = DomainReference.create(sort_order: '100', domain_id: employment_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Employed", value_str: 'employed')
+
+employment_type = Domain.create(domain_number: 2201, name: 'Employment Type', domain_def: 'Type of employment.')
+employment_type_ref = DomainReference.create(sort_order: '100', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Full-time", value_str: 'full-time')
+DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Part-time", value_str: 'part-time')
+DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Casual", value_str: 'casual')
+
+# Referencens
+ref_add_position = Domain.create(domain_number: 2301, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
+ref_add_position_ref1 = DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "CEO", value_str: 'ceo')
+
+ref_emp_position = Domain.create(domain_number: 2401, name: 'Employment Reference Position', domain_def: 'Position of the referenced person.')
+DomainReference.create(sort_order: '100', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
+ref_emp_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
+DomainReference.create(sort_order: '300', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')
+DomainReference.create(sort_order: '400', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Appraiser", value_str: 'Appraiser')
+
+
 
 
 case Rails.env
@@ -112,13 +175,70 @@ when 'development', 'staging'
     rent_per_week: '450'
   })
 
+  # User saved properties.
   UserProperty.create(user_id: user1.id, property_id: property1.id)
+  UserProperty.create(user_id: user1.id, property_id: property2.id)
   UserProperty.create(user_id: user2.id, property_id: property1.id)
-  UserProperty.create(user_id: user2.id, property_id: property2.id)
+
+  # Sample Tenant Application
+  address1 = Address.create(user_id: user1.id,
+                            state: 'Tasmania',
+                            suburb: 'New Norfolk',
+                            address: 'Address 1',
+                            post_code: 7140,
+                            move_in_date: '2020-01-01',
+                            move_out_date: '2021-03-01')
+
+  Reference.create(address_id: address1.id,
+                   full_name: 'Adam Smith',
+                   email: 'adamsmith@go.team.au',
+                   ref_position_id: ref_add_position_ref1.id,
+                   mobile_country_code_id: mobile_country_code_ref.id,
+                   mobile: 412345678)
+
+  Identity.create(user_id: user1.id, identity_type_id: identity_type_ref.id, filename: 'driver_license.jpg')
+
+  Flatmate.create(user_id: user1.id, full_name: 'Eve Wong')
+
+  Pet.create(user_id: user1.id,
+             pet_type_id: pet_type_ref.id,
+             pet_gender_id: pet_gender_ref.id,
+             pet_weight_id: pet_weight_ref.id,
+             name: 'Miffie',
+             breed: 'Shi Zhu',
+             color: 'Brown')
+
+  income1 = Income.create(user_id: user1.id,
+                          income_source_id: income_source_ref2.id,
+                          income_frequency_id: income_frequency_ref.id,
+                          amount: 500,
+                          proof: 'receipt.jpg')
+
+  emp1 = Employment.create(income_id: income1.id,
+                           employment_status_id: employment_status_ref.id,
+                           employment_type_id: employment_type_ref.id,
+                           company_name: 'Go Team',
+                           position: 'Developer',
+                           tenure: 1,
+                           net_income: 500,
+                           address: 'Fourth Avenue, New Norfolk, 7140, Tasmania')
+
+  EmpDocument.create(employment_id: emp1.id, filename: 'payslip.jpg')
+  EmpDocument.create(employment_id: emp1.id, filename: 'coe.jpg')
+
+  Reference.create(address_id: address1.id,
+                   full_name: 'Joanna Miller',
+                   email: 'jmiller@go.team.au',
+                   ref_position_id: ref_emp_position_ref2.id,
+                   mobile_country_code_id: mobile_country_code_ref.id,
+                   mobile: 712345689)
+
+
 
   TenantApplication.create(user_id: user1.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user1.id, property_id: property2.id, tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
+
 else
   # type code here
 end
