@@ -20,13 +20,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
     t.string "state"
     t.string "suburb"
     t.string "address"
-    t.integer "post_code"
+    t.string "post_code"
     t.datetime "move_in_date"
     t.datetime "move_out_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["move_in_date", "move_out_date"], name: "index_addresses_on_move_in_date_and_move_out_date", unique: true
-    t.index ["user_id", "address"], name: "index_addresses_on_user_id_and_address", unique: true
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 

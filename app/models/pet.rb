@@ -9,4 +9,6 @@ class Pet < ApplicationRecord
   belongs_to :ref_pet_type, class_name: 'DomainReference', foreign_key: 'pet_type_id', optional: true
   belongs_to :ref_pet_gender, class_name: 'DomainReference', foreign_key: 'pet_gender_id', optional: true
   belongs_to :ref_pet_weight, class_name: 'DomainReference', foreign_key: 'pet_weight_id', optional: true
+
+  audited associated_with: :user
 end

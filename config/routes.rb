@@ -17,6 +17,7 @@
     resources :domains, only: [:index]
     resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index update]
+    resources :addresses, param: :address_id, only: %i[index create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
     resources :user_properties, param: :user_property_id, only: %i[index]
 
