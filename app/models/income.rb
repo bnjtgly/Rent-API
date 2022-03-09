@@ -9,4 +9,6 @@ class Income < ApplicationRecord
   # List all domain_references columns in users table.
   belongs_to :ref_income_source, class_name: 'DomainReference', foreign_key: 'income_source_id', optional: true
   belongs_to :ref_income_frequency, class_name: 'DomainReference', foreign_key: 'income_frequency_id', optional: true
+
+  audited associated_with: :user
 end

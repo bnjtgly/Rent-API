@@ -185,7 +185,7 @@ when 'development', 'staging'
                             state: 'Tasmania',
                             suburb: 'New Norfolk',
                             address: 'Address 1',
-                            post_code: 7140,
+                            post_code: '7140',
                             move_in_date: '2020-01-01',
                             move_out_date: '2021-03-01')
 
@@ -232,8 +232,6 @@ when 'development', 'staging'
                    ref_position_id: ref_emp_position_ref2.id,
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 712345689)
-
-
 
   TenantApplication.create(user_id: user1.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user1.id, property_id: property2.id, tenant_application_status_id: application_status_ref2.id)
