@@ -7,7 +7,6 @@ module Api
     delegate :data, to: :context
 
     def call
-      # init
       validate!
       build
     end
@@ -17,10 +16,6 @@ module Api
     end
 
     private
-    # def init
-    #   @address_id = context.address.nil? ? nil : context.address.id
-    #   @employment_id = context.employment.nil? ? nil : context.employment.id
-    # end
     def build
       @reference = Reference.new(payload)
       Reference.transaction do
