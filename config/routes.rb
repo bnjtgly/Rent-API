@@ -18,6 +18,10 @@
     resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index update]
     resources :addresses, param: :address_id, only: %i[index create]
+    resources :identities, param: :identity_id, only: %i[index]
+    resources :incomes, param: :income_id, only: %i[index]
+    resources :flatmates, param: :flatmate_id, only: %i[index]
+    resources :pets, param: :pet_id, only: %i[index]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
     resources :user_properties, param: :user_property_id, only: %i[index]
 
