@@ -17,12 +17,10 @@ module Api
 
     # POST /api/addresses
     def create
-      # @todo
-      # Convert to organizer. use CreateAddress and CreateReference
-      interact = Api::CreateAddress.call(data: params, current_user: current_user)
+      interact = Api::Organizers::SetupAddress.call(data: params, current_user: current_user)
 
       if interact.success?
-        @address = interact.user
+        @address = interact.address
       else
         render json: { error: interact.error }, status: 422
       end
