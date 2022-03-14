@@ -14,6 +14,7 @@ module Helper
     VALID_BOOLEAN_MESSAGE = 'Please enter a valid value. Must be true or false'
     VALID_BASE64_MESSAGE = 'Please enter a valid base64.'
     VALID_IMG_TYPE_MESSAGE = 'Please enter a valid image type.'
+    VALID_IDENTITY_PROOF_MESSAGE = 'Please enter a valid file type.'
     VALID_IMG_SIZE_MESSAGE = 'Attachment size exceeds the allowable limit (5 MB).'
     USER_ID_NOT_FOUND = 'We do not recognize your Account. Please try again.'
     MOBILE_NOT_VERIFIED = 'Your mobile number is not verified. Please verify your mobile number first.'
@@ -69,6 +70,13 @@ module Helper
 
     def valid_img_type?(value)
       data = value.match(%r{^data:image/(jpg|jpeg|png);base64,})
+      return false if data.nil?
+
+      true
+    end
+
+    def valid_identity_proof?(value)
+      data = value.match(%r{^data:image/(jpg|jpeg|png|pdf);base64,})
       return false if data.nil?
 
       true

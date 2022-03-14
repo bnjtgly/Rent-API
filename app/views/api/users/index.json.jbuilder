@@ -1,5 +1,6 @@
 json.user do
   json.user_id @user.id
+  json.role @user.user_role.role.role_name
   json.email @user.email
   json.is_mobile_verified @user.is_mobile_verified
   json.is_email_verified @user.is_email_verified

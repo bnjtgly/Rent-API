@@ -2,6 +2,8 @@
 
 class Identity < ApplicationRecord
   strip_attributes
+  mount_base64_uploader :filename, IdentityUploader
+
   belongs_to :user
 
   # Domain References Association

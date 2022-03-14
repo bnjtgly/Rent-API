@@ -14,5 +14,16 @@ module Api
 
       pagy_headers_merge(pagy)
     end
+
+    # POST /api/identities
+    def create
+      interact = Api::CreateIdentity.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @identity = interact.identity
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
   end
 end
