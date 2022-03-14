@@ -15,7 +15,7 @@ module Api
       pagy_headers_merge(pagy)
     end
 
-    # POST /api/identities
+    # POST /api/incomes
     def create
       interact = Api::CreateIncome.call(data: params, current_user: current_user)
 
@@ -24,11 +24,6 @@ module Api
       else
         render json: { error: interact.error }, status: 422
       end
-    end
-
-    # GET /api/identities
-    def find_property
-
     end
   end
 end
