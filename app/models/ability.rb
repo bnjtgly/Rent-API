@@ -11,7 +11,7 @@ class Ability
       if user.user_role.role.role_name.eql?('USER')
         can %i[index mobile_verification resend_otp resend_email_verification setup_avatar update_personal_info], Api::UsersController
         can %i[index create], Api::AddressesController
-        can %i[index], Api::IdentitiesController
+        can %i[index create], Api::IdentitiesController
         can %i[index], Api::IncomesController
         can %i[index], Api::FlatmatesController
         can %i[index], Api::PetsController
