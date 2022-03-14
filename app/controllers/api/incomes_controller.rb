@@ -14,5 +14,16 @@ module Api
 
       pagy_headers_merge(pagy)
     end
+
+    # POST /api/incomes
+    def create
+      interact = Api::CreateIncome.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @income = interact.income
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
   end
 end

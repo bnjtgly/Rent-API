@@ -114,7 +114,11 @@ ref_emp_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref
 DomainReference.create(sort_order: '300', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')
 DomainReference.create(sort_order: '400', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Appraiser", value_str: 'Appraiser')
 
-
+currency = Domain.create(domain_number: 2501, name: 'Currency', domain_def: 'Currency.')
+currency_ref = DomainReference.create(sort_order: '100', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'A$', value_str: 'AUD',
+                       metadata: { country: 'AU' })
+currency_ref2 = DomainReference.create(sort_order: '200', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: '$', value_str: 'USD',
+                       metadata: { country: 'US' })
 
 
 case Rails.env
@@ -211,6 +215,7 @@ when 'development', 'staging'
   income1 = Income.create(user_id: user1.id,
                           income_source_id: income_source_ref2.id,
                           income_frequency_id: income_frequency_ref.id,
+                          currency_id: currency_ref.id,
                           amount: 500,
                           proof: 'receipt.jpg')
 
@@ -221,7 +226,10 @@ when 'development', 'staging'
                            position: 'Developer',
                            tenure: 1,
                            net_income: 500,
-                           address: 'Fourth Avenue, New Norfolk, 7140, Tasmania')
+                           state: 'Tasmania',
+                           suburb: 'New Norfolk',
+                           address: '5 Que Road',
+                           post_code: '7140')
 
   EmpDocument.create(employment_id: emp1.id, filename: 'payslip.jpg')
   EmpDocument.create(employment_id: emp1.id, filename: 'coe.jpg')

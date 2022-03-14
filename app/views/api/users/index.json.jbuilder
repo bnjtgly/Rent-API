@@ -60,6 +60,7 @@ json.incomes do
     json.user_id data.user_id
     json.source data.ref_income_frequency.display
     json.frequency data.ref_income_frequency.display
+    json.currency data.ref_currency.display
     json.amount data.amount
     json.proof data.proof
     json.employment do
@@ -70,8 +71,11 @@ json.incomes do
         json.company_name data.employment.company_name
         json.position data.employment.position
         json.tenure data.employment.tenure
-        json.income data.employment.income
+        json.net_income data.employment.net_income
+        json.state data.employment.state
+        json.suburb data.employment.suburb
         json.address data.employment.address
+        json.post_code data.employment.post_code
         json.reference do
           if data.employment.reference
             json.reference_id data.employment.reference.id
