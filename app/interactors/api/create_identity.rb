@@ -5,7 +5,6 @@ module Api
     delegate :data, :current_user, to: :context
 
     def call
-      # init
       validate!
       build
     end
@@ -15,10 +14,6 @@ module Api
     end
 
     private
-
-    def init
-      # @identity = Identity.where(user_id: payload[:user_id]).first
-    end
 
     def build
       @identity = Identity.new(payload)
