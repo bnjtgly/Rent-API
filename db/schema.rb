@@ -99,7 +99,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
     t.string "position"
     t.integer "tenure"
     t.float "net_income"
+    t.string "state"
+    t.string "suburb"
     t.string "address"
+    t.string "post_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employment_status_id"], name: "index_employments_on_employment_status_id"
@@ -129,10 +132,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
     t.uuid "user_id", null: false
     t.uuid "income_source_id"
     t.uuid "income_frequency_id"
+    t.uuid "currency_id"
     t.float "amount"
     t.string "proof"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["currency_id"], name: "index_incomes_on_currency_id"
     t.index ["income_frequency_id"], name: "index_incomes_on_income_frequency_id"
     t.index ["income_source_id"], name: "index_incomes_on_income_source_id"
     t.index ["user_id"], name: "index_incomes_on_user_id"
@@ -289,6 +294,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
   add_foreign_key "flatmates", "users"
   add_foreign_key "identities", "domain_references", column: "identity_type_id"
   add_foreign_key "identities", "users"
+  add_foreign_key "incomes", "domain_references", column: "currency_id"
   add_foreign_key "incomes", "domain_references", column: "income_frequency_id"
   add_foreign_key "incomes", "domain_references", column: "income_source_id"
   add_foreign_key "incomes", "users"

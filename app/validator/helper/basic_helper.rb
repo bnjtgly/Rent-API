@@ -16,6 +16,7 @@ module Helper
     VALID_IMG_TYPE_MESSAGE = 'Please enter a valid image type.'
     VALID_IDENTITY_PROOF_MESSAGE = 'Please enter a valid file type.'
     VALID_IMG_SIZE_MESSAGE = 'Attachment size exceeds the allowable limit (5 MB).'
+    VALID_AMOUNT = 'Please enter a valid amount.'
     USER_ID_NOT_FOUND = 'We do not recognize your Account. Please try again.'
     MOBILE_NOT_VERIFIED = 'Your mobile number is not verified. Please verify your mobile number first.'
     EMAIL_NOT_VERIFIED = 'Your email address is not verified. Please verify your email address first.'
