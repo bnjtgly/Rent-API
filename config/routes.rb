@@ -20,6 +20,7 @@
     resources :addresses, param: :address_id, only: %i[index create]
     resources :identities, param: :identity_id, only: %i[index create]
     resources :incomes, param: :income_id, only: %i[index create]
+    resources :employments, param: :employment_id, only: %i[index create]
     resources :flatmates, param: :flatmate_id, only: %i[index]
     resources :pets, param: :pet_id, only: %i[index]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]

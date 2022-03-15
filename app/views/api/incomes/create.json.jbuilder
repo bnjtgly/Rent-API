@@ -9,34 +9,34 @@ json.data do
     json.proof @income.proof
 
     json.employment do
-      if data.employment
-        json.employment_id data.employment.id
-        json.status data.employment.ref_employment_status.display
-        json.type data.employment.ref_employment_type.display
-        json.company_name data.employment.company_name
-        json.position data.employment.position
-        json.tenure data.employment.tenure
-        json.net_income data.employment.net_income
-        json.state data.employment.state
-        json.suburb data.employment.suburb
-        json.address data.employment.address
-        json.post_code data.employment.post_code
+      if @income.employment
+        json.employment_id @income.employment.id
+        json.status @income.employment.ref_employment_status.display
+        json.type @income.employment.ref_employment_type.display
+        json.company_name @income.employment.company_name
+        json.position @income.employment.position
+        json.tenure @income.employment.tenure
+        json.net_income @income.employment.net_income
+        json.state @income.employment.state
+        json.suburb @income.employment.suburb
+        json.address @income.employment.address
+        json.post_code @income.employment.post_code
         json.reference do
-          if data.employment.reference
-            json.reference_id data.employment.reference.id
-            json.employment_id data.reference.employment_id
-            json.full_name data.reference.full_name
-            json.email data.reference.email
-            json.position data.reference.ref_ref_position.display
-            json.mobile_country_code data.reference.ref_mobile_country_code.display
-            json.mobile data.reference.mobile
+          if @income.employment.reference
+            json.reference_id @income.employment.reference.id
+            json.employment_id @income.reference.employment_id
+            json.full_name @income.reference.full_name
+            json.email @income.reference.email
+            json.position @income.reference.ref_ref_position.display
+            json.mobile_country_code @income.reference.ref_mobile_country_code.display
+            json.mobile @income.reference.mobile
           else
             json.null!
           end
         end
         json.documents do
-          if data.employment.emp_documents
-            json.array! data.employment.emp_documents.each do |data|
+          if @income.employment.emp_documents
+            json.array! @income.employment.emp_documents.each do |data|
               json.document_id data.id
               json.employment_id data.employment_id
               json.filename data.filename

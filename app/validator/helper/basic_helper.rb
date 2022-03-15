@@ -17,6 +17,7 @@ module Helper
     VALID_IDENTITY_PROOF_MESSAGE = 'Please enter a valid file type.'
     VALID_IMG_SIZE_MESSAGE = 'Attachment size exceeds the allowable limit (5 MB).'
     VALID_AMOUNT = 'Please enter a valid amount.'
+    VALID_COMPANY_NAME_MESSAGE = "Not allowed multiple spaces between words. Accepted values are alpha numeric and ['&:.,@-] special characters only."
     USER_ID_NOT_FOUND = 'We do not recognize your Account. Please try again.'
     MOBILE_NOT_VERIFIED = 'Your mobile number is not verified. Please verify your mobile number first.'
     EMAIL_NOT_VERIFIED = 'Your email address is not verified. Please verify your email address first.'
@@ -39,8 +40,22 @@ module Helper
       true
     end
 
+    def valid_amount?(value)
+      data = Float(value.to_s, exception: false)
+      return false if data.nil? || data.negative? || data.zero?
+
+      true
+    end
+
     def valid_english_alphabets?(value)
       data = value.to_s.match(/^[A-Za-z ]*$/)
+      return false if data.nil?
+
+      true
+    end
+
+    def valid_company_name?(value)
+      data = value.match(/^[a-zA-Z0-9_'&:.,@-]+( [a-zA-Z0-9_'&:.,@-]+)*$/)
       return false if data.nil?
 
       true
