@@ -17,7 +17,7 @@ module Api
 
     # POST /api/employments
     def create
-      interact = Api::CreateEmployment.call(data: params)
+      interact = Api::Organizers::SetupEmployment.call(data: params)
 
       if interact.success?
         @employment = interact.employment
