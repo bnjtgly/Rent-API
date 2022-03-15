@@ -70,7 +70,7 @@ module Api
       end
 
     def no_space_allowed
-      errors.add(:post_code, 'Please try again. No spaces allowed.') if !post_code.blank? && have_space?(post_code.to_s).eql?(true)
+      errors.add(:post_code, "#{PLEASE_CHANGE_MESSAGE} #{NO_SPACE_ALLOWED}") if !post_code.blank? && have_space?(post_code.to_s).eql?(true)
     end
 
     def valid_amount
