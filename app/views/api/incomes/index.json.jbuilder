@@ -8,6 +8,9 @@ json.data do
       json.currency data.ref_currency.display
       json.amount data.amount
       json.proof data.proof
+      json.income_summary do
+        json.total_income @incomes.sum(:amount)
+      end
       json.employment do
         if data.employment
           json.employment_id data.employment.id
