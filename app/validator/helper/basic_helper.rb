@@ -6,6 +6,7 @@ module Helper
     PASSWORD_REQUIREMENTS_MESSAGE = 'Password should have more than 6 characters including 1 lower letter, 1 uppercase letter, 1 number and 1 symbol.'
     EMAIL_EXIST_MESSAGE = 'Email already exist.'
     ENGLISH_ALPHABETS_ONLY_MESSAGE = 'Only english alphabets are allowed (letters only).'
+    NO_SPACE_ALLOWED = 'No spaces allowed.'
     NAME_EXIST_MESSAGE = 'Name already exist.'
     VALID_NUMBER_MESSAGE = 'Please enter valid number.'
     VALID_PHONE_MESSAGE = 'Please enter a valid phone number.'

@@ -7,6 +7,7 @@ module Api
     delegate :data, to: :context
 
     def call
+      init
       validate!
       build
     end
@@ -16,6 +17,10 @@ module Api
     end
 
     private
+    def init
+      @address_id = context.address.nil? ? nil : context.address.id
+      @employment_id = context.employment.nil? ? nil : context.employment.id
+    end
     def build
       @reference = Reference.new(payload)
       Reference.transaction do
@@ -33,15 +38,25 @@ module Api
     end
 
     def payload
-      {
-        address_id: context.address.nil? ? nil : context.address.id,
-        employment_id: context.employment.nil? ? nil : context.employment.id,
-        full_name: data[:address][:reference][:full_name],
-        email: data[:address][:reference][:email],
-        ref_position_id: data[:address][:reference][:ref_position_id],
-        mobile_country_code_id: data[:address][:reference][:mobile_country_code_id],
-        mobile: data[:address][:reference][:mobile]
-      }
+      if @address_id
+        {
+          address_id: @address_id,
+          full_name: data[:address][:reference][:full_name],
+          email: data[:address][:reference][:email],
+          ref_position_id: data[:address][:reference][:ref_position_id],
+          mobile_country_code_id: data[:address][:reference][:mobile_country_code_id],
+          mobile: data[:address][:reference][:mobile]
+        }
+      else
+        {
+          employment_id: @employment_id,
+          full_name: data[:employment][:reference][:full_name],
+          email: data[:employment][:reference][:email],
+          ref_position_id: data[:employment][:reference][:ref_position_id],
+          mobile_country_code_id: data[:employment][:reference][:mobile_country_code_id],
+          mobile: data[:employment][:reference][:mobile]
+        }
+      end
     end
   end
 end
