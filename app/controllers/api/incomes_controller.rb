@@ -2,6 +2,8 @@
 
 module Api
   class IncomesController < ApplicationController
+    include IncomeConcern
+
     before_action :authenticate_user!
     authorize_resource class: Api::IncomesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -11,6 +13,8 @@ module Api
       pagy, @incomes = pagy(Income.all)
 
       @incomes = @incomes.where(user_id: current_user.id)
+
+      @total_income = income_summary @incomes
 
       pagy_headers_merge(pagy)
     end
