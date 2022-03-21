@@ -2,12 +2,15 @@
 
 module Api
   class UsersController < ApplicationController
+    include IncomeConcern
+
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
 
     # GET /api/users
     def index
       @user = User.where(id: current_user.id).first
+      @total_income = get_income_summary(@user.incomes) if @user.incomes
       unless @user
         render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
       end

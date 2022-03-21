@@ -202,7 +202,8 @@ when 'development', 'staging'
 
   Identity.create(user_id: user1.id, identity_type_id: identity_type_ref.id, filename: 'driver_license.jpg')
 
-  Flatmate.create(user_id: user1.id, full_name: 'Eve Wong')
+  flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
+  FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
 
   Pet.create(user_id: user1.id,
              pet_type_id: pet_type_ref.id,
