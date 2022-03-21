@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -110,9 +110,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
     t.index ["income_id"], name: "index_employments_on_income_id"
   end
 
+  create_table "flatmate_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "flatmate_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flatmate_id", "user_id"], name: "index_flatmate_members_on_flatmate_id_and_user_id", unique: true
+    t.index ["flatmate_id"], name: "index_flatmate_members_on_flatmate_id"
+    t.index ["user_id"], name: "index_flatmate_members_on_user_id"
+  end
+
   create_table "flatmates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.string "full_name"
+    t.string "group_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_flatmates_on_user_id"
@@ -291,6 +301,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_07_014148) do
   add_foreign_key "employments", "domain_references", column: "employment_status_id"
   add_foreign_key "employments", "domain_references", column: "employment_type_id"
   add_foreign_key "employments", "incomes"
+  add_foreign_key "flatmate_members", "flatmates"
+  add_foreign_key "flatmate_members", "users"
   add_foreign_key "flatmates", "users"
   add_foreign_key "identities", "domain_references", column: "identity_type_id"
   add_foreign_key "identities", "users"

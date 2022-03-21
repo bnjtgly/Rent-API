@@ -14,7 +14,7 @@ module Api
 
       @incomes = @incomes.where(user_id: current_user.id)
 
-      @total_income = income_summary @incomes
+      @total_income = get_income_summary(@incomes)
 
       pagy_headers_merge(pagy)
     end

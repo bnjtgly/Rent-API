@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :incomes, dependent: :destroy
   has_many :flatmates, dependent: :destroy
+  has_many :flatmate_members, dependent: :destroy
   has_many :pets, dependent: :destroy
 
   # Domain References Association

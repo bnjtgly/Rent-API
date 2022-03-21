@@ -13,16 +13,11 @@ module Api
 
       @tenant_applications = @tenant_applications.where(user_id: current_user.id)
 
-      # v1 = TenantApplicationHistory.where(tenant_application_id: '269f773d-5d4f-40bf-bf15-7bcdff54745e', version: '1').load_async.first
-      # v2 = TenantApplicationHistory.where(tenant_application_id: '269f773d-5d4f-40bf-bf15-7bcdff54745e',version: '2').load_async.first
-      #
-      # ap "What was updated from the application?"
-      # ap get_profile_diff(v1.application_data, v2.application_data)
-
       pagy_headers_merge(pagy)
     end
 
     private
+    # @todo
     def generate_history
       addresses = []
       incomes = []
