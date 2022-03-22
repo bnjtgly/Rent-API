@@ -8,7 +8,6 @@ class CreateEmployments < ActiveRecord::Migration[7.0]
       t.string :position
       t.integer :tenure
       t.float :net_income
-      # t.string :address
       t.string :state
       t.string :suburb
       t.string :address
@@ -16,5 +15,6 @@ class CreateEmployments < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :employments, %i[income_id company_name], unique: true
   end
 end

@@ -11,5 +11,6 @@ class CreatePets < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :pets, %i[user_id pet_type_id name], unique: true
   end
 end

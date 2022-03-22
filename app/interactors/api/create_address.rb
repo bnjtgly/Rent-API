@@ -46,8 +46,8 @@ module Api
         suburb: data[:address][:suburb],
         address: data[:address][:address],
         post_code: data[:address][:post_code],
-        move_in_date: data[:address][:move_in_date],
-        move_out_date: data[:address][:move_out_date]
+        valid_from: data[:address][:valid_from],
+        valid_thru: data[:address][:valid_thru]
       }
     end
   end

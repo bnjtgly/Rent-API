@@ -26,8 +26,8 @@ json.addresses do
     json.suburb data.suburb
     json.address data.address
     json.post_code data.post_code
-    json.move_in_date data.move_in_date
-    json.move_out_date data.move_out_date
+    json.valid_from data.valid_from
+    json.valid_thru data.valid_thru
 
     json.reference do
       if data.reference
@@ -115,7 +115,13 @@ json.flatmates do
   json.array! @user.flatmates.each do |data|
     json.flatmate_id data.id
     json.user_id data.user_id
-    json.full_name data.full_name
+    json.group_name data.group_name
+    json.members do
+      json.array! data.flatmate_members.each do |data|
+        json.user_id data.user.id
+        json.complete_name data.user.complete_name
+      end
+    end
   end
 end
 

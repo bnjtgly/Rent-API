@@ -120,6 +120,13 @@ currency_ref = DomainReference.create(sort_order: '100', domain_id: currency.id,
 currency_ref2 = DomainReference.create(sort_order: '200', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: '$', value_str: 'USD',
                        metadata: { country: 'US' })
 
+# Application
+lease_length = Domain.create(domain_number: 2601, name: 'Lease Length', domain_def: 'Length of lease.')
+lease_length_ref1 = DomainReference.create(sort_order: '100', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "12 Months", value_str: '12')
+DomainReference.create(sort_order: '200', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "24 Months", value_str: '24')
+DomainReference.create(sort_order: '300', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "36 Months", value_str: '36')
+DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "48 Months", value_str: '48')
+
 
 case Rails.env
 when 'development', 'staging'
@@ -141,6 +148,10 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
+  user3 = User.create(email: 'agnespaige@sr.tenant.com', password: 'Abc!23', first_name: 'Agnes', last_name: 'Paige', date_of_birth: '1992-12-10',
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+
   # Create user: tenant - Ios
   user2 = User.create(email: 'aliciah@sr.tenant.com', password: 'Abc!23', first_name: 'Alicia', last_name: 'Henderson', date_of_birth: '1996-11-11',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7223456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
@@ -150,6 +161,7 @@ when 'development', 'staging'
   UserRole.create(user_id: user.id, role_id: role_admin.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user1.id, role_id: role_user.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user2.id, role_id: role_user.id, audit_comment: 'Seed data.')
+  UserRole.create(user_id: user3.id, role_id: role_user.id, audit_comment: 'Seed data.')
 
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 
@@ -190,9 +202,8 @@ when 'development', 'staging'
                             suburb: 'New Norfolk',
                             address: 'Address 1',
                             post_code: '7140',
-                            move_in_date: '2020-01-01',
-                            move_out_date: '2021-03-01')
-
+                            valid_from: '2020-01-01',
+                            valid_thru: '2021-03-01')
   Reference.create(address_id: address1.id,
                    full_name: 'Adam Smith',
                    email: 'adamsmith@go.team.au',
@@ -204,6 +215,7 @@ when 'development', 'staging'
 
   flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
+  FlatmateMember.create(flatmate_id: flatmate.id, user_id: user3.id)
 
   Pet.create(user_id: user1.id,
              pet_type_id: pet_type_ref.id,
@@ -242,8 +254,8 @@ when 'development', 'staging'
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 712345689)
 
-  TenantApplication.create(user_id: user1.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
-  TenantApplication.create(user_id: user1.id, property_id: property2.id, tenant_application_status_id: application_status_ref2.id)
+  TenantApplication.create(user_id: user1.id, property_id: property1.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
+  TenantApplication.create(user_id: user1.id, property_id: property2.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
 
 else

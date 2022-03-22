@@ -11,5 +11,6 @@ class CreateReferences < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :references, %i[address_id employment_id full_name], unique: true
   end
 end

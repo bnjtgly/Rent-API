@@ -7,5 +7,6 @@ class CreateIdentities < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :identities, %i[user_id identity_type_id filename], unique: true
   end
 end
