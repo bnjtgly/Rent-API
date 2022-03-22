@@ -7,8 +7,8 @@ json.data do
       json.suburb data.suburb
       json.address data.address
       json.post_code data.post_code
-      json.move_in_date data.move_in_date
-      json.move_out_date data.move_out_date
+      json.valid_from data.valid_from
+      json.valid_thru data.valid_thru
       json.reference do
         if data.reference
           json.reference_id data.reference.id

@@ -4,7 +4,19 @@ json.data do
   json.tenant_applications do
     json.array! @tenant_applications.each do |data|
       json.tenant_application_id data.id
+      json.lease_length_id data.ref_lease_length.display
+      json.lease_start_date data.lease_start_date
       json.status data.ref_status.display
+      json.flatmate do
+        json.group_name data.flatmate.group_name
+        json.members do
+          json.array! data.flatmate.flatmate_members.each do |data|
+            json.user_id data.user.id
+            json.complete_name data.user.complete_name
+          end
+        end
+      end
+
       json.user do
         if data.user
           json.user_id data.user.id

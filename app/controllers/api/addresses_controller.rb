@@ -10,7 +10,7 @@ module Api
     def index
       pagy, @addresses = pagy(Address.all)
 
-      @addresses = @addresses.where(user_id: current_user.id)
+      @addresses = @addresses.where(user_id: current_user.id).order(valid_thru: :desc)
 
       pagy_headers_merge(pagy)
     end

@@ -10,5 +10,6 @@ class CreateIncomes < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :incomes, %i[user_id income_source_id amount], unique: true
   end
 end

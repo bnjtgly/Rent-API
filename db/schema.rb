@@ -21,8 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.string "suburb"
     t.string "address"
     t.string "post_code"
-    t.datetime "move_in_date"
-    t.datetime "move_out_date"
+    t.datetime "valid_from", null: false
+    t.datetime "valid_thru"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.string "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employment_id", "filename"], name: "index_emp_documents_on_employment_id_and_filename", unique: true
     t.index ["employment_id"], name: "index_emp_documents_on_employment_id"
   end
 
@@ -107,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.datetime "updated_at", null: false
     t.index ["employment_status_id"], name: "index_employments_on_employment_status_id"
     t.index ["employment_type_id"], name: "index_employments_on_employment_type_id"
+    t.index ["income_id", "company_name"], name: "index_employments_on_income_id_and_company_name", unique: true
     t.index ["income_id"], name: "index_employments_on_income_id"
   end
 
@@ -135,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_type_id"], name: "index_identities_on_identity_type_id"
+    t.index ["user_id", "identity_type_id", "filename"], name: "index_identities_on_user_id_and_identity_type_id_and_filename", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
@@ -150,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.index ["currency_id"], name: "index_incomes_on_currency_id"
     t.index ["income_frequency_id"], name: "index_incomes_on_income_frequency_id"
     t.index ["income_source_id"], name: "index_incomes_on_income_source_id"
+    t.index ["user_id", "income_source_id", "amount"], name: "index_incomes_on_user_id_and_income_source_id_and_amount", unique: true
     t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
@@ -183,6 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.index ["pet_gender_id"], name: "index_pets_on_pet_gender_id"
     t.index ["pet_type_id"], name: "index_pets_on_pet_type_id"
     t.index ["pet_weight_id"], name: "index_pets_on_pet_weight_id"
+    t.index ["user_id", "pet_type_id", "name"], name: "index_pets_on_user_id_and_pet_type_id_and_name", unique: true
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
@@ -202,6 +207,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.bigint "mobile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_id", "employment_id", "full_name"], name: "index_references_on_address_id_and_employment_id_and_full_name", unique: true
     t.index ["address_id"], name: "index_references_on_address_id"
     t.index ["employment_id"], name: "index_references_on_employment_id"
     t.index ["mobile_country_code_id"], name: "index_references_on_mobile_country_code_id"
@@ -238,12 +244,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   create_table "tenant_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "property_id", null: false
+    t.uuid "flatmate_id"
+    t.uuid "lease_length_id"
     t.uuid "tenant_application_status_id"
+    t.datetime "lease_start_date"
     t.jsonb "application_data", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["flatmate_id"], name: "index_tenant_applications_on_flatmate_id"
+    t.index ["lease_length_id"], name: "index_tenant_applications_on_lease_length_id"
     t.index ["property_id"], name: "index_tenant_applications_on_property_id"
     t.index ["tenant_application_status_id"], name: "index_tenant_applications_on_tenant_application_status_id"
+    t.index ["user_id", "property_id"], name: "index_tenant_applications_on_user_id_and_property_id", unique: true
     t.index ["user_id"], name: "index_tenant_applications_on_user_id"
   end
 
@@ -321,7 +333,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   add_foreign_key "references", "domain_references", column: "ref_position_id"
   add_foreign_key "references", "employments"
   add_foreign_key "tenant_application_histories", "tenant_applications"
+  add_foreign_key "tenant_applications", "domain_references", column: "lease_length_id"
   add_foreign_key "tenant_applications", "domain_references", column: "tenant_application_status_id"
+  add_foreign_key "tenant_applications", "flatmates"
   add_foreign_key "tenant_applications", "properties"
   add_foreign_key "tenant_applications", "users"
   add_foreign_key "user_properties", "properties"

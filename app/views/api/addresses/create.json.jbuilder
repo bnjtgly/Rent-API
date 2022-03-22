@@ -6,8 +6,8 @@ json.data do
     json.suburb @address.suburb
     json.address @address.address
     json.post_code @address.post_code
-    json.move_in_date @address.move_in_date
-    json.move_out_date @address.move_out_date
+    json.valid_from @address.valid_from
+    json.valid_thru @address.valid_thru
     json.reference do
       if @address.reference
         json.reference_id @address.reference.id

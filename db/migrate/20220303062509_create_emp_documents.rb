@@ -6,5 +6,6 @@ class CreateEmpDocuments < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :emp_documents, %i[employment_id filename], unique: true
   end
 end
