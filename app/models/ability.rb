@@ -14,7 +14,7 @@ class Ability
         can %i[index create], Api::IdentitiesController
         can %i[index create], Api::IncomesController
         can %i[index create], Api::EmploymentsController
-        can %i[index], Api::FlatmatesController
+        can %i[index create], Api::FlatmatesController
         can %i[index create], Api::PetsController
         can %i[index], Api::TenantApplicationsController
         can %i[index], Api::UserPropertiesController
