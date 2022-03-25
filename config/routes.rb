@@ -17,7 +17,7 @@
     resources :domains, only: [:index]
     resources :domain_references, only: [:index]
     resources :users, param: :user_id, only: %i[index update]
-    resources :addresses, param: :address_id, only: %i[index create]
+    resources :addresses, param: :address_id, only: %i[index create update]
     resources :identities, param: :identity_id, only: %i[index create]
     resources :incomes, param: :income_id, only: %i[index create]
     resources :employments, param: :employment_id, only: %i[index create]
