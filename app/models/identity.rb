@@ -2,7 +2,8 @@
 
 class Identity < ApplicationRecord
   strip_attributes
-  mount_base64_uploader :filename, IdentityUploader
+  encrypts :id_number
+  mount_base64_uploader :file, IdentityUploader
 
   belongs_to :user
 
