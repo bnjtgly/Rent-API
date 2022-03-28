@@ -1,19 +1,19 @@
 json.data do
   json.array! @employments.each do |data|
-    json.id data.employment.id
-    json.status data.employment.ref_employment_status.display
-    json.type data.employment.ref_employment_type.display
-    json.company_name data.employment.company_name
-    json.position data.employment.position
-    json.tenure data.employment.tenure
-    json.net_income data.employment.net_income
-    json.state data.employment.state
-    json.suburb data.employment.suburb
-    json.address data.employment.address
-    json.post_code data.employment.post_code
+    json.id data.id
+    json.status data.ref_employment_status.display
+    json.type data.ref_employment_type.display
+    json.company_name data.company_name
+    json.position data.position
+    json.tenure data.tenure
+    json.net_income data.net_income
+    json.state data.state
+    json.suburb data.suburb
+    json.address data.address
+    json.post_code data.post_code
     json.reference do
-      if data.employment.reference
-        json.id data.employment.reference.id
+      if data.reference
+        json.id data.reference.id
         json.employment_id data.reference.employment_id
         json.full_name data.reference.full_name
         json.email data.reference.email
@@ -25,8 +25,8 @@ json.data do
       end
     end
     json.documents do
-      if data.employment.emp_documents
-        json.array! data.employment.emp_documents.each do |data|
+      if data.emp_documents
+        json.array! data.emp_documents.each do |data|
           json.id data.id
           json.employment_id data.employment_id
           json.file data.file

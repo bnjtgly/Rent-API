@@ -105,10 +105,10 @@ DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %
 DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Casual", value_str: 'casual')
 
 # Referencens
-ref_add_position = Domain.create(domain_number: 2301, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
+ref_add_position = Domain.create(domain_number: 2301, name: 'Employment Reference Position', domain_def: 'Position of the referenced person.')
 ref_add_position_ref1 = DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "CEO", value_str: 'ceo')
 
-ref_emp_position = Domain.create(domain_number: 2401, name: 'Employment Reference Position', domain_def: 'Position of the referenced person.')
+ref_emp_position = Domain.create(domain_number: 2401, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
 DomainReference.create(sort_order: '100', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
 ref_emp_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
 DomainReference.create(sort_order: '300', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')

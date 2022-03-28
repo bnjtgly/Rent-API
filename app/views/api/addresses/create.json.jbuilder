@@ -9,7 +9,7 @@ json.data do
   json.valid_thru @address.valid_thru
   json.reference do
     if @address.reference
-      json.reference_id @address.reference.id
+      json.id @address.reference.id
       json.address_id @address.reference.address_id
       json.full_name @address.reference.full_name
       json.email @address.reference.email

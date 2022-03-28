@@ -38,6 +38,7 @@ json.addresses do
         json.position data.reference.ref_ref_position.display
         json.mobile_country_code data.reference.ref_mobile_country_code.display
         json.mobile data.reference.mobile
+        json.mobile_number data.reference.mobile_number
       else
         json.null!
       end
@@ -80,13 +81,14 @@ json.incomes do
         json.post_code data.employment.post_code
         json.reference do
           if data.employment.reference
-            json.reference_id data.employment.reference.id
-            json.employment_id data.reference.employment_id
-            json.full_name data.reference.full_name
-            json.email data.reference.email
-            json.position data.reference.ref_ref_position.display
-            json.mobile_country_code data.reference.ref_mobile_country_code.display
-            json.mobile data.reference.mobile
+            json.id data.employment.reference.id
+            json.employment_id data.employment.reference.employment_id
+            json.full_name data.employment.reference.full_name
+            json.email data.employment.reference.email
+            json.position data.employment.reference.ref_ref_position.display
+            json.mobile_country_code data.employment.reference.ref_mobile_country_code.display
+            json.mobile data.employment.reference.mobile
+            json.mobile_number data.employment.reference.mobile_number
           else
             json.null!
           end
