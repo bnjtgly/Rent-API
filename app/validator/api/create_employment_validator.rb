@@ -3,7 +3,7 @@
 module Api
   class CreateEmploymentValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :income_id,

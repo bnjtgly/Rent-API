@@ -1,7 +1,7 @@
 module AdminApi
   class CreateDomainValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :domain_number,

@@ -2,7 +2,7 @@
 
 class ResetValidator
   include Helper::BasicHelper
-  include ActiveModel::Model
+  include ActiveModel::API
 
   attr_accessor(
     :otp,

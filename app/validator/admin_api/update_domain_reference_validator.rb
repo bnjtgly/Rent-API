@@ -3,7 +3,7 @@
 module AdminApi
   class UpdateDomainReferenceValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :domain_reference_id,

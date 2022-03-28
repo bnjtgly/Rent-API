@@ -1,7 +1,7 @@
 module AdminApi
   class UpdateDomainValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :domain_id,

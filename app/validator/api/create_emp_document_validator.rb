@@ -3,7 +3,7 @@
 module Api
   class CreateEmpDocumentValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :employment_id,

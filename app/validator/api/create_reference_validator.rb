@@ -3,7 +3,7 @@
 module Api
   class CreateReferenceValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :address_id,

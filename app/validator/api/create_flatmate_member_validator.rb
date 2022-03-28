@@ -3,7 +3,7 @@
 module Api
   class CreateFlatmateMemberValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :user_id,
