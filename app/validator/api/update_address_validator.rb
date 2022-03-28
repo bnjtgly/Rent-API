@@ -3,7 +3,7 @@
 module Api
   class UpdateAddressValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :address_id,
@@ -28,6 +28,7 @@ module Api
     def init
       @address = Address.where(id: address_id).first
       @user = User.where(id: user_id).first
+      @valid_thru = valid_thru.nil? ? Time.zone.now.to_s : valid_thru
     end
 
     def persist!
@@ -44,6 +45,7 @@ module Api
       errors.add(:address, REQUIRED_MESSAGE) if address.blank?
       errors.add(:post_code, REQUIRED_MESSAGE) if post_code.blank?
       errors.add(:valid_from, REQUIRED_MESSAGE) if valid_from.blank?
+      errors.add(:valid_thru, REQUIRED_MESSAGE) if valid_thru.blank?
     end
 
     def address_id_exist
@@ -76,9 +78,9 @@ module Api
 
     def valid_valid_from_thru
       unless valid_thru.blank?
-        errors.add(:valid_from, "#{PLEASE_CHANGE_MESSAGE} move_in_date should be less than the move_out_date.") unless valid_from <= valid_thru
-        errors.add(:valid_thru, "#{PLEASE_CHANGE_MESSAGE} move_in_date and move_out_date should not be the same.") if valid_from.eql?(valid_thru)
-        if Address.exists?(user_id: user_id.try(:strip), valid_from: Time.zone.parse(valid_from.try(:strip)), valid_thru: Time.zone.parse(valid_thru.try(:strip)))
+        errors.add(:valid_from, "#{PLEASE_CHANGE_MESSAGE} move_in_date should be less than the move_out_date.") unless valid_from <= @valid_thru
+        errors.add(:valid_thru, "#{PLEASE_CHANGE_MESSAGE} move_in_date and move_out_date should not be the same.") if valid_from.eql?(@valid_thru)
+        if Address.exists?(user_id: user_id.try(:strip), valid_from: Time.zone.parse(valid_from.try(:strip)), valid_thru: Time.zone.parse(@valid_thru.try(:strip)))
           errors.add(:date, "#{PLEASE_CHANGE_MESSAGE} move in and move out already exists.")
         end
       end

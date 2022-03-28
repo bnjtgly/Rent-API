@@ -38,6 +38,7 @@ json.addresses do
         json.position data.reference.ref_ref_position.display
         json.mobile_country_code data.reference.ref_mobile_country_code.display
         json.mobile data.reference.mobile
+        json.mobile_number data.reference.mobile_number
       else
         json.null!
       end
@@ -50,7 +51,8 @@ json.identities do
     json.identity_id data.id
     json.user_id data.user_id
     json.identity_type data.ref_identity_type.display
-    json.filename data.filename
+    json.id_number data.id_number
+    json.file data.file
   end
 end
 
@@ -64,9 +66,6 @@ json.incomes do
     json.amount data.amount
     json.proof data.proof
     json.total_income_summary @total_income
-    # json.income_summary do
-    #   json.total_income @user.incomes.sum(:amount)
-    # end
     json.employment do
       if data.employment
         json.employment_id data.employment.id
@@ -82,13 +81,14 @@ json.incomes do
         json.post_code data.employment.post_code
         json.reference do
           if data.employment.reference
-            json.reference_id data.employment.reference.id
-            json.employment_id data.reference.employment_id
-            json.full_name data.reference.full_name
-            json.email data.reference.email
-            json.position data.reference.ref_ref_position.display
-            json.mobile_country_code data.reference.ref_mobile_country_code.display
-            json.mobile data.reference.mobile
+            json.id data.employment.reference.id
+            json.employment_id data.employment.reference.employment_id
+            json.full_name data.employment.reference.full_name
+            json.email data.employment.reference.email
+            json.position data.employment.reference.ref_ref_position.display
+            json.mobile_country_code data.employment.reference.ref_mobile_country_code.display
+            json.mobile data.employment.reference.mobile
+            json.mobile_number data.employment.reference.mobile_number
           else
             json.null!
           end
@@ -98,7 +98,7 @@ json.incomes do
             json.array! data.employment.emp_documents.each do |data|
               json.document_id data.id
               json.employment_id data.employment_id
-              json.filename data.filename
+              json.file data.file
             end
           else
             json.null!

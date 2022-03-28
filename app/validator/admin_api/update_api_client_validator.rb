@@ -3,7 +3,7 @@
 module AdminApi
   class UpdateApiClientValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :api_client_id,

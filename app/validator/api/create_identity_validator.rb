@@ -3,16 +3,17 @@
 module Api
   class CreateIdentityValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :audit_comment,
       :user_id,
       :identity_type_id,
-      :filename
+      :id_number,
+      :file
     )
 
-    validate :user_id_exist, :required, :valid_identity_type_id, :valid_filename
+    validate :user_id_exist, :id_number_exist, :required, :valid_identity_type_id, :valid_filename
 
     def submit
       init
@@ -35,16 +36,22 @@ module Api
       errors.add(:user_id, USER_ID_NOT_FOUND) unless @user
     end
 
+    def id_number_exist
+      unless id_number.blank?
+        errors.add(:id_number, "#{PLEASE_CHANGE_MESSAGE} #{RECORD_EXIST_MESSAGE}") unless Identity.exists?(id_number: id_number)
+      end
+    end
+
     def required
       errors.add(:user_id, REQUIRED_MESSAGE) if user_id.blank?
       errors.add(:identity_type_id, REQUIRED_MESSAGE) if identity_type_id.blank?
-      errors.add(:filename, REQUIRED_MESSAGE) if filename.blank?
+      errors.add(:file, REQUIRED_MESSAGE) if file.blank?
     end
 
     def valid_filename
-      errors.add(:filename, VALID_IDENTITY_PROOF_MESSAGE) unless valid_identity_proof?(filename)
-      errors.add(:filename, VALID_IMG_SIZE_MESSAGE) if filename.size > 5.megabytes
-      errors.add(:filename, VALID_BASE64_MESSAGE) unless valid_identity_proof?(filename)
+      errors.add(:file, VALID_IDENTITY_PROOF_MESSAGE) unless valid_identity_proof?(file)
+      errors.add(:file, VALID_IMG_SIZE_MESSAGE) if file.size > 5.megabytes
+      errors.add(:file, VALID_BASE64_MESSAGE) unless valid_identity_proof?(file)
     end
 
     def valid_identity_type_id

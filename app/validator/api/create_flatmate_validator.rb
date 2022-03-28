@@ -3,7 +3,7 @@
 module Api
   class CreateFlatmateValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :audit_comment,

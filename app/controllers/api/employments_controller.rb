@@ -8,9 +8,9 @@ module Api
 
     # GET /api/employments
     def index
-      pagy, @employments = pagy(Income.all)
+      pagy, @employments = pagy(Employment.includes(:income))
 
-      @employments = @employments.where(user_id: current_user.id)
+      @employments = @employments.where(income: { user_id: current_user.id })
 
       pagy_headers_merge(pagy)
     end

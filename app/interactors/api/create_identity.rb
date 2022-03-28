@@ -36,7 +36,8 @@ module Api
         audit_comment: 'Create Identity',
         user_id: current_user.id,
         identity_type_id: data[:identity][:identity_type_id],
-        filename: data[:identity][:filename]
+        id_number: data[:identity][:id_number],
+        file: data[:identity][:file]
       }
     end
   end

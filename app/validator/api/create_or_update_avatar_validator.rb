@@ -1,7 +1,7 @@
 module Api
   class CreateOrUpdateAvatarValidator
     include Helper::BasicHelper
-    include ActiveModel::Model
+    include ActiveModel::API
 
     attr_accessor(
       :user_id,
