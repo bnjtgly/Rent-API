@@ -29,7 +29,7 @@ json.data do
         json.array! @employment.emp_documents.each do |data|
           json.document_id data.id
           json.employment_id data.employment_id
-          json.filename data.filename
+          json.file data.file
         end
       else
         json.null!

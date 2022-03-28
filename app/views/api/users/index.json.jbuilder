@@ -50,7 +50,8 @@ json.identities do
     json.identity_id data.id
     json.user_id data.user_id
     json.identity_type data.ref_identity_type.display
-    json.filename data.filename
+    json.id_number data.id_number
+    json.file data.file
   end
 end
 
@@ -64,9 +65,6 @@ json.incomes do
     json.amount data.amount
     json.proof data.proof
     json.total_income_summary @total_income
-    # json.income_summary do
-    #   json.total_income @user.incomes.sum(:amount)
-    # end
     json.employment do
       if data.employment
         json.employment_id data.employment.id
@@ -98,7 +96,7 @@ json.incomes do
             json.array! data.employment.emp_documents.each do |data|
               json.document_id data.id
               json.employment_id data.employment_id
-              json.filename data.filename
+              json.file data.file
             end
           else
             json.null!

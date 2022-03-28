@@ -211,7 +211,7 @@ when 'development', 'staging'
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
 
-  Identity.create(user_id: user1.id, identity_type_id: identity_type_ref.id, filename: 'driver_license.jpg')
+  Identity.create(user_id: user1.id, identity_type_id: identity_type_ref.id, id_number: 'B01194', file: 'driver_license.jpg')
 
   flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
@@ -244,8 +244,8 @@ when 'development', 'staging'
                            address: '5 Que Road',
                            post_code: '7140')
 
-  EmpDocument.create(employment_id: emp1.id, filename: 'payslip.jpg')
-  EmpDocument.create(employment_id: emp1.id, filename: 'coe.jpg')
+  EmpDocument.create(employment_id: emp1.id, file: 'payslip.jpg')
+  EmpDocument.create(employment_id: emp1.id, file: 'coe.jpg')
 
   Reference.create(address_id: address1.id,
                    full_name: 'Joanna Miller',
