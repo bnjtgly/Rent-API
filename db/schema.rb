@@ -85,10 +85,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
 
   create_table "emp_documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "employment_id", null: false
-    t.string "filename"
+    t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["employment_id", "filename"], name: "index_emp_documents_on_employment_id_and_filename", unique: true
+    t.index ["employment_id", "file"], name: "index_emp_documents_on_employment_id_and_file", unique: true
     t.index ["employment_id"], name: "index_emp_documents_on_employment_id"
   end
 
@@ -133,11 +133,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   create_table "identities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "identity_type_id"
-    t.string "filename"
+    t.string "id_number"
+    t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_type_id"], name: "index_identities_on_identity_type_id"
-    t.index ["user_id", "identity_type_id", "filename"], name: "index_identities_on_user_id_and_identity_type_id_and_filename", unique: true
+    t.index ["user_id", "identity_type_id", "id_number"], name: "index_identities_on_user_id_and_identity_type_id_and_id_number", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
