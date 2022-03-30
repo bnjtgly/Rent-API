@@ -22,4 +22,11 @@ module DeviseRequestHelpers
     return user
   end
 
+  def get_authorize_user
+    user = create(:user, api_client: create(:api_client))
+    create(:user_role, role: create(:role), user: user)
+
+    sign_in user
+  end
+
 end
