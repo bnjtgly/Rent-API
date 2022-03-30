@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 module Api
-  class CreateReferenceValidator
+  class UpdateReferenceValidator
     include Helper::BasicHelper
     include ActiveModel::API
 
     attr_accessor(
+      :reference_id,
+      :user_id,
       :address_id,
       :employment_id,
       :full_name,
@@ -16,13 +18,19 @@ module Api
     )
 
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validate :required, :valid_name, :valid_mobile, :valid_mobile_country_code_id, :valid_ref_position_id, :address_employment_exist
+    validate :required, :user_id_exist, :reference_id_exist, :valid_name, :valid_mobile, :valid_mobile_country_code_id, :valid_ref_position_id, :address_employment_exist
 
     def submit
+      init
       persist!
     end
 
     private
+
+    def init
+      @reference = Reference.where(id: reference_id).load_async.first
+      @user = User.where(id: user_id).load_async.first
+    end
 
     def persist!
       return true if valid?
@@ -31,11 +39,21 @@ module Api
     end
 
     def required
+      errors.add(:user_id, REQUIRED_MESSAGE) if user_id.blank?
+      errors.add(:reference_id, REQUIRED_MESSAGE) if reference_id.blank?
       errors.add(:full_name, REQUIRED_MESSAGE) if full_name.blank?
       errors.add(:email, REQUIRED_MESSAGE) if email.blank?
       errors.add(:ref_position_id, REQUIRED_MESSAGE) if ref_position_id.blank?
       errors.add(:mobile_country_code_id, REQUIRED_MESSAGE) if mobile_country_code_id.blank?
       errors.add(:mobile, REQUIRED_MESSAGE) if mobile.blank?
+    end
+
+    def reference_id_exist
+      errors.add(:reference_id, NOT_FOUND) unless @user
+    end
+
+    def user_id_exist
+      errors.add(:user_id, USER_ID_NOT_FOUND) unless @user
     end
 
     def address_employment_exist

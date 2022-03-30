@@ -19,6 +19,7 @@ class Ability
         can %i[index create], Api::PetsController
         can %i[index], Api::TenantApplicationsController
         can %i[index], Api::UserPropertiesController
+        can %i[update], Api::ReferencesController
       end
     else
       can %i[confirm_email], Api::UsersController

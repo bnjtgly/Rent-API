@@ -12,7 +12,7 @@ json.data do
   json.post_code @employment.post_code
   json.reference do
     if @employment.reference
-      json.reference_id @employment.reference.id
+      json.id @employment.reference.id
       json.employment_id @employment.reference.employment_id
       json.full_name @employment.reference.full_name
       json.email @employment.reference.email
