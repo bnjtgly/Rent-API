@@ -38,7 +38,7 @@ module Api
 
     def id_number_exist
       unless id_number.blank?
-        errors.add(:id_number, "#{PLEASE_CHANGE_MESSAGE} #{RECORD_EXIST_MESSAGE}") unless Identity.exists?(id_number: id_number)
+        errors.add(:id_number, "#{PLEASE_CHANGE_MESSAGE} #{ID_EXIST_MESSAGE}") unless Identity.exists?(id_number: id_number)
       end
     end
 

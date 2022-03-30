@@ -55,8 +55,8 @@ module Api
     end
 
     def valid_date
-      errors.add(:valid_from, VALID_NUMBER_MESSAGE) if valid_date?(valid_from).eql?(false)
-      errors.add(:valid_thru, VALID_NUMBER_MESSAGE) if valid_date?(@valid_thru).eql?(false)
+      errors.add(:valid_from, VALID_DATE_MESSAGE) if valid_date?(valid_from).eql?(false)
+      errors.add(:valid_thru, VALID_DATE_MESSAGE) if valid_date?(@valid_thru).eql?(false)
     end
 
     def no_space_allowed
