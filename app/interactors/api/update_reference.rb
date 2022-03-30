@@ -49,10 +49,6 @@ module Api
       context.fail!(error: verify.errors)
     end
 
-    # @todo
-    # Work on update
-    # Create Validator
-
     def payload
       {
         user_id: current_user.id,
