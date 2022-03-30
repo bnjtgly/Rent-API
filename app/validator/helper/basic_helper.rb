@@ -25,6 +25,7 @@ module Helper
     TABLE_NOT_EXIST_MESSAGE = 'Table does not exist.'
     COLUMN_NOT_EXIST_MESSAGE = 'Column does not exist.'
     RECORD_EXIST_MESSAGE = 'Record exist.'
+    ID_EXIST_MESSAGE = 'This ID number is already in use by another user.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
 

@@ -175,7 +175,7 @@ when 'development', 'staging'
     bedrooms: '5',
     bathrooms: '2',
     garage: '2',
-    availability: '8',
+    availability: '2022-03-22',
     rent_per_week: '750'
   })
 
@@ -187,8 +187,32 @@ when 'development', 'staging'
     bedrooms: '4',
     bathrooms: '1',
     garage: '1',
-    availability: '5',
+    availability: '2022-01-22',
     rent_per_week: '450'
+  })
+
+  property3 = Property.create(details: {
+    id: SecureRandom.uuid,
+    name: 'Master Bedroom on private level + & W.I.R!',
+    desc: '',
+    address: 'Fourth Avenue, New Norfolk TAS, Australia',
+    bedrooms: '4',
+    bathrooms: '1',
+    garage: '1',
+    availability: '2022-01-22',
+    rent_per_week: '430'
+  })
+
+  property4 = Property.create(details: {
+    id: SecureRandom.uuid,
+    name: 'Little Cottage by the River in Healesville',
+    desc: '',
+    address: 'Fourth Avenue, New Norfolk TAS, Australia',
+    bedrooms: '3',
+    bathrooms: '1',
+    garage: '1',
+    availability: '2022-04-22',
+    rent_per_week: '370'
   })
 
   # User saved properties.
