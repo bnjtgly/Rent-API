@@ -148,14 +148,21 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
-  user3 = User.create(email: 'agnespaige@sr.tenant.com', password: 'Abc!23', first_name: 'Agnes', last_name: 'Paige', date_of_birth: '1992-12-10',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
-                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
-
   # Create user: tenant - Ios
   user2 = User.create(email: 'aliciah@sr.tenant.com', password: 'Abc!23', first_name: 'Alicia', last_name: 'Henderson', date_of_birth: '1996-11-11',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7223456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_ios.id, user_status_id: user_status_ref.id)
+
+  user3 = User.create(email: 'agnespaige@sr.tenant.com', password: 'Abc!23', first_name: 'Agnes', last_name: 'Paige', date_of_birth: '1992-12-10',
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+
+  faker_name = Faker::Name.first_name
+  User.create(email: Faker::Internet.email(name: faker_name), password: 'Abc!23', first_name: faker_name, last_name: Faker::Name.last_name, date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: Faker::Number.number(digits: 10), is_email_verified: false, is_mobile_verified: false, sign_up_with_id: sign_up_with_ref1.id,
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+
+
 
   # Assign role to user
   UserRole.create(user_id: user.id, role_id: role_admin.id, audit_comment: 'Seed data.')
