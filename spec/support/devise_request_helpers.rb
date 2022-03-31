@@ -13,20 +13,12 @@ module DeviseRequestHelpers
     logout(scope)
   end
 
-  def authorize_user(resource_role)
-    api_client = create :api_client
-    user = create(:user, api_client: api_client)
-    create(:user_role, role: resource_role, user: user)
-
-    sign_in user
-    return user
-  end
-
-  def get_authorize_user
+  def authorize_user
     user = create(:user, api_client: create(:api_client))
     create(:user_role, role: create(:role), user: user)
 
     sign_in user
+    return user
   end
 
 end

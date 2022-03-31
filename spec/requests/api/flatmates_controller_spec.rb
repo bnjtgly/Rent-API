@@ -4,7 +4,7 @@ RSpec.describe "Api::FlatmatesControllers", type: :request do
   describe "GET /index" do
     context "When user is logged in" do
       before do
-        get_authorize_user
+        authorize_user
 
         get '/api/flatmates', as: :json
       end
@@ -22,6 +22,33 @@ RSpec.describe "Api::FlatmatesControllers", type: :request do
       it "returns http unauthorized" do
         expect(response.status).to eq(401)
       end
+    end
+  end
+
+  describe "POST /create" do
+    context "creates flatmate" do
+      before do
+        user = authorize_user
+
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+        params = {
+          "current_user": user,
+          "flatmate": {
+            "group_name": Faker::Team.name
+          }
+        }
+
+        post '/api/flatmates', params: params, as: :json, headers: headers
+      end
+
+      it "returns http created" do
+        expect(response.status).to eq(200)
+      end
+
+      it "returns json" do
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
+
     end
   end
 end
