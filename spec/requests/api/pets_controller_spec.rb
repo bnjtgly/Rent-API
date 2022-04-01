@@ -49,8 +49,6 @@ RSpec.describe "Api::PetsControllers", type: :request do
           }
         }
 
-        ap params
-
         post '/api/pets', params: params, as: :json, headers: headers
       end
 
