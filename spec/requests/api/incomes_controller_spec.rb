@@ -4,7 +4,7 @@ RSpec.describe "Api::IncomesControllers", type: :request do
   describe "GET /index" do
     context "When user is logged in" do
       before do
-        get_authorize_user
+        authorize_user
 
         get '/api/incomes', as: :json
       end

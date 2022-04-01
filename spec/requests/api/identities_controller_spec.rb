@@ -4,7 +4,7 @@ RSpec.describe "Api::IdentitiesControllers", type: :request do
   describe "GET /index" do
     context "When user is logged in" do
       before do
-        get_authorize_user
+        authorize_user
 
         get '/api/identities', as: :json
       end

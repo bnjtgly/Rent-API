@@ -28,11 +28,10 @@ RSpec.describe "Api::FlatmatesControllers", type: :request do
   describe "POST /create" do
     context "creates flatmate" do
       before do
-        user = authorize_user
+        authorize_user
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         params = {
-          "current_user": user,
           "flatmate": {
             "group_name": Faker::Team.name
           }
