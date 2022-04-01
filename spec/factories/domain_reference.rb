@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :domain_reference do
     association :domain
-    role { create(:role) }
+    role { nil }
     display { nil }
-    value_str { nil }
+    value_str { display.downcase }
   end
 end
