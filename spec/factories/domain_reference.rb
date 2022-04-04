@@ -4,5 +4,6 @@ FactoryBot.define do
     role { nil }
     display { nil }
     value_str { display.downcase }
+    status {'Active'}
   end
 end

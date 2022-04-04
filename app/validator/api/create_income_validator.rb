@@ -15,7 +15,7 @@ module Api
       :proof
     )
 
-    validate :user_id_exist, :required, :valid_proof, :valid_amount, :valid_income_source_id, :valid_income_frequency_id, :valid_currency_id
+    validate :user_id_exist, :record_exist, :required, :valid_proof, :valid_amount, :valid_income_source_id, :valid_income_frequency_id, :valid_currency_id
 
     def submit
       init
@@ -36,6 +36,10 @@ module Api
 
     def user_id_exist
       errors.add(:user_id, USER_ID_NOT_FOUND) unless @user
+    end
+
+    def record_exist
+      errors.add(:identity, RECORD_EXIST_MESSAGE)if Income.exists?(user_id: user_id, income_source_id: income_source_id, income_frequency_id: income_frequency_id, currency_id: currency_id, amount: amount)
     end
 
     def required
