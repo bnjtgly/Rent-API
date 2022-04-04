@@ -13,7 +13,7 @@ module Api
       :file
     )
 
-    validate :user_id_exist, :id_number_exist, :required, :valid_identity_type_id, :valid_filename
+    validate :user_id_exist, :id_number_exist, :record_exist, :required, :valid_identity_type_id, :valid_filename
 
     def submit
       init
@@ -38,8 +38,12 @@ module Api
 
     def id_number_exist
       unless id_number.blank?
-        errors.add(:id_number, "#{PLEASE_CHANGE_MESSAGE} #{ID_EXIST_MESSAGE}") unless Identity.exists?(id_number: id_number)
+        errors.add(:id_number, "#{PLEASE_CHANGE_MESSAGE} #{ID_EXIST_MESSAGE}") if Identity.exists?(id_number: id_number)
       end
+    end
+
+    def record_exist
+      errors.add(:identity, RECORD_EXIST_MESSAGE) if Identity.exists?(id_number: id_number, user_id: user_id, identity_type_id: identity_type_id)
     end
 
     def required

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :domain do
-    domain_number { Faker::Number.unique.binary }
-    name {nil}
+    domain_number { nil }
+    name { nil }
   end
 end

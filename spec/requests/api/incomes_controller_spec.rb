@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Api::IncomesControllers", type: :request do
-  describe "GET /index" do
+  describe "api/incomes" do
     context "When user is logged in" do
       before do
         authorize_user
@@ -23,5 +23,7 @@ RSpec.describe "Api::IncomesControllers", type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+
   end
 end

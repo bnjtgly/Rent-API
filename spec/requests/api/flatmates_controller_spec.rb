@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Api::FlatmatesControllers", type: :request do
-  describe "GET /index" do
+  describe "api/flatmates" do
     context "When user is logged in" do
       before do
         authorize_user
@@ -23,9 +23,7 @@ RSpec.describe "Api::FlatmatesControllers", type: :request do
         expect(response.status).to eq(401)
       end
     end
-  end
 
-  describe "POST /create" do
     context "creates flatmate" do
       before do
         authorize_user
