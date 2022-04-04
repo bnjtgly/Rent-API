@@ -22,7 +22,7 @@ class PasswordsController < ApplicationController
   end
 
   # PATCH/PUT /password/1
-  def update
+  def update_password
     interact = Api::UpdatePassword.call(data: params, current_user: current_user)
 
     if interact.success?
