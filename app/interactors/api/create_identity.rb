@@ -16,6 +16,7 @@ module Api
     private
 
     def build
+      # @todo: Create a logic to update the record if the same record but with id_number.
       @identity = Identity.new(payload)
       Identity.transaction do
         @identity.save

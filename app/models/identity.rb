@@ -2,7 +2,7 @@
 
 class Identity < ApplicationRecord
   strip_attributes
-  encrypts :id_number
+  encrypts :id_number, deterministic: true
   mount_base64_uploader :file, IdentityUploader
 
   belongs_to :user

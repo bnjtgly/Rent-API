@@ -8,10 +8,10 @@ module DeviseRequestHelpers
     login_as(resource, scope: scope)
   end
 
-  def sign_out(resource_or_scope)
-    scope = Devise::Mapping.find_scope!(resource_or_scope)
-    logout(scope)
-  end
+  # def sign_out(resource_or_scope)
+  #   scope = Devise::Mapping.find_scope!(resource_or_scope)
+  #   logout(scope)
+  # end
 
   def authorize_user
     user = create(:user, api_client: create(:api_client))

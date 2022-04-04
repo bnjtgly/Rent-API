@@ -24,7 +24,7 @@ module Helper
     EMAIL_NOT_VERIFIED = 'Your email address is not verified. Please verify your email address first.'
     TABLE_NOT_EXIST_MESSAGE = 'Table does not exist.'
     COLUMN_NOT_EXIST_MESSAGE = 'Column does not exist.'
-    RECORD_EXIST_MESSAGE = 'Record exist.'
+    RECORD_EXIST_MESSAGE = 'Record already exist.'
     ID_EXIST_MESSAGE = 'This ID number is already in use by another user.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
