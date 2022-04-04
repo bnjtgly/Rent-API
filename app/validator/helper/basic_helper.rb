@@ -26,6 +26,7 @@ module Helper
     COLUMN_NOT_EXIST_MESSAGE = 'Column does not exist.'
     RECORD_EXIST_MESSAGE = 'Record already exist.'
     ID_EXIST_MESSAGE = 'This ID number is already in use by another user.'
+    INCORRECT_PASSWORD = 'Incorrect Password.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
 

@@ -45,6 +45,8 @@
 
   post 'authentication', to: 'authentication#authentication'
   post 'refresh_me', to: 'refresh_token#refresh_me'
+
+  resources :passwords, param: :user_id, only: %i[update]
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
 end
