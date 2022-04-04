@@ -23,42 +23,56 @@ RSpec.describe "Api::AddressesControllers", type: :request do
         expect(response.status).to eq(401)
       end
     end
-  end
 
-  # Quite complicated to implement with Organizer, we'll get back to it later.
-  # describe "POST /create" do
-  #   context "creates address" do
-  #     before do
-  #       user = authorize_user
-  #       headers = { 'CONTENT_TYPE' => 'application/json' }
-  #       params = {
-  #         "current_user": user,
-  #         "address": {
-  #           "state": Faker::Address.street_name,
-  #           "suburb": Faker::Address.street_name,
-  #           "address": Faker::Address.street_address,
-  #           "post_code": Faker::Address.postcode,
-  #           "valid_from": Faker::Date.between(from: '2015-01-01', to: '2022-03-30'),
-  #           "valid_thru": Faker::Date.between(from: '2018-01-01', to: '2022-03-30'),
-  #           "reference": {
-  #             "full_name": Faker::Name.name,
-  #             "email": Faker::Internet.email,
-  #             "ref_position_id": '4b4cb23e-b8d3-4b1c-9b3e-2d4d0978c205',
-  #             "mobile_country_code_id": 'de5b5ab7-f01a-4816-ab2a-628915337eaa',
-  #             "mobile": 9662262623
-  #           }
-  #         }
-  #       }
-  #       post '/api/addresses', params: params, as: :json, headers: headers
-  #     end
-  #
-  #     it "returns http created" do
-  #       expect(response.status).to eq(201)
-  #     end
-  #
-  #     it "returns json" do
-  #       expect(response.content_type).to eq("application/json")
-  #     end
-  #   end
-  # end
+    context "creates address" do
+      let(:user) { authorize_user }
+
+      let(:reference_position) { create(:domain, domain_number: 2401, name: 'Address Reference Position') }
+      let(:mobile_country_code) { create(:domain, domain_number: 1301, name: 'User Mobile Country Code') }
+
+      let(:ref_position) { create(:domain_reference, domain: reference_position, role: %W[#{user.user_role.role.id}], display: 'Property Manager') }
+      let(:mobile_country_code_ref) { create(:domain_reference, domain: mobile_country_code, role: %W[#{user.user_role.role.id}], display: '+61', value_str: '61') }
+
+      before do
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+        params = {
+          "address": {
+            "state": Faker::Address.state,
+            "suburb": Faker::Address.city,
+            "address": Faker::Address.street_address,
+            "post_code": Faker::Number.number(digits: 5).to_s,
+            "valid_from": Faker::Date.between(from: '2015-01-01', to: '2022-03-30'),
+            "valid_thru": nil,
+            "reference": {
+              "full_name": "#{Faker::Name.first_name.gsub(/\W/, '').gsub("\u0000", '')} #{Faker::Name.last_name.gsub(/\W/, '').gsub("\u0000", '')}",
+              "email": Faker::Internet.safe_email,
+              "ref_position_id": ref_position.id,
+              "mobile_country_code_id": mobile_country_code_ref.id,
+              "mobile": "0491#{Faker::PhoneNumber.subscriber_number(length: 6)}"
+            }
+          }
+        }
+
+        post '/api/addresses', params: params, as: :json, headers: headers
+      end
+
+      it "returns http success" do
+        expect(response.status).to eq(200)
+      end
+
+      it "returns json" do
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
+    end
+
+    context "unauthorized post" do
+      before do
+        post '/api/addresses', params: {}, as: :json, headers: { 'CONTENT_TYPE' => 'application/json' }
+      end
+
+      it "returns http unauthorized" do
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end

@@ -59,5 +59,15 @@ RSpec.describe "Api::PetsControllers", type: :request do
         expect(response.content_type).to eq('application/json; charset=utf-8')
       end
     end
+
+    context "unauthorized post" do
+      before do
+        post '/api/pets', params: {}, as: :json, headers: { 'CONTENT_TYPE' => 'application/json' }
+      end
+
+      it "returns http unauthorized" do
+        expect(response.status).to eq(401)
+      end
+    end
   end
 end

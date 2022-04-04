@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Api::IdentitiesControllers", type: :request do
-  describe "GET /index" do
+  describe "/api/identities" do
     context "When user is logged in" do
       before do
         authorize_user
@@ -52,6 +52,16 @@ RSpec.describe "Api::IdentitiesControllers", type: :request do
 
       it "returns json" do
         expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
+    end
+
+    context "unauthorized post" do
+      before do
+        post '/api/identities', params: {}, as: :json, headers: { 'CONTENT_TYPE' => 'application/json' }
+      end
+
+      it "returns http unauthorized" do
+        expect(response.status).to eq(401)
       end
     end
   end
