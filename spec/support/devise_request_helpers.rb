@@ -20,5 +20,4 @@ module DeviseRequestHelpers
     sign_in user
     return user
   end
-
 end
