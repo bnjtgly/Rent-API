@@ -9,9 +9,9 @@ FactoryBot.define do
 end
 
 def alphanumeric_password
-  password = ''
-  until password =~ /\d/
-    password = Faker::Internet.unique.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)
-  end
-  password
+  specials = ((35..38).to_a + (91..96).to_a).pack('U*').chars.to_a
+  characters = specials
+  password = Random.new.rand(1..2).times.map{characters.sample}
+  password << Faker::Internet.password(min_length: 15, mix_case: true)
+  password.shuffle.join
 end
