@@ -16,6 +16,17 @@ module Api
       end
     end
 
+    # PATCH/PUT /api/users/1
+    def update_account
+      interact = Api::UpdateAccount.call(data: params, current_user: current_user)
+
+      if interact.success?
+        render json: { message: 'Success' }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
     def update_personal_info
       interact = Api::UpdateUserPersonalInfo.call(data: params, current_user: current_user)
 

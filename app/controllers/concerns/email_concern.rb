@@ -19,7 +19,7 @@ module EmailConcern
 
       # Temporary link for email verification.
       message_body = "<p>Welcome to Rento! Thank you for signing up. Please confirm your email address.</p> <br>
-                      <a href='#' target='_blank' style='font-size: 18px; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #61dba2; border-top: 10px solid #61dba2; border-bottom: 10px solid #61dba2; border-right: 15px solid #61dba2; border-left: 15px solid #61dba2; display: inline-block;'>Verify Now</a><br><br>
+                      <a href='#{confirmation_link}' target='_blank' style='font-size: 18px; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #61dba2; border-top: 10px solid #61dba2; border-bottom: 10px solid #61dba2; border-right: 15px solid #61dba2; border-left: 15px solid #61dba2; display: inline-block;'>Verify Now</a><br><br>
                       <p>If you have trouble confirming your account or need any help, you can reach out at support@rento.com.au.</p>"
       sg_data = {
         personalizations: [

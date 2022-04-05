@@ -4,7 +4,7 @@ module Api
   class UpdatePassword
     include Interactor
 
-    delegate :data, :ocr, :current_user, to: :context
+    delegate :data, :current_user, to: :context
 
     def call
       validate!

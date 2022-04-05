@@ -33,6 +33,7 @@
     post 'users/resend_email_verification', to: 'users#resend_email_verification'
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_personal_info', to: 'users#update_personal_info'
+    post 'users/update_account', to: 'users#update_account'
 
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
   end
