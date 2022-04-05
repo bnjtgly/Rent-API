@@ -13,5 +13,6 @@ def alphanumeric_password
   characters = specials
   password = Random.new.rand(1..2).times.map{characters.sample}
   password << Faker::Internet.password(min_length: 15, mix_case: true)
+  password << specials.sample unless password.join =~ Regexp.new(Regexp.escape(specials.join))
   password.shuffle.join
 end
