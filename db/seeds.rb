@@ -157,13 +157,6 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
-  faker_name = Faker::Name.first_name
-  User.create(email: Faker::Internet.email(name: faker_name), password: 'Abc!23', first_name: faker_name, last_name: Faker::Name.last_name, date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: Faker::Number.number(digits: 10), is_email_verified: false, is_mobile_verified: false, sign_up_with_id: sign_up_with_ref1.id,
-                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
-
-
-
   # Assign role to user
   UserRole.create(user_id: user.id, role_id: role_admin.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user1.id, role_id: role_user.id, audit_comment: 'Seed data.')
