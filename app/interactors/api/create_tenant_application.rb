@@ -19,7 +19,14 @@ module Api
 
     def build
       @tenant_application = TenantApplication.new(payload)
-      setup_application
+      @tenant_application_status = DomainReference.joins(:domain)
+                                                  .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
+
+      # Remove in production
+      unless %w[test].any? { |keyword| Rails.env.include?(keyword) }
+        @tenant_application.tenant_application_status_id = @tenant_application_status.id
+        setup_application_data
+      end
 
       TenantApplication.transaction do
         @tenant_application.save
@@ -46,15 +53,11 @@ module Api
       }
     end
 
-    def setup_application
+    def setup_application_data
       @user = User.where(id: current_user.id).load_async.first
       @employment = @user.incomes.where.associated(:employment).first
-      @tenant_application_status = DomainReference.joins(:domain)
-                                                  .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
-
       # @todo: Check if application for pending status or draft.
 
-      @tenant_application.tenant_application_status_id = @tenant_application_status.id
       @tenant_application.application_data = {
         personal_info: {
           email: @user.email,
