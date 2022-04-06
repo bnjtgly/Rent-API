@@ -6,7 +6,7 @@ json.data do
   json.currency @income.ref_currency.display
   json.amount @income.amount
   json.proof @income.proof
-
+  json.total_income_summary @total_income
   json.employment do
     if @income.employment
       json.id @income.employment.id
