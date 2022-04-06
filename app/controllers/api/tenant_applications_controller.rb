@@ -16,6 +16,17 @@ module Api
       pagy_headers_merge(pagy)
     end
 
+    # POST /api/tenant_applications
+    def create
+      interact = Api::CreateTenantApplication.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @tenant_application = interact.tenant_application
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
     private
     # @todo
     def generate_history

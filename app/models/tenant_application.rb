@@ -11,4 +11,6 @@ class TenantApplication < ApplicationRecord
   # List all domain_references columns in users table.
   belongs_to :ref_status, class_name: 'DomainReference', foreign_key: 'tenant_application_status_id', optional: true
   belongs_to :ref_lease_length, class_name: 'DomainReference', foreign_key: 'lease_length_id', optional: true
+
+  audited associated_with: :user
 end

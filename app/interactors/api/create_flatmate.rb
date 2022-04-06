@@ -12,7 +12,7 @@ module Api
     end
 
     def rollback
-      context.address&.destroy
+      context.flatmate&.destroy
     end
 
     private
