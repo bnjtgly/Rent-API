@@ -25,6 +25,7 @@ module Api
 
       if interact.success?
         @income = interact.income
+        @total_income = get_income_summary(Income.where(user_id: current_user.id))
       else
         render json: { error: interact.error }, status: 422
       end
