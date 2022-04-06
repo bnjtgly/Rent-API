@@ -19,6 +19,7 @@ module Helper
     VALID_IMG_SIZE_MESSAGE = 'Attachment size exceeds the allowable limit (5 MB).'
     VALID_AMOUNT = 'Please enter a valid amount.'
     VALID_COMPANY_NAME_MESSAGE = "Not allowed multiple spaces between words. Accepted values are alpha numeric and ['&:.,@-] special characters only."
+    VALID_JSON_MESSAGE = "Please enter a valid value. Must be json."
     USER_ID_NOT_FOUND = 'We do not recognize your Account. Please try again.'
     MOBILE_NOT_VERIFIED = 'Your mobile number is not verified. Please verify your mobile number first.'
     EMAIL_NOT_VERIFIED = 'Your email address is not verified. Please verify your email address first.'
@@ -106,6 +107,13 @@ module Helper
       data = value.gsub(%r{^data:image/(jpg|jpeg|png);base64,}, '')
 
       data.blank? ? false : data.is_a?(String) && Base64.strict_encode64(Base64.decode64(data)) == data
+    end
+
+    def valid_json?(value)
+      JSON.parse(value)
+      return true
+    rescue JSON::ParserError => e
+      return false
     end
   end
 end

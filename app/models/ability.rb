@@ -18,6 +18,7 @@ class Ability
         can %i[create], Api::FlatmateMembersController
         can %i[index create], Api::PetsController
         can %i[index create], Api::TenantApplicationsController
+        can %i[create], Api::PropertiesController
         can %i[index], Api::UserPropertiesController
         can %i[update], Api::ReferencesController
       end
