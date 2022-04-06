@@ -55,7 +55,8 @@ Rails.application.configure do
 
   config.active_record.async_query_executor = :global_thread_pool
 
-  config.active_record.encryption.support_unencrypted_data = true
+  # Rails 7 encrypt
+  # config.active_record.encryption.support_unencrypted_data = true
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
