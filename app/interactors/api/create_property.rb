@@ -24,10 +24,10 @@ class Api::CreateProperty
         @property.save
       end
     else
-
+      @property = @property_exists
     end
 
-    context.property = @property_exists
+    context.property = @property
   end
 
   def validate!

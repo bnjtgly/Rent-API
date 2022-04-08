@@ -2,6 +2,8 @@
 
 module Api
   class AddressesController < ApplicationController
+    include ProfileConcern
+
     before_action :authenticate_user!
     authorize_resource class: Api::AddressesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -11,6 +13,7 @@ module Api
       pagy, @addresses = pagy(Address.all)
 
       @addresses = @addresses.where(user_id: current_user.id).order(valid_thru: :desc)
+      get_completion_percentage
 
       pagy_headers_merge(pagy)
     end
@@ -21,6 +24,7 @@ module Api
 
       if interact.success?
         @address = interact.address
+        get_completion_percentage
       else
         render json: { error: interact.error }, status: 422
       end
@@ -35,6 +39,11 @@ module Api
       else
         render json: { error: interact.error }, status: 422
       end
+    end
+
+    private
+    def get_completion_percentage
+      @profile_completion_percentage = get_profile_completion_percentage[:addresses]
     end
   end
 end
