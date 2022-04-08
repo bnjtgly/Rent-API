@@ -18,6 +18,8 @@ json.user do
   json.status @user.ref_user_status.display
 end
 
+json.profile_completion @profile_completion_percentage
+
 json.addresses do
   json.array! @user.addresses.each do |data|
     json.address_id data.id
