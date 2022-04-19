@@ -35,7 +35,7 @@ module Api
 
       if interact.success?
         @user = interact.user
-        render 'api/users/show'
+        @profile_completion_percentage = get_profile_completion_percentage
       else
         render json: { error: interact.error }, status: 422
       end
