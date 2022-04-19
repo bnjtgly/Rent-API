@@ -2,6 +2,8 @@
 
 module Api
   class FlatmatesController < ApplicationController
+    include ProfileConcern
+
     before_action :authenticate_user!
     authorize_resource class: Api::FlatmatesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -11,6 +13,7 @@ module Api
       pagy, @flatmates = pagy(Flatmate.all)
 
       @flatmates = @flatmates.where(user_id: current_user.id)
+      @profile_completion_percentage = get_profile_completion_percentage[:flatmates]
 
       pagy_headers_merge(pagy)
     end
@@ -21,6 +24,7 @@ module Api
 
       if interact.success?
         @flatmate = interact.flatmate
+        @profile_completion_percentage = get_profile_completion_percentage[:flatmates]
       else
         render json: { error: interact.error }, status: 422
       end

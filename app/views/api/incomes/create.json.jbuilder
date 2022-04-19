@@ -48,4 +48,5 @@ json.data do
       json.null!
     end
   end
+  json.incomes_progress @profile_completion_percentage
 end

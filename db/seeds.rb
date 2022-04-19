@@ -13,6 +13,7 @@ api_client_android = ApiClient.create(name: 'Tenant Application Android')
 role_admin = Role.create(role_name: 'SUPERADMIN', role_def: 'Tenant Application super administrator.')
 role_user = Role.create(role_name: 'USER', role_def: 'Tenant Application users/tenants.')
 role_guest = Role.create(role_name: 'GUEST', role_def: 'Tenant Application guests/visitors.')
+role_pm = Role.create(role_name: 'PROPERTY MANAGER', role_def: 'Tenant Application property managers.')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SEED ON DEVELOPMENT, STAGING and PRODUCTION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -157,11 +158,16 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
+  user4 = User.create(email: 'avaelliott@sr.tenant.com', password: 'Abc!23', first_name: 'Ava ', last_name: 'Elliott', date_of_birth: '1990-11-12',
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+
   # Assign role to user
   UserRole.create(user_id: user.id, role_id: role_admin.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user1.id, role_id: role_user.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user2.id, role_id: role_user.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user3.id, role_id: role_user.id, audit_comment: 'Seed data.')
+  UserRole.create(user_id: user4.id, role_id: role_pm.id, audit_comment: 'Seed data.')
 
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 

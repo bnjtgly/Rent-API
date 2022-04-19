@@ -7,6 +7,7 @@ json.data do
   json.name @pet.name
   json.breed @pet.breed
   json.color @pet.color
+  json.pets_progress @profile_completion_percentage
 end
 
 

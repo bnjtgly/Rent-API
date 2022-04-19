@@ -2,6 +2,8 @@
 
 module Api
   class IdentitiesController < ApplicationController
+    include ProfileConcern
+
     before_action :authenticate_user!
     authorize_resource class: Api::IdentitiesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -11,6 +13,7 @@ module Api
       pagy, @identities = pagy(Identity.all)
 
       @identities = @identities.where(user_id: current_user.id)
+      @profile_completion_percentage = get_profile_completion_percentage[:identities]
 
       pagy_headers_merge(pagy)
     end
@@ -21,6 +24,7 @@ module Api
 
       if interact.success?
         @identity = interact.identity
+        @profile_completion_percentage = get_profile_completion_percentage[:identities]
       else
         render json: { error: interact.error }, status: 422
       end
