@@ -37,7 +37,11 @@
     post 'users/update_account', to: 'users#update_account'
 
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
+    get 'users/get_users', to: 'users#get_users'
   end
+
+  resources :messages, only: [:index, :create]
+  resources :chatrooms, only: [:index, :create, :show]
 
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
@@ -51,4 +55,6 @@
   post 'password/update_password', to: 'passwords#update_password'
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
+
+  mount ActionCable.server => './cable'
 end

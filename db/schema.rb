@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -57,6 +57,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "chatrooms", force: :cascade do |t|
+    t.string "title"
+    t.uuid "sender_id"
+    t.jsonb "participants", default: "{}", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sender_id"], name: "index_chatrooms_on_sender_id"
   end
 
   create_table "domain_references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -162,6 +171,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
+  end
+
+  create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "body"
+    t.bigint "chatroom_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "otp_verifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -309,6 +328,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "chatrooms", "users", column: "sender_id"
   add_foreign_key "domain_references", "domains"
   add_foreign_key "emp_documents", "employments"
   add_foreign_key "employments", "domain_references", column: "employment_status_id"
@@ -323,6 +343,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_033142) do
   add_foreign_key "incomes", "domain_references", column: "income_frequency_id"
   add_foreign_key "incomes", "domain_references", column: "income_source_id"
   add_foreign_key "incomes", "users"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "otp_verifications", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "otp_verifications", "users"
   add_foreign_key "pets", "domain_references", column: "pet_gender_id"

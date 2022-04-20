@@ -19,6 +19,10 @@ module Api
       end
     end
 
+    def get_users
+      @user = User.all
+    end
+
     # PATCH/PUT /api/users/1
     def update_account
       interact = Api::UpdateAccount.call(data: params, current_user: current_user)
