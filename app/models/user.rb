@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :flatmate_members, dependent: :destroy
   has_many :pets, dependent: :destroy
 
+  has_many :messages, dependent: :destroy
+  has_many :chatrooms, through: :messages
+
   # Domain References Association
   # List all domain_references columns in users table.
   belongs_to :ref_gender, class_name: 'DomainReference', foreign_key: 'gender_id', optional: true
