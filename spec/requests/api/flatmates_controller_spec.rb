@@ -45,7 +45,7 @@ RSpec.describe "Api::FlatmatesControllers", type: :request do
       it "returns json" do
         hash_body = nil
         expect { hash_body = JSON.parse(response.body).with_indifferent_access }.not_to raise_exception
-        expect(hash_body[:data].keys).to match_array(%w[id group_name])
+        expect(hash_body[:data].keys).to match_array(%w[id group_name flatmates_progress])
       end
     end
 

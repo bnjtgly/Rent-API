@@ -199,13 +199,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
     t.uuid "pet_type_id"
     t.uuid "pet_gender_id"
     t.uuid "pet_weight_id"
+    t.uuid "pet_vaccine_type_id"
     t.string "name"
     t.string "breed"
     t.string "color"
+    t.datetime "vaccination_date"
+    t.string "proof"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pet_gender_id"], name: "index_pets_on_pet_gender_id"
     t.index ["pet_type_id"], name: "index_pets_on_pet_type_id"
+    t.index ["pet_vaccine_type_id"], name: "index_pets_on_pet_vaccine_type_id"
     t.index ["pet_weight_id"], name: "index_pets_on_pet_weight_id"
     t.index ["user_id", "pet_type_id", "name"], name: "index_pets_on_user_id_and_pet_type_id_and_name", unique: true
     t.index ["user_id"], name: "index_pets_on_user_id"
@@ -347,6 +351,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
   add_foreign_key "otp_verifications", "users"
   add_foreign_key "pets", "domain_references", column: "pet_gender_id"
   add_foreign_key "pets", "domain_references", column: "pet_type_id"
+  add_foreign_key "pets", "domain_references", column: "pet_vaccine_type_id"
   add_foreign_key "pets", "domain_references", column: "pet_weight_id"
   add_foreign_key "pets", "users"
   add_foreign_key "references", "addresses"

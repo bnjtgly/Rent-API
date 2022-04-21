@@ -38,9 +38,12 @@ module Api
         pet_type_id: data[:pet][:pet_type_id],
         pet_gender_id: data[:pet][:pet_gender_id],
         pet_weight_id: data[:pet][:pet_weight_id],
+        pet_vaccine_type_id: data[:pet][:pet_vaccine_type_id],
         name: data[:pet][:name],
         breed: data[:pet][:breed],
-        color: data[:pet][:color]
+        color: data[:pet][:color],
+        vaccination_date: data[:pet][:vaccination_date],
+        proof: data[:pet][:proof]
       }
     end
   end
