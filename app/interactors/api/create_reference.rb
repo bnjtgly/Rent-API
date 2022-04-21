@@ -19,7 +19,6 @@ module Api
     private
     def init
       @address_id = context.address.nil? ? nil : context.address.id
-      @employment_id = context.employment.nil? ? nil : context.employment.id
     end
     def build
       @reference = Reference.new(payload)
@@ -38,25 +37,14 @@ module Api
     end
 
     def payload
-      if @address_id
-        {
-          address_id: @address_id,
-          full_name: data[:address][:reference][:full_name],
-          email: data[:address][:reference][:email],
-          ref_position_id: data[:address][:reference][:ref_position_id],
-          mobile_country_code_id: data[:address][:reference][:mobile_country_code_id],
-          mobile: data[:address][:reference][:mobile]
-        }
-      else
-        {
-          employment_id: @employment_id,
-          full_name: data[:employment][:reference][:full_name],
-          email: data[:employment][:reference][:email],
-          ref_position_id: data[:employment][:reference][:ref_position_id],
-          mobile_country_code_id: data[:employment][:reference][:mobile_country_code_id],
-          mobile: data[:employment][:reference][:mobile]
-        }
-      end
+      {
+        address_id: @address_id,
+        full_name: data[:address][:reference][:full_name],
+        email: data[:address][:reference][:email],
+        ref_position_id: data[:address][:reference][:ref_position_id],
+        mobile_country_code_id: data[:address][:reference][:mobile_country_code_id],
+        mobile: data[:address][:reference][:mobile]
+      }
     end
   end
 end

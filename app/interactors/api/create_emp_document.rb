@@ -29,7 +29,7 @@ module Api
         @emp_document.save
       end
 
-      context.emp_document = @employment
+      context.emp_document = @emp_document
     end
 
     def validate!

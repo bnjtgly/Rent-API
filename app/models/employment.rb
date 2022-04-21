@@ -1,7 +1,7 @@
 class Employment < ApplicationRecord
   strip_attributes
   belongs_to :income
-  has_one :reference, dependent: :destroy
+  # has_one :reference, dependent: :destroy
   has_many :emp_documents, dependent: :destroy
 
   # Domain References Association

@@ -106,14 +106,11 @@ DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %
 DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Casual", value_str: 'casual')
 
 # Referencens
-ref_add_position = Domain.create(domain_number: 2301, name: 'Employment Reference Position', domain_def: 'Position of the referenced person.')
-ref_add_position_ref1 = DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "CEO", value_str: 'ceo')
-
-ref_emp_position = Domain.create(domain_number: 2401, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
-DomainReference.create(sort_order: '100', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
-ref_emp_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
-DomainReference.create(sort_order: '300', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')
-DomainReference.create(sort_order: '400', domain_id: ref_emp_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Appraiser", value_str: 'Appraiser')
+ref_add_position = Domain.create(domain_number: 2401, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
+DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
+ref_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
+DomainReference.create(sort_order: '300', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')
+DomainReference.create(sort_order: '400', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Appraiser", value_str: 'Appraiser')
 
 currency = Domain.create(domain_number: 2501, name: 'Currency', domain_def: 'Currency.')
 currency_ref = DomainReference.create(sort_order: '100', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'A$', value_str: 'AUD',
@@ -237,7 +234,7 @@ when 'development', 'staging'
   Reference.create(address_id: address1.id,
                    full_name: 'Adam Smith',
                    email: 'adamsmith@go.team.au',
-                   ref_position_id: ref_add_position_ref1.id,
+                   ref_position_id: ref_position_ref2.id,
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
 
@@ -276,13 +273,6 @@ when 'development', 'staging'
 
   EmpDocument.create(employment_id: emp1.id, file: 'payslip.jpg')
   EmpDocument.create(employment_id: emp1.id, file: 'coe.jpg')
-
-  Reference.create(address_id: address1.id,
-                   full_name: 'Joanna Miller',
-                   email: 'jmiller@go.team.au',
-                   ref_position_id: ref_emp_position_ref2.id,
-                   mobile_country_code_id: mobile_country_code_ref.id,
-                   mobile: 712345689)
 
   TenantApplication.create(user_id: user1.id, property_id: property1.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user1.id, property_id: property2.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)

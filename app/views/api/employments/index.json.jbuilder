@@ -15,19 +15,6 @@ json.data do
       json.suburb data.suburb
       json.address data.address
       json.post_code data.post_code
-      json.reference do
-        if data.reference
-          json.id data.reference.id
-          json.employment_id data.reference.employment_id
-          json.full_name data.reference.full_name
-          json.email data.reference.email
-          json.position data.reference.ref_ref_position.display
-          json.mobile_country_code data.reference.ref_mobile_country_code.display
-          json.mobile data.reference.mobile
-        else
-          json.null!
-        end
-      end
       json.documents do
         if data.emp_documents
           json.array! data.emp_documents.each do |data|
