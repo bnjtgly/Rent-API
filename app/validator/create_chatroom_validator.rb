@@ -7,7 +7,6 @@ class CreateChatroomValidator
   attr_accessor(
     :user_id,
     :sender_id,
-    :title,
     :users
   )
 
@@ -32,7 +31,6 @@ class CreateChatroomValidator
 
   def required
     errors.add(:user_id, REQUIRED_MESSAGE) if user_id.blank?
-    errors.add(:title, REQUIRED_MESSAGE) if title.blank?
     errors.add(:users, REQUIRED_MESSAGE) if users.blank?
   end
 

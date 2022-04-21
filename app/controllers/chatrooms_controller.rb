@@ -32,6 +32,8 @@ class ChatroomsController < ApplicationController
     @chatrooms.map do |conversation|
       participants = []
       users = User.where(id: conversation.participants)
+      conversation.title = sanitize_title conversation.title
+
       users.map do |user|
         participants << {
           user_id: user.id,
@@ -39,7 +41,12 @@ class ChatroomsController < ApplicationController
           avatar: user.avatar.url,
         }
       end
+
       conversation.participants = participants
     end
+  end
+
+  def sanitize_title(title)
+    title.gsub(current_user.complete_name, '').try(:strip)
   end
 end
