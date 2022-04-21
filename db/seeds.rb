@@ -105,7 +105,15 @@ employment_type_ref = DomainReference.create(sort_order: '100', domain_id: emplo
 DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Part-time", value_str: 'part-time')
 DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Casual", value_str: 'casual')
 
-# Referencens
+# Pet Vaccination Type
+pet_vac_type = Domain.create(domain_number: 2301, name: 'Pet Vaccine', domain_def: 'Vaccine type for pets.')
+DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabies", value_str: 'rabies')
+DomainReference.create(sort_order: '200', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Corona Virus", value_str: 'corona virus')
+DomainReference.create(sort_order: '300', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Parvo Virus", value_str: 'parvo virus')
+DomainReference.create(sort_order: '400', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "DHLP(Distemper Combo)", value_str: 'dhlp')
+
+
+# References
 ref_add_position = Domain.create(domain_number: 2401, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
 DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
 ref_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
