@@ -38,7 +38,6 @@ class CreateChatroom
     {
       user_id: current_user.id,
       sender_id: current_user.id,
-      title: data[:chatroom][:title],
       users: data[:users]
     }
   end
@@ -54,9 +53,7 @@ class CreateChatroom
 
       unless @chatroom.users.include?(user)
         @chatroom.users << user
-        unless user.id.eql?current_user.id
-          participants << user.id
-        end
+        participants << user.id
       end
     end
 
