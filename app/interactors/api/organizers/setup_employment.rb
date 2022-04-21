@@ -3,7 +3,6 @@ module Api
     class SetupEmployment
       include Interactor::Organizer
 
-      # organize CreateEmployment, CreateEmpDocument, CreateReference
       organize CreateEmployment, CreateEmpDocument
     end
   end

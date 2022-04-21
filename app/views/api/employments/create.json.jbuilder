@@ -10,20 +10,6 @@ json.data do
   json.suburb @employment.suburb
   json.address @employment.address
   json.post_code @employment.post_code
-  json.reference do
-    if @employment.reference
-      json.id @employment.reference.id
-      json.employment_id @employment.reference.employment_id
-      json.full_name @employment.reference.full_name
-      json.email @employment.reference.email
-      json.position @employment.reference.ref_ref_position.display
-      json.mobile_country_code @employment.reference.ref_mobile_country_code.display
-      json.mobile @employment.reference.mobile
-      json.mobile_number @employment.reference.mobile_number
-    else
-      json.null!
-    end
-  end
   json.documents do
     if @employment.emp_documents
       json.array! @employment.emp_documents.each do |data|
@@ -35,5 +21,7 @@ json.data do
       json.null!
     end
   end
-  json.employments_progress @profile_completion_percentage
+  json.profile_completion do
+    json.employment @employment_completion_percentage
+  end
 end

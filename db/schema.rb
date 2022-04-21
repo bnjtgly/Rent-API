@@ -219,7 +219,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
 
   create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "address_id"
-    t.uuid "employment_id"
     t.uuid "mobile_country_code_id"
     t.uuid "ref_position_id"
     t.string "full_name"
@@ -227,9 +226,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
     t.bigint "mobile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id", "employment_id", "full_name"], name: "index_references_on_address_id_and_employment_id_and_full_name", unique: true
+    t.index ["address_id", "email"], name: "index_references_on_address_id_and_email", unique: true
     t.index ["address_id"], name: "index_references_on_address_id"
-    t.index ["employment_id"], name: "index_references_on_employment_id"
     t.index ["mobile_country_code_id"], name: "index_references_on_mobile_country_code_id"
     t.index ["ref_position_id"], name: "index_references_on_ref_position_id"
   end
@@ -354,7 +352,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
   add_foreign_key "references", "addresses"
   add_foreign_key "references", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "references", "domain_references", column: "ref_position_id"
-  add_foreign_key "references", "employments"
   add_foreign_key "tenant_application_histories", "tenant_applications"
   add_foreign_key "tenant_applications", "domain_references", column: "lease_length_id"
   add_foreign_key "tenant_applications", "domain_references", column: "tenant_application_status_id"

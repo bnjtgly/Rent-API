@@ -7,7 +7,6 @@ module Api
 
     attr_accessor(
       :address_id,
-      :employment_id,
       :full_name,
       :email,
       :ref_position_id,
@@ -16,13 +15,18 @@ module Api
     )
 
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validate :required, :valid_name, :valid_mobile, :valid_mobile_country_code_id, :valid_ref_position_id, :address_employment_exist
+    validate :required, :valid_name, :valid_mobile, :valid_mobile_country_code_id, :valid_ref_position_id, :address_id_exist
 
     def submit
+      init
       persist!
     end
 
     private
+
+    def init
+      @address = Address.where(id: address_id).first
+    end
 
     def persist!
       return true if valid?
@@ -38,14 +42,9 @@ module Api
       errors.add(:mobile, REQUIRED_MESSAGE) if mobile.blank?
     end
 
-    def address_employment_exist
-      if address_id && !Address.exists?(id: address_id)
-        errors.add(:address_id, NOT_FOUND)
-      end
 
-      if employment_id && !Employment.exists?(id: employment_id)
-        errors.add(:employment_id, NOT_FOUND)
-      end
+    def address_id_exist
+      errors.add(:address_id, NOT_FOUND) unless @address
     end
 
     def valid_name
@@ -64,28 +63,15 @@ module Api
     end
 
     def valid_ref_position_id
-      if !address_id.nil?
-        unless ref_position_id.blank?
-          domain_reference = DomainReference.joins(:domain).where(domains: { domain_number: 2401 },
-                                                                  domain_references: { id: ref_position_id }).first
-          unless domain_reference
-            references = DomainReference.joins(:domain).where(domains: { domain_number: 2401 },
-                                                              domain_references: { status: 'Active' })
-            errors.add(:ref_position_id, "#{PLEASE_CHANGE_MESSAGE} Valid values are #{references.pluck(:value_str).to_sentence}.")
-          end
-        end
-      else
-        unless ref_position_id.blank?
-          domain_reference = DomainReference.joins(:domain).where(domains: { domain_number: 2301 },
-                                                                  domain_references: { id: ref_position_id }).first
-          unless domain_reference
-            references = DomainReference.joins(:domain).where(domains: { domain_number: 2301 },
-                                                              domain_references: { status: 'Active' })
-            errors.add(:ref_position_id, "#{PLEASE_CHANGE_MESSAGE} Valid values are #{references.pluck(:value_str).to_sentence}.")
-          end
+      unless ref_position_id.blank?
+        domain_reference = DomainReference.joins(:domain).where(domains: { domain_number: 2401 },
+                                                                domain_references: { id: ref_position_id }).first
+        unless domain_reference
+          references = DomainReference.joins(:domain).where(domains: { domain_number: 2401 },
+                                                            domain_references: { status: 'Active' })
+          errors.add(:ref_position_id, "#{PLEASE_CHANGE_MESSAGE} Valid values are #{references.pluck(:value_str).to_sentence}.")
         end
       end
-
     end
 
     def valid_mobile_country_code_id

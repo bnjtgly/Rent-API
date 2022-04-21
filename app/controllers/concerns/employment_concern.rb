@@ -9,36 +9,32 @@ module EmploymentConcern
     total_progress = [company, address, document]
 
     {
-      company: "#{company.round(2)}%",
-      address: "#{address.round(2)}%",
-      document: "#{document.round(2)}%",
+      company: "#{company}%",
+      address: "#{address}%",
+      document: "#{document}%",
       total_progress: "#{(total_progress.inject(0.0) { |sum, el| sum + el } / total_progress.size).round(2)}%"
     }
   end
 
   def get_percentage(resource, definition, is_create)
-    emp_company_column = %w[company_name position tenure]
-    resource_size = if resource.try(:id)
-                      1
-                    else
-                      resource.length
-                    end
     emp_company_value = []
+    resource_size = resource.try(:id) ? 1 : resource.length
+    return 0 if resource.blank?
 
     case definition
     when 'company'
-      %w[company_name position tenure]
+      employment_columns  = %w[company_name position tenure]
     when 'address'
-      %w[state suburb address post_code]
+      employment_columns = %w[state suburb address post_code]
     end
 
-    emp_company_column.each do |col|
+    employment_columns.map do |col|
       if is_create
         unless resource[col].nil?
           emp_company_value << col
         end
       else
-        resource.each do |row|
+        resource.map do |row|
           unless row[col].nil?
             emp_company_value << col
           end
@@ -46,16 +42,13 @@ module EmploymentConcern
       end
     end
 
-    (emp_company_value.length).percent_of (emp_company_column.length * resource_size)
+    (emp_company_value.length).percent_of (employment_columns.length * resource_size).round(2)
   end
 
   def get_document_percentage(resource)
     emp_docs_total = []
-    resource_size = if resource.try(:id)
-                      1
-                    else
-                      resource.length
-                    end
+    resource_size = resource.try(:id) ? 1 : resource.length
+    return 0 if resource.blank?
 
     if resource.try(:id)
       emp_docs_total << 100.0
@@ -69,7 +62,7 @@ module EmploymentConcern
       end
     end
 
-    emp_docs_total.sum(0.0) / resource_size
+    (emp_docs_total.sum(0.0) / resource_size).round(2)
   end
 end
 

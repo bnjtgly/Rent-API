@@ -3,7 +3,7 @@
 class Reference < ApplicationRecord
   strip_attributes
   belongs_to :address, class_name: 'Address', foreign_key: 'address_id', optional: true
-  belongs_to :employment, class_name: 'Employment', foreign_key: 'employment_id', optional: true
+  # belongs_to :employment, class_name: 'Employment', foreign_key: 'employment_id', optional: true
 
   # Domain References Association
   # List all domain_references columns in users table.
