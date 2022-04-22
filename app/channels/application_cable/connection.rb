@@ -9,7 +9,7 @@ module ApplicationCable
     private
     def find_verified_user
 
-      if verified_user = User.where(id: request.params[:user_id])
+      if verified_user = User.where(id: request.params[:user_id]).first
         verified_user
       else
         reject_unauthorized_connection
