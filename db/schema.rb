@@ -319,6 +319,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_20_044228) do
     t.string "is_email_verified_token"
     t.string "otp"
     t.datetime "otp_sent_at"
+    t.boolean "is_online", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["api_client_id"], name: "index_users_on_api_client_id"

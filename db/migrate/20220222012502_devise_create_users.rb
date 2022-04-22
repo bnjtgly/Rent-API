@@ -49,6 +49,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string :is_email_verified_token
       t.string :otp
       t.datetime :otp_sent_at
+      t.boolean :is_online, default: false
 
       t.timestamps null: false
     end
