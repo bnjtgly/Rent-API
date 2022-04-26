@@ -58,14 +58,31 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def setup_user
+    ap 'Setting up user...'
     role_user = Role.where(role_name: 'USER').first
 
     if @user.create_user_role(role_id: role_user.id, audit_comment: 'Create User Role')
       @user.generate_otp!
       @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
+      setup_user_settings
 
       sms_message = "Rento: Your security code is: #{@user.otp}. It expires in 10 minutes. Dont share this code with anyone."
       send_sms("+#{@user.ref_mobile_country_code.value_str}#{@user.mobile}", sms_message, 'Rento')
+    end
+  end
+
+  def setup_user_settings
+    predefined_settings = ['Sms 2FA', 'Property Updates', 'Profile Updates', 'Market Updates',
+                           'Suggested Properties', 'Application Status', 'News & Guides']
+    exclude = ['Market Updates', 'News & Guides']
+    value = true
+
+    @settings = Setting.where(name: predefined_settings)
+
+    @settings.each do |setting|
+      value = false if exclude.include? setting.name
+
+      @user.user_setting.create(setting_id: setting.id, value: value, audit_comment: 'Create User Settings')
     end
   end
 end
