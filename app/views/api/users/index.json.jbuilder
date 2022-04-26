@@ -129,6 +129,14 @@ json.pets do
   end
 end
 
+json.user_settings do
+  json.array! @user.user_setting.each do |data|
+    json.user_setting_id data.id
+    json.setting data.setting.name
+    json.value data.value
+  end
+end
+
 json.api_client do
   if @user.api_client
     json.name @user.api_client.name
