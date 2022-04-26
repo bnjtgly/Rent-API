@@ -286,6 +286,23 @@ when 'development', 'staging'
   TenantApplication.create(user_id: user1.id, property_id: property2.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
 
+
+  #USER SETTINGS
+  security_2fa = Setting.create(name: 'Sms 2FA', definition: 'Two-Factor Authentication')
+  notif_property_updates = Setting.create(name: 'Property Updates', definition: 'Property Updates')
+  notif_profile_updates = Setting.create(name: 'Profile Updates', definition: 'Profile Updates')
+  notif_market_updates = Setting.create(name: 'Market Updates', definition: 'Market Updates')
+  notif_suggested_property = Setting.create(name: 'Suggested Properties', definition: 'Suggested Properties')
+  notif_application_status = Setting.create(name: 'Application Status', definition: 'Application Status')
+  notif_news_guides = Setting.create(name: 'News & Guides', definition: 'News & Guides')
+
+  UserSetting.create(user_id: user1.id, setting_id: security_2fa.id, value: true)
+  UserSetting.create(user_id: user1.id, setting_id: notif_property_updates.id, value: true)
+  UserSetting.create(user_id: user1.id, setting_id: notif_profile_updates.id, value: true)
+  UserSetting.create(user_id: user1.id, setting_id: notif_suggested_property.id, value: true)
+  UserSetting.create(user_id: user1.id, setting_id: notif_application_status.id, value: true)
+  UserSetting.create(user_id: user1.id, setting_id: notif_market_updates.id, value: false)
+  UserSetting.create(user_id: user1.id, setting_id: notif_news_guides.id, value: false)
 else
   # type code here
 end

@@ -21,6 +21,7 @@ class Ability
         can %i[create], Api::PropertiesController
         can %i[index], Api::UserPropertiesController
         can %i[update], Api::ReferencesController
+        can %i[index], Api::UserSettingsController
       end
     else
       can %i[confirm_email], Api::UsersController

@@ -10,9 +10,7 @@ module Api
 
     # GET /api/addresses
     def index
-      pagy, @addresses = pagy(Address.all)
-
-      @addresses = @addresses.where(user_id: current_user.id).order(valid_thru: :desc)
+      pagy, @addresses = pagy(ProfileQuery.new(Address.all).call(current_user: current_user, sort_type: :desc, sort_column: :valid_thru))
       @profile_completion_percentage = get_profile_completion_percentage[:addresses]
 
       pagy_headers_merge(pagy)

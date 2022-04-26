@@ -10,9 +10,8 @@ module Api
 
     # GET /api/pets
     def index
-      pagy, @pets = pagy(Pet.all)
+      pagy, @pets = pagy(ProfileQuery.new(Pet.all).call(current_user: current_user))
 
-      @pets = @pets.where(user_id: current_user.id)
       @profile_completion_percentage = get_profile_completion_percentage[:pets]
 
       pagy_headers_merge(pagy)

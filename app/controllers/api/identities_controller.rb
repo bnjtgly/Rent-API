@@ -10,9 +10,8 @@ module Api
 
     # GET /api/identities
     def index
-      pagy, @identities = pagy(Identity.all)
-
-      @identities = @identities.where(user_id: current_user.id)
+      pagy, @identities = pagy(ProfileQuery.new(Identity.all).call(current_user: current_user))
+      
       @profile_completion_percentage = get_profile_completion_percentage[:identities]
 
       pagy_headers_merge(pagy)
