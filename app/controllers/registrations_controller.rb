@@ -58,7 +58,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def setup_user
-    ap 'Setting up user...'
     role_user = Role.where(role_name: 'USER').first
 
     if @user.create_user_role(role_id: role_user.id, audit_comment: 'Create User Role')
