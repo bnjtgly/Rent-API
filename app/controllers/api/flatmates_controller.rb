@@ -10,9 +10,8 @@ module Api
 
     # GET /api/flatmates
     def index
-      pagy, @flatmates = pagy(Flatmate.all)
+      pagy, @flatmates = pagy(ProfileQuery.new(Flatmate.all).call(current_user: current_user))
 
-      @flatmates = @flatmates.where(user_id: current_user.id)
       @profile_completion_percentage = get_profile_completion_percentage[:flatmates]
 
       pagy_headers_merge(pagy)

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   
   belongs_to :api_client
   has_one :user_role, dependent: :destroy
+  has_one :user_setting, dependent: :destroy
   has_one :otp_verification, dependent: :destroy
   has_many :tenant_applications, dependent: :destroy
   has_many :user_properties, dependent: :destroy

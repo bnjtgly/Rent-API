@@ -11,9 +11,8 @@ module Api
 
     # GET /api/incomes
     def index
-      pagy, @incomes = pagy(Income.all)
+      pagy, @incomes = pagy(ProfileQuery.new(Income.all).call(current_user: current_user))
 
-      @incomes = @incomes.where(user_id: current_user.id)
       @profile_completion_percentage = get_profile_completion_percentage[:incomes]
       @total_income = get_income_summary(@incomes)
 
