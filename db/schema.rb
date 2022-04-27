@@ -252,13 +252,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "definition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tenant_application_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "tenant_application_id", null: false
     t.jsonb "application_data", default: "{}", null: false
@@ -308,7 +301,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
 
   create_table "user_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "setting_id", null: false
+    t.uuid "setting_id"
     t.boolean "value", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -385,7 +378,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
   add_foreign_key "user_properties", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
-  add_foreign_key "user_settings", "settings"
+  add_foreign_key "user_settings", "domain_references", column: "setting_id"
   add_foreign_key "user_settings", "users"
   add_foreign_key "users", "api_clients"
   add_foreign_key "users", "domain_references", column: "gender_id"

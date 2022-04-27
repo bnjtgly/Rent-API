@@ -18,14 +18,6 @@ role_pm = Role.create(role_name: 'PROPERTY MANAGER', role_def: 'Tenant Applicati
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SEED ON DEVELOPMENT, STAGING and PRODUCTION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # GLOBAL
-# Settings
-  security_2fa = Setting.create(name: 'Sms 2FA', definition: 'Two-Factor Authentication')
-  notif_property_updates = Setting.create(name: 'Property Updates', definition: 'Property Updates')
-  notif_profile_updates = Setting.create(name: 'Profile Updates', definition: 'Profile Updates')
-  notif_market_updates = Setting.create(name: 'Market Updates', definition: 'Market Updates')
-  notif_suggested_property = Setting.create(name: 'Suggested Properties', definition: 'Suggested Properties')
-  notif_application_status = Setting.create(name: 'Application Status', definition: 'Application Status')
-  notif_news_guides = Setting.create(name: 'News & Guides', definition: 'News & Guides')
 # Domain References
 
 user_gender = Domain.create(domain_number: 1001, name: 'User Gender', domain_def: 'Gender of user.')
@@ -142,6 +134,23 @@ DomainReference.create(sort_order: '200', domain_id: lease_length.id, role: %W[#
 DomainReference.create(sort_order: '300', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "36 Months", value_str: '36')
 DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "48 Months", value_str: '48')
 
+# Settings
+# security_2fa = Setting.create(name: 'Sms 2FA', definition: 'Two-Factor Authentication')
+# notif_property_updates = Setting.create(name: 'Property Updates', definition: 'Property Updates')
+# notif_profile_updates = Setting.create(name: 'Profile Updates', definition: 'Profile Updates')
+# notif_market_updates = Setting.create(name: 'Market Updates', definition: 'Market Updates')
+# notif_suggested_property = Setting.create(name: 'Suggested Properties', definition: 'Suggested Properties')
+# notif_application_status = Setting.create(name: 'Application Status', definition: 'Application Status')
+# notif_news_guides = Setting.create(name: 'News & Guides', definition: 'News & Guides')
+
+settings = Domain.create(domain_number: 2701, name: 'User Settings', domain_def: 'User Settings.')
+security_2fa = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Sms 2FA", value_str: 'sms 2fa')
+notif_property_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Property Updates', value_str: 'property updates')
+notif_profile_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Profile Updates', value_str: 'profile updates')
+notif_market_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Market Updates', value_str: 'market updates')
+notif_suggested_property = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Suggested Properties', value_str: 'suggested properties')
+notif_application_status = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Application Status', value_str: 'application status')
+notif_news_guides = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'News & Guides', value_str: 'news & guides')
 
 case Rails.env
 when 'development', 'staging'
