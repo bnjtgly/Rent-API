@@ -132,7 +132,7 @@ end
 json.user_settings do
   json.array! @user.user_setting.each do |data|
     json.user_setting_id data.id
-    json.setting data.setting.name
+    json.setting data.ref_setting.display
     json.value data.value
   end
 end

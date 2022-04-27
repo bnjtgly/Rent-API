@@ -18,9 +18,9 @@ module Api
 
     def init
       @address = Address.where(id: payload[:address_id]).first
-      unless @address.user_id.eql?(payload[:user_id])
-        context.fail!(error: { user: ['You do not have access to edit this address.'] })
-      end
+
+      context.fail!(error: { address_id: ['Not found.'] }) unless @address
+      context.fail!(error: { user: ['You do not have access to edit this address.'] }) unless @address.user_id.eql?(payload[:user_id])
     end
 
     def build

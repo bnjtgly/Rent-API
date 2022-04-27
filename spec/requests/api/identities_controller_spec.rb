@@ -51,7 +51,6 @@ RSpec.describe "Api::IdentitiesControllers", type: :request do
       end
 
       it "returns json" do
-        # expect(response.content_type).to eq('application/json; charset=utf-8')
         hash_body = nil
         expect { hash_body = JSON.parse(response.body).with_indifferent_access }.not_to raise_exception
         expect(hash_body[:data].keys).to match_array(%w[id user_id identity_type id_number file identities_progress])

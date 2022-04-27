@@ -71,15 +71,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def setup_user_settings
-    predefined_settings = ['Sms 2FA', 'Property Updates', 'Profile Updates', 'Market Updates',
-                           'Suggested Properties', 'Application Status', 'News & Guides']
-    exclude = ['Market Updates', 'News & Guides']
+    predefined_settings = ['sms 2fa', 'property updates', 'profile updates', 'market updates',
+                           'suggested properties', 'application status', 'news & guides']
+    exclude = ['market updates', 'news & guides']
     value = true
 
-    @settings = Setting.where(name: predefined_settings)
+    @settings = DomainReference.includes(:domain).where(value_str: predefined_settings, domain: {domain_number: 2701})
 
-    @settings.each do |setting|
-      value = false if exclude.include? setting.name
+    @settings.map do |setting|
+      value = false if exclude.include? setting.value_str
 
       @user.user_setting.create(setting_id: setting.id, value: value, audit_comment: 'Create User Settings')
     end

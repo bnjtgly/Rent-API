@@ -10,9 +10,7 @@ module Api
 
     # GET /api/employments
     def index
-      pagy, @employments = pagy(Employment.includes(:income))
-
-      @employments = @employments.where(income: { user_id: current_user.id })
+      pagy, @employments = pagy(ProfileQuery.new(Employment.includes(:income)).call(current_user: current_user, include_table: :income))
       @employment_completion_percentage = get_employment_completion_percentage(@employments, false)
 
       pagy_headers_merge(pagy)
