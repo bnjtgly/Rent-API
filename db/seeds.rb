@@ -135,14 +135,6 @@ DomainReference.create(sort_order: '300', domain_id: lease_length.id, role: %W[#
 DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "48 Months", value_str: '48')
 
 # Settings
-# security_2fa = Setting.create(name: 'Sms 2FA', definition: 'Two-Factor Authentication')
-# notif_property_updates = Setting.create(name: 'Property Updates', definition: 'Property Updates')
-# notif_profile_updates = Setting.create(name: 'Profile Updates', definition: 'Profile Updates')
-# notif_market_updates = Setting.create(name: 'Market Updates', definition: 'Market Updates')
-# notif_suggested_property = Setting.create(name: 'Suggested Properties', definition: 'Suggested Properties')
-# notif_application_status = Setting.create(name: 'Application Status', definition: 'Application Status')
-# notif_news_guides = Setting.create(name: 'News & Guides', definition: 'News & Guides')
-
 settings = Domain.create(domain_number: 2701, name: 'User Settings', domain_def: 'User Settings.')
 security_2fa = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Sms 2FA", value_str: 'sms 2fa')
 notif_property_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Property Updates', value_str: 'property updates')
@@ -181,7 +173,7 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
-  user4 = User.create(email: 'avaelliott@sr.tenant.com', password: 'Abc!23', first_name: 'Ava ', last_name: 'Elliott', date_of_birth: '1990-11-12',
+  user4 = User.create(email: 'avaelliott@sr.tenant.com', password: '@Test123', first_name: 'Ava ', last_name: 'Elliott', date_of_birth: '1990-11-12',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
@@ -305,13 +297,20 @@ when 'development', 'staging'
   TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
 
   #USER SETTINGS
-  UserSetting.create(user_id: user1.id, setting_id: security_2fa.id, value: true)
-  UserSetting.create(user_id: user1.id, setting_id: notif_property_updates.id, value: true)
-  UserSetting.create(user_id: user1.id, setting_id: notif_profile_updates.id, value: true)
-  UserSetting.create(user_id: user1.id, setting_id: notif_suggested_property.id, value: true)
-  UserSetting.create(user_id: user1.id, setting_id: notif_application_status.id, value: true)
-  UserSetting.create(user_id: user1.id, setting_id: notif_market_updates.id, value: false)
-  UserSetting.create(user_id: user1.id, setting_id: notif_news_guides.id, value: false)
+  user_ids = [user1.id, user2.id, user3.id, user4.id]
+  user_ids.map do |userid|
+    UserSetting.create(user_id: userid, setting_id: security_2fa.id, value: true, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_property_updates.id, value: true, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_profile_updates.id, value: true, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_suggested_property.id, value: true, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_application_status.id, value: true, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_market_updates.id, value: false, audit_comment: 'Seed data.')
+    UserSetting.create(user_id: userid, setting_id: notif_news_guides.id, value: false, audit_comment: 'Seed data.')
+  end
+
+  #Agency
+  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
+  UserAgency.create(user_id: user4.id, agency_id: agency1.id)
 else
   # type code here
 end

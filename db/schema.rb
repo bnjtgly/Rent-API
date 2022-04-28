@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_28_010648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -26,6 +26,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
+  create_table "agencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.bigint "phone"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "api_clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -281,6 +290,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
     t.index ["user_id"], name: "index_tenant_applications_on_user_id"
   end
 
+  create_table "user_agencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "agency_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agency_id"], name: "index_user_agencies_on_agency_id"
+    t.index ["user_id"], name: "index_user_agencies_on_user_id"
+  end
+
   create_table "user_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "property_id", null: false
@@ -374,6 +392,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
   add_foreign_key "tenant_applications", "flatmates"
   add_foreign_key "tenant_applications", "properties"
   add_foreign_key "tenant_applications", "users"
+  add_foreign_key "user_agencies", "agencies"
+  add_foreign_key "user_agencies", "users"
   add_foreign_key "user_properties", "properties"
   add_foreign_key "user_properties", "users"
   add_foreign_key "user_roles", "roles"
