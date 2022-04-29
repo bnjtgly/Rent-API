@@ -186,9 +186,12 @@ when 'development', 'staging'
 
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 
-  # Testing database design
+  #Agency
+  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
+  host = UserAgency.create(host_id: user4.id, agency_id: agency1.id)
 
-  property1 = Property.create(details: {
+  # Properties
+  property1 = Property.create(user_agency_id: host.id, details: {
     id: SecureRandom.uuid,
     name: 'Treehouse hosted by Mikheyla Fox',
     desc: '',
@@ -200,7 +203,7 @@ when 'development', 'staging'
     rent_per_week: '750'
   })
 
-  property2 = Property.create(details: {
+  property2 = Property.create(user_agency_id: host.id, details: {
     id: SecureRandom.uuid,
     name: 'Resort Style Coastal Cottage - Walk to Beach',
     desc: '',
@@ -212,7 +215,7 @@ when 'development', 'staging'
     rent_per_week: '450'
   })
 
-  property3 = Property.create(details: {
+  property3 = Property.create(user_agency_id: host.id, details: {
     id: SecureRandom.uuid,
     name: 'Master Bedroom on private level + & W.I.R!',
     desc: '',
@@ -224,7 +227,7 @@ when 'development', 'staging'
     rent_per_week: '430'
   })
 
-  property4 = Property.create(details: {
+  property4 = Property.create(user_agency_id: host.id, details: {
     id: SecureRandom.uuid,
     name: 'Little Cottage by the River in Healesville',
     desc: '',
@@ -308,9 +311,6 @@ when 'development', 'staging'
     UserSetting.create(user_id: userid, setting_id: notif_news_guides.id, value: false, audit_comment: 'Seed data.')
   end
 
-  #Agency
-  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
-  UserAgency.create(user_id: user4.id, agency_id: agency1.id)
 else
   # type code here
 end
