@@ -12,6 +12,7 @@ module AdminApi
         @users= User.where(id: current_user.id)
       else
         @users = User.includes(:user_role)
+      end
 
         @users = @users.where('LOWER(email) LIKE ?', "%#{params[:email].downcase}%") unless params[:email].blank?
         @users = @users.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{params[:name].downcase}%") unless params[:name].blank?
@@ -20,7 +21,7 @@ module AdminApi
           @users = @users.where(user_role: { role_id: Role.where(role_name: 'USER').first.id }) if params[:role].try(:upcase).eql?('USER')
           @users = @users.where(user_role: { role_id: Role.where(role_name: 'SUPERADMIN').first.id }) if params[:role].try(:upcase).eql?('SUPERADMIN')
         end
-      end
+
 
 
       pagy, @users = pagy(@users, items: items_per_page)

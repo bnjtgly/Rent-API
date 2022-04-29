@@ -10,6 +10,8 @@
     resources :domains, param: :domain_id
     resources :domain_references, param: :domain_reference_id
     resources :users, param: :user_id, only: %i[index show create update destroy]
+
+    resources :properties, param: :property_id, only: %i[index]
   end
 
   # This is for our Client or External api (Outside and Limited Access)
