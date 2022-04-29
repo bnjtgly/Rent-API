@@ -12,6 +12,7 @@
     resources :users, param: :user_id, only: %i[index show create update destroy]
 
     resources :properties, param: :property_id, only: %i[index]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index]
   end
 
   # This is for our Client or External api (Outside and Limited Access)
