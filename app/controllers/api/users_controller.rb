@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 module Api
   class UsersController < ApplicationController
-    include IncomeConcern
     include ProfileConcern
 
     before_action :authenticate_user!, except: [:confirm_email]
@@ -11,7 +8,7 @@ module Api
     # GET /api/users
     def index
       @user = User.where(id: current_user.id).first
-      @total_income = get_income_summary(@user.incomes) if @user.incomes
+      @total_income = Api::IncomeService.new(@user.incomes).get_income_summary if @user.incomes
       @profile_completion_percentage = get_profile_completion_percentage
 
       unless @user
