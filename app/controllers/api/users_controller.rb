@@ -8,7 +8,7 @@ module Api
     # GET /api/users
     def index
       @user = User.where(id: current_user.id).first
-      @total_income = Api::IncomeService.new(@user.incomes).get_income_summary if @user.incomes
+      @total_income = Api::IncomeService.new(@user.incomes).call if @user.incomes
       @profile_completion_percentage = get_profile_completion_percentage
 
       unless @user

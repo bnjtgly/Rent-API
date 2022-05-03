@@ -5,6 +5,11 @@ class Api::IncomeService
     @income = income
   end
 
+  def call
+    get_income_summary
+  end
+
+  private
   def get_income_summary
     categorized_income = categorize_income
 
@@ -15,7 +20,6 @@ class Api::IncomeService
     }
   end
 
-  private
   def categorize_income
     categorized = {}
     frequency = @income.joins('INNER JOIN domain_references ON domain_references.id = incomes.income_frequency_id').group(:value_str).sum(:amount)

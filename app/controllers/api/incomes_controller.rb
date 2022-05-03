@@ -14,7 +14,7 @@ module Api
 
       @profile_completion_percentage = get_profile_completion_percentage[:incomes]
 
-      @total_income = Api::IncomeService.new(@incomes).get_income_summary
+      @total_income = Api::IncomeService.new(@incomes).call
 
       pagy_headers_merge(pagy)
     end
