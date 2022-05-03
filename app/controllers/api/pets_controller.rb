@@ -2,8 +2,6 @@
 
 module Api
   class PetsController < ApplicationController
-    include ProfileConcern
-
     before_action :authenticate_user!
     authorize_resource class: Api::PetsController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -12,7 +10,7 @@ module Api
     def index
       pagy, @pets = pagy(ProfileQuery.new(Pet.all).call(current_user: current_user))
 
-      @profile_completion_percentage = get_profile_completion_percentage[:pets]
+      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:pets]
 
       pagy_headers_merge(pagy)
     end

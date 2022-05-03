@@ -1,6 +1,5 @@
 module Api
   class UsersController < ApplicationController
-    include ProfileConcern
 
     before_action :authenticate_user!, except: [:confirm_email]
     authorize_resource class: Api::UsersController
@@ -9,7 +8,7 @@ module Api
     def index
       @user = User.where(id: current_user.id).first
       @total_income = Api::IncomeService.new(@user.incomes).call if @user.incomes
-      @profile_completion_percentage = get_profile_completion_percentage
+      @profile_completion_percentage = Api::ProfileService.new(current_user).call
 
       unless @user
         render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
