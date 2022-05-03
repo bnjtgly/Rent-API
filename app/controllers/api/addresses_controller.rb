@@ -2,7 +2,6 @@
 
 module Api
   class AddressesController < ApplicationController
-    include ProfileConcern
 
     before_action :authenticate_user!
     authorize_resource class: Api::AddressesController
@@ -11,7 +10,7 @@ module Api
     # GET /api/addresses
     def index
       pagy, @addresses = pagy(ProfileQuery.new(Address.all).call(current_user: current_user, sort_type: :desc, sort_column: :valid_thru))
-      @profile_completion_percentage = get_profile_completion_percentage[:addresses]
+      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:addresses]
 
       pagy_headers_merge(pagy)
     end
