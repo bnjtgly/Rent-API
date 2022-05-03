@@ -2,7 +2,6 @@
 
 module Api
   class IncomesController < ApplicationController
-    include IncomeConcern
     include ProfileConcern
 
     before_action :authenticate_user!
@@ -14,7 +13,8 @@ module Api
       pagy, @incomes = pagy(ProfileQuery.new(Income.all).call(current_user: current_user))
 
       @profile_completion_percentage = get_profile_completion_percentage[:incomes]
-      @total_income = get_income_summary(@incomes)
+
+      @total_income = Api::IncomeService.new(@incomes).call
 
       pagy_headers_merge(pagy)
     end
