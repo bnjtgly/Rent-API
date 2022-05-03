@@ -2,8 +2,6 @@
 
 module Api
   class IdentitiesController < ApplicationController
-    include ProfileConcern
-
     before_action :authenticate_user!
     authorize_resource class: Api::IdentitiesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -11,8 +9,8 @@ module Api
     # GET /api/identities
     def index
       pagy, @identities = pagy(ProfileQuery.new(Identity.all).call(current_user: current_user))
-      
-      @profile_completion_percentage = get_profile_completion_percentage[:identities]
+
+      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:identities]
 
       pagy_headers_merge(pagy)
     end

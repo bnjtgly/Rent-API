@@ -42,8 +42,6 @@ module Api
         column_num = (table.singularize.camelize.safe_constantize.column_names & %w[first_name last_name email phone gender_id date_of_birth mobile_country_code_id mobile]).count
       elsif table.eql?('addresses')
         column_num = table.singularize.camelize.safe_constantize.column_names.excluding(%w[id valid_thru created_at updated_at]).count
-      # else
-      #   table.singularize.camelize.safe_constantize.column_names.excluding(%w[id created_at updated_at]).count
       end
 
       column_num
@@ -75,5 +73,11 @@ module Api
 
       col_with_val.count
     end
+  end
+end
+
+class Numeric
+  def percent_of(n)
+    self.to_f / n.to_f * 100.0
   end
 end

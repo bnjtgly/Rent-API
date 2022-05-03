@@ -2,8 +2,6 @@
 
 module Api
   class FlatmatesController < ApplicationController
-    include ProfileConcern
-
     before_action :authenticate_user!
     authorize_resource class: Api::FlatmatesController
     after_action { pagy_headers_merge(@pagy) if @pagy }
@@ -12,7 +10,7 @@ module Api
     def index
       pagy, @flatmates = pagy(ProfileQuery.new(Flatmate.all).call(current_user: current_user))
 
-      @profile_completion_percentage = get_profile_completion_percentage[:flatmates]
+      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:flatmates]
 
       pagy_headers_merge(pagy)
     end
