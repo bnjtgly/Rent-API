@@ -11,7 +11,7 @@
     resources :domain_references, param: :domain_reference_id
     resources :users, param: :user_id, only: %i[index show create update destroy]
 
-    resources :properties, param: :property_id, only: %i[index]
+    resources :properties, param: :property_id, only: %i[index show]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
   end
 
