@@ -26,6 +26,8 @@ RSpec.describe "Api::TenantApplicationsControllers", type: :request do
 
     context "creates tenant application" do
       let(:user) { authorize_user }
+      let(:agency) { create :agency }
+      let(:user_agency) { create(agency: agency, host: user) }
       let(:property) { create :property }
       let(:flatmate) { create :flatmate }
 

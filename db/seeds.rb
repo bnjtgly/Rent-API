@@ -108,7 +108,7 @@ DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %
 
 # Pet Vaccination Type
 pet_vac_type = Domain.create(domain_number: 2301, name: 'Pet Vaccine', domain_def: 'Vaccine type for pets.')
-DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabies", value_str: 'rabies')
+ref_pet_vac_type_ref1 = DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabies", value_str: 'rabies')
 DomainReference.create(sort_order: '200', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Corona Virus", value_str: 'corona virus')
 DomainReference.create(sort_order: '300', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Parvo Virus", value_str: 'parvo virus')
 DomainReference.create(sort_order: '400', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "DHLP(Distemper Combo)", value_str: 'dhlp')
@@ -269,6 +269,7 @@ when 'development', 'staging'
              pet_type_id: pet_type_ref.id,
              pet_gender_id: pet_gender_ref.id,
              pet_weight_id: pet_weight_ref.id,
+             pet_vaccine_type_id: ref_pet_vac_type_ref1.id,
              name: 'Miffie',
              breed: 'Shi Zhu',
              color: 'Brown')
