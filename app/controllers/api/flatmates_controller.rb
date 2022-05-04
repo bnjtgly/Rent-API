@@ -21,7 +21,7 @@ module Api
 
       if interact.success?
         @flatmate = interact.flatmate
-        @profile_completion_percentage = get_profile_completion_percentage[:flatmates]
+        @profile_completion_percentage = Api::ProfileService.new(current_user).call[:flatmates]
       else
         render json: { error: interact.error }, status: 422
       end
