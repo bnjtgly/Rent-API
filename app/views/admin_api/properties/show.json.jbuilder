@@ -16,5 +16,12 @@ json.applications do
       json.complete_name data.user.complete_name
       json.avatar data.user.avatar
     end
+    json.flatmates do
+      if data.flatmate
+        json.flatmate_members data.flatmate.flatmate_members.count
+      else
+        json.null!
+      end
+    end
   end
 end

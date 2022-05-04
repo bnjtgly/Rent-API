@@ -23,6 +23,7 @@ module Api
                                                   .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
 
       # Remove in production
+      # For RSpec
       unless %w[test].any? { |keyword| Rails.env.include?(keyword) }
         @tenant_application.tenant_application_status_id = @tenant_application_status.id
         setup_application_data
