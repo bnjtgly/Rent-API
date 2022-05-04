@@ -30,7 +30,7 @@ module AdminApi
       end
 
       if @property.nil?
-        render json: { error: { domain_id: ['Not Found.'] } }, status: :not_found
+        render json: { error: { property_id: ['Not Found.'] } }, status: :not_found
       end
     end
   end
