@@ -43,7 +43,9 @@ module Api
     end
 
     def record_exist
-      errors.add(:identity, RECORD_EXIST_MESSAGE) if Identity.exists?(id_number: id_number, user_id: user_id, identity_type_id: identity_type_id)
+      # errors.add(:identity, RECORD_EXIST_MESSAGE) if Identity.exists?(id_number: id_number, user_id: user_id, identity_type_id: identity_type_id)
+      # Limit 1 ID type per user.
+      errors.add(:identity, ID_TYPE_EXISTS) if Identity.exists?(user_id: user_id, identity_type_id: identity_type_id)
     end
 
     def required
