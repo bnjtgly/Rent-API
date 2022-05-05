@@ -173,8 +173,12 @@ when 'development', 'staging'
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
-  user4 = User.create(email: 'avaelliott@sr.tenant.com', password: '@Test123', first_name: 'Ava ', last_name: 'Elliott', date_of_birth: '1990-11-12',
+  user4 = User.create(email: 'avaelliott@sr.tenant.com', password: '@Test123', first_name: 'Ava', last_name: 'Elliott', date_of_birth: '1990-11-12',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+
+  user5 = User.create(email: 'anagerard@sr.tenant.com', password: '@Test123', first_name: 'Ana', last_name: 'Gerard', date_of_birth: '1992-10-11',
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233311711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
   # Assign role to user
@@ -183,12 +187,15 @@ when 'development', 'staging'
   UserRole.create(user_id: user2.id, role_id: role_user.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user3.id, role_id: role_user.id, audit_comment: 'Seed data.')
   UserRole.create(user_id: user4.id, role_id: role_pm.id, audit_comment: 'Seed data.')
+  UserRole.create(user_id: user5.id, role_id: role_pm.id, audit_comment: 'Seed data.')
 
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 
   #Agency
   agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
+  agency2 = Agency.create(name: 'Ray Black', desc: 'Ray Black North Perth', phone: '61412473321', url: 'rayblack.com.au')
   host = UserAgency.create(host_id: user4.id, agency_id: agency1.id)
+  host1 = UserAgency.create(host_id: user5.id, agency_id: agency2.id)
 
   # Properties
   property1 = Property.create(user_agency_id: host.id, details: {
@@ -227,7 +234,7 @@ when 'development', 'staging'
     rent_per_week: '430'
   })
 
-  property4 = Property.create(user_agency_id: host.id, details: {
+  property4 = Property.create(user_agency_id: host1.id, details: {
     id: SecureRandom.uuid,
     name: 'Little Cottage by the River in Healesville',
     desc: '',
