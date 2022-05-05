@@ -7,7 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if !user.id.nil?
-      can :manage, :all if %w[SUPERADMIN PROPERTY\ MANAGER].include? user.user_role.role.role_name
+      can :manage, :all if %w[SUPERADMIN].include? user.user_role.role.role_name
       if user.user_role.role.role_name.eql?('USER')
         can %i[index mobile_verification resend_otp resend_email_verification setup_avatar update_personal_info update_account get_users], Api::UsersController
         can %i[index create update], Api::AddressesController
@@ -22,6 +22,11 @@ class Ability
         can %i[index], Api::UserPropertiesController
         can %i[update], Api::ReferencesController
         can %i[index update], Api::UserSettingsController
+      elsif user.user_role.role.role_name.eql?('PROPERTY MANAGER')
+        can %i[index], PmApi::UsersController
+        can %i[index show], PmApi::DomainsController
+        can %i[index show], PmApi::DomainReferencesController
+        can %i[index show create update], PmApi::PropertiesController
       end
     else
       can %i[confirm_email], Api::UsersController
