@@ -36,12 +36,9 @@ module Api
     def payload
       {
         income_id: data[:employment][:income_id],
-        employment_status_id: data[:employment][:employment_status_id],
-        employment_type_id: data[:employment][:employment_type_id],
         company_name: data[:employment][:company_name],
         position: data[:employment][:position],
         tenure: data[:employment][:tenure],
-        net_income: data[:employment][:net_income],
         state: data[:employment][:state],
         suburb: data[:employment][:suburb],
         address: data[:employment][:address],

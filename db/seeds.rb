@@ -21,28 +21,28 @@ role_pm = Role.create(role_name: 'PROPERTY MANAGER', role_def: 'Tenant Applicati
 # Domain References
 
 user_gender = Domain.create(domain_number: 1001, name: 'User Gender', domain_def: 'Gender of user.')
-user_gender_ref = DomainReference.create(sort_order: '100', domain_id: user_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Male', value_str: 'male')
-user_gender_ref2 = DomainReference.create(sort_order: '200', domain_id: user_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Female', value_str: 'female')
+user_gender_ref = DomainReference.create(sort_order: '100', domain_id: user_gender.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Male', value_str: 'male')
+user_gender_ref2 = DomainReference.create(sort_order: '200', domain_id: user_gender.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Female', value_str: 'female')
 
 user_status = Domain.create(domain_number: 1101, name: 'User Status', domain_def: 'Status of user.')
 user_status_ref = DomainReference.create(sort_order: '100', domain_id: user_status.id, display: 'Active', value_str: 'active')
-DomainReference.create(sort_order: '200', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Disabled', value_str: 'disabled')
-DomainReference.create(sort_order: '300', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Banned', value_str: 'banned')
+DomainReference.create(sort_order: '200', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Disabled', value_str: 'disabled')
+DomainReference.create(sort_order: '300', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Banned', value_str: 'banned')
 
 sign_up_with = Domain.create(domain_number: 1201, name: 'User Signup With', domain_def: 'Platform used in registration.')
-sign_up_with_ref = DomainReference.create(sort_order: '100', domain_id: sign_up_with.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Google', value_str: 'google')
-sign_up_with_ref1 = DomainReference.create(sort_order: '200', domain_id: sign_up_with.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Email', value_str: 'email')
+sign_up_with_ref = DomainReference.create(sort_order: '100', domain_id: sign_up_with.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Google', value_str: 'google')
+sign_up_with_ref1 = DomainReference.create(sort_order: '200', domain_id: sign_up_with.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Email', value_str: 'email')
 
 mobile_country_code = Domain.create(domain_number: 1301, name: 'User Mobile Country Code', domain_def: 'Mobile country code.')
 # Metadata image for testing only
-mobile_country_code_ref = DomainReference.create(sort_order: '200', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_guest.id}],
+mobile_country_code_ref = DomainReference.create(sort_order: '200', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm} #{role_guest.id}],
                                                  display: '+61', value_str: '61',
                                                  metadata: {
                                                    country: %w[AU Australia],
                                                    image: 'https://advanceme-admin.s3.ap-southeast-1.amazonaws.com/public/domains/1003+-+Country/au-flag.png'
                                                  })
 # For development testing only
-mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_guest.id}],
+mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: mobile_country_code.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm} #{role_guest.id}],
                                                   display: '+63', value_str: '63',
                                                   metadata: {
                                                     country: %w[PH Philippines],
@@ -50,99 +50,99 @@ mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: 
                                                   })
 
 application_status = Domain.create(domain_number: 1401, name: 'Application Status', domain_def: 'Status of tenants application.')
-application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Accepted', value_str: 'accepted')
-application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Reviewed', value_str: 'reviewed')
-application_status_ref3 = DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Pending', value_str: 'pending')
-DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Rejected', value_str: 'rejected')
-DomainReference.create(sort_order: '500', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Draft', value_str: 'draft')
-DomainReference.create(sort_order: '600', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Closed', value_str: 'closed')
+application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Accepted', value_str: 'accepted')
+application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Reviewed', value_str: 'reviewed')
+application_status_ref3 = DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Pending', value_str: 'pending')
+DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Rejected', value_str: 'rejected')
+DomainReference.create(sort_order: '500', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Draft', value_str: 'draft')
+DomainReference.create(sort_order: '600', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Closed', value_str: 'closed')
 
 # Identities
 identity_type = Domain.create(domain_number: 1501, name: 'Identity Type', domain_def: 'Identity ID type.')
-identity_type_ref = DomainReference.create(sort_order: '100', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Driver's License", value_str: 'driver license')
-DomainReference.create(sort_order: '200', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Australian Passport', value_str: 'australian passport')
-DomainReference.create(sort_order: '300', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Overseas Passport', value_str: 'overseas passport')
+identity_type_ref = DomainReference.create(sort_order: '100', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Driver's License", value_str: 'driver license')
+DomainReference.create(sort_order: '200', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Australian Passport', value_str: 'australian passport')
+DomainReference.create(sort_order: '300', domain_id: identity_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Overseas Passport', value_str: 'overseas passport')
 
 # Incomes
 income_source = Domain.create(domain_number: 1601, name: 'Income Source', domain_def: 'Source of income.')
-income_source_ref = DomainReference.create(sort_order: '100', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Salary", value_str: 'salary')
-income_source_ref2 = DomainReference.create(sort_order: '200', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Allowance", value_str: 'allowance')
-DomainReference.create(sort_order: '300', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Pension", value_str: 'pension')
-DomainReference.create(sort_order: '400', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Overtime", value_str: 'overtime')
-DomainReference.create(sort_order: '500', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Commission", value_str: 'commission')
-DomainReference.create(sort_order: '600', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Bonus", value_str: 'bonus')
+income_source_ref = DomainReference.create(sort_order: '100', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Salary", value_str: 'salary')
+income_source_ref2 = DomainReference.create(sort_order: '200', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Allowance", value_str: 'allowance')
+DomainReference.create(sort_order: '300', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Pension", value_str: 'pension')
+DomainReference.create(sort_order: '400', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Overtime", value_str: 'overtime')
+DomainReference.create(sort_order: '500', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Commission", value_str: 'commission')
+DomainReference.create(sort_order: '600', domain_id: income_source.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Bonus", value_str: 'bonus')
 
 income_frequency = Domain.create(domain_number: 1701, name: 'Income Frequency', domain_def: 'Frequency of income.')
-income_frequency_ref = DomainReference.create(sort_order: '100', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Weekly", value_str: 'weekly')
-DomainReference.create(sort_order: '200', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Fortnightly", value_str: 'fortnightly')
-income_frequency_ref2 = DomainReference.create(sort_order: '300', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Monthly", value_str: 'monthly')
-DomainReference.create(sort_order: '400', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Yearly", value_str: 'yearly')
+income_frequency_ref = DomainReference.create(sort_order: '100', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Weekly", value_str: 'weekly')
+DomainReference.create(sort_order: '200', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Fortnightly", value_str: 'fortnightly')
+income_frequency_ref2 = DomainReference.create(sort_order: '300', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Monthly", value_str: 'monthly')
+DomainReference.create(sort_order: '400', domain_id: income_frequency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Yearly", value_str: 'yearly')
 
 # Pets
 pet_type = Domain.create(domain_number: 1801, name: 'Pet Type', domain_def: 'Type of pet.')
-pet_type_ref = DomainReference.create(sort_order: '100', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Dog", value_str: 'dog')
-DomainReference.create(sort_order: '200', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Cat", value_str: 'cat')
-DomainReference.create(sort_order: '300', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Bird", value_str: 'bird')
-DomainReference.create(sort_order: '400', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabbit", value_str: 'rabbit')
-DomainReference.create(sort_order: '500', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Pig", value_str: 'pig')
-DomainReference.create(sort_order: '600', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Fish", value_str: 'fish')
+pet_type_ref = DomainReference.create(sort_order: '100', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Dog", value_str: 'dog')
+DomainReference.create(sort_order: '200', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Cat", value_str: 'cat')
+DomainReference.create(sort_order: '300', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Bird", value_str: 'bird')
+DomainReference.create(sort_order: '400', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Rabbit", value_str: 'rabbit')
+DomainReference.create(sort_order: '500', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Pig", value_str: 'pig')
+DomainReference.create(sort_order: '600', domain_id: pet_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Fish", value_str: 'fish')
 
 pet_gender = Domain.create(domain_number: 1901, name: 'Pet Gender', domain_def: 'Gender of pet.')
-pet_gender_ref = DomainReference.create(sort_order: '100', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Male", value_str: 'male')
-DomainReference.create(sort_order: '200', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Female", value_str: 'Female')
+pet_gender_ref = DomainReference.create(sort_order: '100', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Male", value_str: 'male')
+DomainReference.create(sort_order: '200', domain_id: pet_gender.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Female", value_str: 'Female')
 
 pet_weight = Domain.create(domain_number: 2001, name: 'Pet Weight', domain_def: 'Weight of pet.')
-pet_weight_ref = DomainReference.create(sort_order: '100', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "0-10 kg", value_str: '0-10kg')
-DomainReference.create(sort_order: '200', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "11-25 kg", value_str: '11-25kg')
-DomainReference.create(sort_order: '300', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "26-50 kg", value_str: '26-50kg')
-DomainReference.create(sort_order: '400', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id}], display: "51+ kg", value_str: '51+kg')
+pet_weight_ref = DomainReference.create(sort_order: '100', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "0-10 kg", value_str: '0-10kg')
+DomainReference.create(sort_order: '200', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "11-25 kg", value_str: '11-25kg')
+DomainReference.create(sort_order: '300', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "26-50 kg", value_str: '26-50kg')
+DomainReference.create(sort_order: '400', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "51+ kg", value_str: '51+kg')
 
 # Employments
 employment_status = Domain.create(domain_number: 2101, name: 'Employment Status', domain_def: 'Status of employment.')
-employment_status_ref = DomainReference.create(sort_order: '100', domain_id: employment_status.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Employed", value_str: 'employed')
+employment_status_ref = DomainReference.create(sort_order: '100', domain_id: employment_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Employed", value_str: 'employed')
 
 employment_type = Domain.create(domain_number: 2201, name: 'Employment Type', domain_def: 'Type of employment.')
-employment_type_ref = DomainReference.create(sort_order: '100', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Full-time", value_str: 'full-time')
-DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Part-time", value_str: 'part-time')
-DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Casual", value_str: 'casual')
+employment_type_ref = DomainReference.create(sort_order: '100', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Full-time", value_str: 'full-time')
+DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Part-time", value_str: 'part-time')
+DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Casual", value_str: 'casual')
 
 # Pet Vaccination Type
 pet_vac_type = Domain.create(domain_number: 2301, name: 'Pet Vaccine', domain_def: 'Vaccine type for pets.')
-ref_pet_vac_type_ref1 = DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Rabies", value_str: 'rabies')
-DomainReference.create(sort_order: '200', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Corona Virus", value_str: 'corona virus')
-DomainReference.create(sort_order: '300', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Parvo Virus", value_str: 'parvo virus')
-DomainReference.create(sort_order: '400', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id}], display: "DHLP(Distemper Combo)", value_str: 'dhlp')
+ref_pet_vac_type_ref1 = DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Rabies", value_str: 'rabies')
+DomainReference.create(sort_order: '200', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Corona Virus", value_str: 'corona virus')
+DomainReference.create(sort_order: '300', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Parvo Virus", value_str: 'parvo virus')
+DomainReference.create(sort_order: '400', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "DHLP(Distemper Combo)", value_str: 'dhlp')
 
 
 # References
 ref_add_position = Domain.create(domain_number: 2401, name: 'Address Reference Position', domain_def: 'Position of the referenced person.')
-DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Property Manager", value_str: 'property manager')
-ref_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Land Lord", value_str: 'land lord')
-DomainReference.create(sort_order: '300', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Broker", value_str: 'team leader')
-DomainReference.create(sort_order: '400', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Appraiser", value_str: 'Appraiser')
+DomainReference.create(sort_order: '100', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Property Manager", value_str: 'property manager')
+ref_position_ref2 = DomainReference.create(sort_order: '200', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Land Lord", value_str: 'land lord')
+DomainReference.create(sort_order: '300', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Broker", value_str: 'team leader')
+DomainReference.create(sort_order: '400', domain_id: ref_add_position.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Appraiser", value_str: 'Appraiser')
 
 currency = Domain.create(domain_number: 2501, name: 'Currency', domain_def: 'Currency.')
-currency_ref = DomainReference.create(sort_order: '100', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'A$', value_str: 'AUD',
-                       metadata: { country: 'AU' })
-currency_ref2 = DomainReference.create(sort_order: '200', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id}], display: '$', value_str: 'USD',
-                       metadata: { country: 'US' })
+currency_ref = DomainReference.create(sort_order: '100', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'A$', value_str: 'AUD',
+                                      metadata: { country: 'AU' })
+currency_ref2 = DomainReference.create(sort_order: '200', domain_id: currency.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: '$', value_str: 'USD',
+                                       metadata: { country: 'US' })
 
 # Application
 lease_length = Domain.create(domain_number: 2601, name: 'Lease Length', domain_def: 'Length of lease.')
-lease_length_ref1 = DomainReference.create(sort_order: '100', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "12 Months", value_str: '12')
-DomainReference.create(sort_order: '200', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "24 Months", value_str: '24')
-DomainReference.create(sort_order: '300', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "36 Months", value_str: '36')
-DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id}], display: "48 Months", value_str: '48')
+lease_length_ref1 = DomainReference.create(sort_order: '100', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "12 Months", value_str: '12')
+DomainReference.create(sort_order: '200', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "24 Months", value_str: '24')
+DomainReference.create(sort_order: '300', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "36 Months", value_str: '36')
+DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "48 Months", value_str: '48')
 
 # Settings
 settings = Domain.create(domain_number: 2701, name: 'User Settings', domain_def: 'User Settings.')
-security_2fa = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: "Sms 2FA", value_str: 'sms 2fa')
-notif_property_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Property Updates', value_str: 'property updates')
-notif_profile_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Profile Updates', value_str: 'profile updates')
-notif_market_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Market Updates', value_str: 'market updates')
-notif_suggested_property = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Suggested Properties', value_str: 'suggested properties')
-notif_application_status = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'Application Status', value_str: 'application status')
-notif_news_guides = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id}], display: 'News & Guides', value_str: 'news & guides')
+security_2fa = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Sms 2FA", value_str: 'sms 2fa')
+notif_property_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Property Updates', value_str: 'property updates')
+notif_profile_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Profile Updates', value_str: 'profile updates')
+notif_market_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Market Updates', value_str: 'market updates')
+notif_suggested_property = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Suggested Properties', value_str: 'suggested properties')
+notif_application_status = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Application Status', value_str: 'application status')
+notif_news_guides = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'News & Guides', value_str: 'news & guides')
 
 case Rails.env
 when 'development', 'staging'
