@@ -71,12 +71,9 @@ json.incomes do
     json.employment do
       if data.employment
         json.employment_id data.employment.id
-        json.status data.employment.ref_employment_status.display
-        json.type data.employment.ref_employment_type.display
         json.company_name data.employment.company_name
         json.position data.employment.position
         json.tenure data.employment.tenure
-        json.net_income data.employment.net_income
         json.state data.employment.state
         json.suburb data.employment.suburb
         json.address data.employment.address
