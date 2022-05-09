@@ -20,7 +20,9 @@
     resources :domains, param: :domain_id, only: %i[index show]
     resources :domain_references, param: :domain_reference_id, only: %i[index show]
     resources :users, param: :user_id, only: %i[index]
+    resources :user_settings, param: :user_setting_id, only: %i[index update]
     resources :properties, param: :property_id, only: %i[index show]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index]
   end
 
   # This is for our Client or External api (Outside and Limited Access)
@@ -67,6 +69,8 @@
   post 'password/update_password', to: 'passwords#update_password'
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
+
+  get 'users/current', to: 'users#current'
 
   mount ActionCable.server => './cable'
 end

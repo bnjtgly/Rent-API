@@ -97,15 +97,6 @@ DomainReference.create(sort_order: '200', domain_id: pet_weight.id, role: %W[#{r
 DomainReference.create(sort_order: '300', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "26-50 kg", value_str: '26-50kg')
 DomainReference.create(sort_order: '400', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "51+ kg", value_str: '51+kg')
 
-# Employments
-employment_status = Domain.create(domain_number: 2101, name: 'Employment Status', domain_def: 'Status of employment.')
-employment_status_ref = DomainReference.create(sort_order: '100', domain_id: employment_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Employed", value_str: 'employed')
-
-employment_type = Domain.create(domain_number: 2201, name: 'Employment Type', domain_def: 'Type of employment.')
-employment_type_ref = DomainReference.create(sort_order: '100', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Full-time", value_str: 'full-time')
-DomainReference.create(sort_order: '200', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Part-time", value_str: 'part-time')
-DomainReference.create(sort_order: '300', domain_id: employment_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Casual", value_str: 'casual')
-
 # Pet Vaccination Type
 pet_vac_type = Domain.create(domain_number: 2301, name: 'Pet Vaccine', domain_def: 'Vaccine type for pets.')
 ref_pet_vac_type_ref1 = DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Rabies", value_str: 'rabies')
@@ -289,12 +280,9 @@ when 'development', 'staging'
                           proof: 'receipt.jpg')
 
   emp1 = Employment.create(income_id: income1.id,
-                           employment_status_id: employment_status_ref.id,
-                           employment_type_id: employment_type_ref.id,
                            company_name: 'Go Team',
                            position: 'Developer',
                            tenure: 1,
-                           net_income: 500,
                            state: 'Tasmania',
                            suburb: 'New Norfolk',
                            address: '5 Que Road',
@@ -309,7 +297,7 @@ when 'development', 'staging'
 
   #USER SETTINGS
   user_ids = [user1.id, user2.id, user3.id, user4.id]
-  user_ids.map do |userid|
+  user_ids.each do |userid|
     UserSetting.create(user_id: userid, setting_id: security_2fa.id, value: true, audit_comment: 'Seed data.')
     UserSetting.create(user_id: userid, setting_id: notif_property_updates.id, value: true, audit_comment: 'Seed data.')
     UserSetting.create(user_id: userid, setting_id: notif_profile_updates.id, value: true, audit_comment: 'Seed data.')

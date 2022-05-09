@@ -24,9 +24,11 @@ class Ability
         can %i[index update], Api::UserSettingsController
       elsif user.user_role.role.role_name.eql?('PROPERTY MANAGER')
         can %i[index], PmApi::UsersController
+        can %i[index update], PmApi::UserSettingsController
         can %i[index show], PmApi::DomainsController
         can %i[index show], PmApi::DomainReferencesController
         can %i[index show create update], PmApi::PropertiesController
+        can %i[index show], PmApi::TenantApplicationsController
       end
     else
       can %i[confirm_email], Api::UsersController
