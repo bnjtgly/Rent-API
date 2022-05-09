@@ -71,6 +71,7 @@ json.incomes do
     json.employment do
       if data.employment
         json.employment_id data.employment.id
+        json.income_id data.employment.income_id
         json.company_name data.employment.company_name
         json.position data.employment.position
         json.tenure data.employment.tenure

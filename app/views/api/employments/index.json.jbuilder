@@ -5,6 +5,7 @@ json.data do
   json.employments do
     json.array! @employments.each do |data|
       json.id data.id
+      json.income_id data.income_id
       json.company_name data.company_name
       json.position data.position
       json.tenure data.tenure
