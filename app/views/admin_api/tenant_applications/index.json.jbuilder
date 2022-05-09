@@ -19,3 +19,7 @@ json.data do
     end
   end
 end
+
+json.pagy do
+  json.merge! @pagination
+end
