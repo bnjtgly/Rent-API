@@ -42,6 +42,7 @@ module Api
     def payload
       {
         employment_id: @employment.id,
+        document_type_id: data[:employment][:document][:document_type_id],
         file: data[:employment][:document][:file]
       }
     end

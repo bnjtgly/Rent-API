@@ -103,29 +103,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
 
   create_table "emp_documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "employment_id", null: false
+    t.uuid "document_type_id"
     t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["document_type_id"], name: "index_emp_documents_on_document_type_id"
     t.index ["employment_id", "file"], name: "index_emp_documents_on_employment_id_and_file", unique: true
     t.index ["employment_id"], name: "index_emp_documents_on_employment_id"
   end
 
   create_table "employments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "income_id", null: false
-    t.uuid "employment_status_id"
-    t.uuid "employment_type_id"
     t.string "company_name"
     t.string "position"
     t.integer "tenure"
-    t.float "net_income"
     t.string "state"
     t.string "suburb"
     t.string "address"
     t.string "post_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["employment_status_id"], name: "index_employments_on_employment_status_id"
-    t.index ["employment_type_id"], name: "index_employments_on_employment_type_id"
     t.index ["income_id", "company_name"], name: "index_employments_on_income_id_and_company_name", unique: true
     t.index ["income_id"], name: "index_employments_on_income_id"
   end
@@ -363,9 +360,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
   add_foreign_key "addresses", "users"
   add_foreign_key "chatrooms", "users", column: "sender_id"
   add_foreign_key "domain_references", "domains"
+  add_foreign_key "emp_documents", "domain_references", column: "document_type_id"
   add_foreign_key "emp_documents", "employments"
-  add_foreign_key "employments", "domain_references", column: "employment_status_id"
-  add_foreign_key "employments", "domain_references", column: "employment_type_id"
   add_foreign_key "employments", "incomes"
   add_foreign_key "flatmate_members", "flatmates"
   add_foreign_key "flatmate_members", "users"
