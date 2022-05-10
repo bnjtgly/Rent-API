@@ -97,6 +97,14 @@ DomainReference.create(sort_order: '200', domain_id: pet_weight.id, role: %W[#{r
 DomainReference.create(sort_order: '300', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "26-50 kg", value_str: '26-50kg')
 DomainReference.create(sort_order: '400', domain_id: pet_weight.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "51+ kg", value_str: '51+kg')
 
+# Employments
+doc_type = Domain.create(domain_number: 2101, name: 'Employment Document Type', domain_def: 'Employment document type.')
+doc_type_ref = DomainReference.create(sort_order: '100', domain_id: doc_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Employment Certificate', value_str: 'employment certificate')
+DomainReference.create(sort_order: '200', domain_id: doc_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Income Tax Return', value_str: 'income tax return')
+doc_type_ref2 = DomainReference.create(sort_order: '300', domain_id: doc_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Payslip', value_str: 'payslip')
+DomainReference.create(sort_order: '400', domain_id: doc_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: 'Other', value_str: 'other')
+
+
 # Pet Vaccination Type
 pet_vac_type = Domain.create(domain_number: 2301, name: 'Pet Vaccine', domain_def: 'Vaccine type for pets.')
 ref_pet_vac_type_ref1 = DomainReference.create(sort_order: '100', domain_id: pet_vac_type.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm}], display: "Rabies", value_str: 'rabies')
@@ -288,8 +296,8 @@ when 'development', 'staging'
                            address: '5 Que Road',
                            post_code: '7140')
 
-  EmpDocument.create(employment_id: emp1.id, file: 'payslip.jpg')
-  EmpDocument.create(employment_id: emp1.id, file: 'coe.jpg')
+  EmpDocument.create(employment_id: emp1.id, document_type_id: doc_type_ref.id, file: 'payslip.jpg')
+  EmpDocument.create(employment_id: emp1.id, document_type_id: doc_type_ref2.id, file: 'coe.jpg')
 
   TenantApplication.create(user_id: user1.id, property_id: property1.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
   TenantApplication.create(user_id: user1.id, property_id: property2.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)

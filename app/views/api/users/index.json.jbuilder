@@ -84,6 +84,7 @@ json.incomes do
             json.array! data.employment.emp_documents.each do |data|
               json.document_id data.id
               json.employment_id data.employment_id
+              json.document_type_id data.document_type_id
               json.file data.file
             end
           else
