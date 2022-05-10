@@ -17,7 +17,8 @@ module Api
 
     # POST /api/pets
     def create
-      interact = Api::CreatePet.call(data: params, current_user: current_user)
+      # interact = Api::CreatePet.call(data: params, current_user: current_user)
+      interact = Api::Organizers::SetupPet.call(data: params, current_user: current_user)
 
       if interact.success?
         @pet = interact.pet

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_10_024529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -200,22 +200,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
     t.index ["user_id"], name: "index_otp_verifications_on_user_id"
   end
 
+  create_table "pet_vaccinations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "pet_id", null: false
+    t.uuid "pet_vaccine_type_id"
+    t.datetime "vaccination_date"
+    t.string "proof"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_pet_vaccinations_on_pet_id"
+    t.index ["pet_vaccine_type_id"], name: "index_pet_vaccinations_on_pet_vaccine_type_id"
+  end
+
   create_table "pets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "pet_type_id"
     t.uuid "pet_gender_id"
     t.uuid "pet_weight_id"
-    t.uuid "pet_vaccine_type_id"
     t.string "name"
     t.string "breed"
     t.string "color"
-    t.datetime "vaccination_date"
-    t.string "proof"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pet_gender_id"], name: "index_pets_on_pet_gender_id"
     t.index ["pet_type_id"], name: "index_pets_on_pet_type_id"
-    t.index ["pet_vaccine_type_id"], name: "index_pets_on_pet_vaccine_type_id"
     t.index ["pet_weight_id"], name: "index_pets_on_pet_weight_id"
     t.index ["user_id", "pet_type_id", "name"], name: "index_pets_on_user_id_and_pet_type_id_and_name", unique: true
     t.index ["user_id"], name: "index_pets_on_user_id"
@@ -376,9 +383,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_013457) do
   add_foreign_key "messages", "users"
   add_foreign_key "otp_verifications", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "otp_verifications", "users"
+  add_foreign_key "pet_vaccinations", "domain_references", column: "pet_vaccine_type_id"
+  add_foreign_key "pet_vaccinations", "pets"
   add_foreign_key "pets", "domain_references", column: "pet_gender_id"
   add_foreign_key "pets", "domain_references", column: "pet_type_id"
-  add_foreign_key "pets", "domain_references", column: "pet_vaccine_type_id"
   add_foreign_key "pets", "domain_references", column: "pet_weight_id"
   add_foreign_key "pets", "users"
   add_foreign_key "properties", "user_agencies"

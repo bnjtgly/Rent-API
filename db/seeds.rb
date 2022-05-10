@@ -271,14 +271,16 @@ when 'development', 'staging'
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user3.id)
 
-  Pet.create(user_id: user1.id,
-             pet_type_id: pet_type_ref.id,
-             pet_gender_id: pet_gender_ref.id,
-             pet_weight_id: pet_weight_ref.id,
-             pet_vaccine_type_id: ref_pet_vac_type_ref1.id,
-             name: 'Miffie',
-             breed: 'Shi Zhu',
-             color: 'Brown')
+  #PETS
+  pet1 = Pet.create(user_id: user1.id,
+                    pet_type_id: pet_type_ref.id,
+                    pet_gender_id: pet_gender_ref.id,
+                    pet_weight_id: pet_weight_ref.id,
+                    name: 'Miffie',
+                    breed: 'Shi Zhu',
+                    color: 'Brown')
+
+  PetVaccination.create(pet_id: pet1.id, pet_vaccine_type_id: ref_pet_vac_type_ref1.id, vaccination_date: '208-01-05', proof: 'proof.jpg')
 
   income1 = Income.create(user_id: user1.id,
                           income_source_id: income_source_ref2.id,
