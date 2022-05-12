@@ -22,7 +22,7 @@
     resources :users, param: :user_id, only: %i[index]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
     resources :properties, param: :property_id, only: %i[index show]
-    resources :tenant_applications, param: :tenant_application_id, only: %i[index]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
   end
 
   # This is for our Client or External api (Outside and Limited Access)

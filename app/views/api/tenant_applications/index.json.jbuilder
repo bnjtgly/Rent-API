@@ -15,5 +15,6 @@ json.data do
         json.null!
       end
     end
+    json.application_data data.application_data
   end
 end
