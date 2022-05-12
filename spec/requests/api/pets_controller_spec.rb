@@ -47,12 +47,14 @@ RSpec.describe "Api::PetsControllers", type: :request do
             "pet_type_id": pet_type.id,
             "pet_gender_id": pet_gender.id,
             "pet_weight_id": pet_weight.id,
-            "pet_vaccine_type_id": pet_vaccine_type.id,
             "name": Faker::Creature::Dog.name,
             "breed": Faker::Creature::Dog.breed,
             "color": Faker::Color.color_name,
-            "vaccination_date": Faker::Date.between(from: '2015-01-01', to: '2022-03-30'),
-            "proof": proof
+             "vaccination": {
+               "pet_vaccine_type_id": pet_vaccine_type.id,
+               "vaccination_date": Faker::Date.between(from: '2015-01-01', to: '2022-03-30'),
+               "proof": proof
+             }
           }
         }
 
@@ -66,7 +68,7 @@ RSpec.describe "Api::PetsControllers", type: :request do
       it "returns json" do
         hash_body = nil
         expect { hash_body = JSON.parse(response.body).with_indifferent_access }.not_to raise_exception
-        expect(hash_body[:data].keys).to match_array(%w[id user_id pet_type pet_gender pet_weight pet_vaccine_type name breed color vaccination_date proof pets_progress])
+        expect(hash_body[:data].keys).to match_array(%w[id user_id pet_type pet_gender pet_weight name breed color pets_progress vaccination])
       end
     end
 

@@ -13,3 +13,4 @@ json.property do
       json.null!
     end
 end
+json.application_data @tenant_application.application_data

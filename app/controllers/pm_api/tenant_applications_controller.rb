@@ -16,14 +16,11 @@ module PmApi
 
         # GET /pm_api/tenant_applications/1
         def show
-            @tenant_application = TenantApplication.where(id: params[:tenant_application_id])
+            @tenant_application = TenantApplication.select('tenant_applications.*, NULL as income')
+                                                   .where(id: params[:tenant_application_id])
 
-            @tenant_application = @tenant_application.select('tenant_applications.*, NULL as income')
+            @tenant_application = PmApi::IncomeService.new(@tenant_application).call.first
 
-            @tenant_application = PmApi::IncomeService.new(@tenant_application).call
-
-            @tenant_application = @tenant_application.first
-    
             if @tenant_application.nil?
             render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
             end
