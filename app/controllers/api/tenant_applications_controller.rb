@@ -16,6 +16,15 @@ module Api
       pagy_headers_merge(pagy)
     end
 
+    # GET /api/tenant_applications/1
+    def show
+      @tenant_application = TenantApplication.where(id: params[:tenant_application_id], user_id: current_user.id).first
+
+      if @tenant_application.nil?
+        render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
+      end
+    end
+
     # POST /api/tenant_applications
     def create
       interact = Api::CreateTenantApplication.call(data: params, current_user: current_user)
