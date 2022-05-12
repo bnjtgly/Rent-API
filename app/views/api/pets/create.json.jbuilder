@@ -7,12 +7,15 @@ json.data do
   json.name @pet.name
   json.breed @pet.breed
   json.color @pet.color
-  # json.vaccination do
-  #   json.pet_vaccination_id @pet.pet_vaccination.id
-  #   json.pet_vaccine_type @pet.pet_vaccination.ref_pet_vaccine_type.display
-  #   json.vaccination_date @pet.pet_vaccination.vaccination_date
-  #   json.proof @pet.pet_vaccination.proof
-  # end
+  json.vaccination do
+    json.array! @pet.pet_vaccinations.each do |data|
+      json.pet_vaccination_id data.id
+      json.pet_id data.pet_id
+      json.pet_vaccine_type data.ref_pet_vaccine_type.display
+      json.vaccination_date data.vaccination_date
+      json.proof data.proof
+    end
+  end
   json.pets_progress @profile_completion_percentage
 end
 
