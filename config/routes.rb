@@ -38,7 +38,7 @@
     resources :flatmates, param: :flatmate_id, only: %i[index create]
     resources :flatmate_members, param: :flatmate_member_id, only: %i[create]
     resources :pets, param: :pet_id, only: %i[index create]
-    resources :tenant_applications, param: :tenant_application_id, only: %i[index create]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index show create]
     resources :properties, param: :property_id, only: %i[create]
     resources :user_properties, param: :user_property_id, only: %i[index]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
