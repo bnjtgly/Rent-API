@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module PmApi
   class CreatePropertyValidator
     include Helper::BasicHelper
     include ActiveModel::API

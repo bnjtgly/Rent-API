@@ -10,7 +10,6 @@
     resources :domains, param: :domain_id
     resources :domain_references, param: :domain_reference_id
     resources :users, param: :user_id, only: %i[index show create update destroy]
-
     resources :properties, param: :property_id, only: %i[index show]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
   end
@@ -21,7 +20,7 @@
     resources :domain_references, param: :domain_reference_id, only: %i[index show]
     resources :users, param: :user_id, only: %i[index]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
-    resources :properties, param: :property_id, only: %i[index show]
+    resources :properties, param: :property_id, only: %i[index show create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
   end
 
@@ -39,7 +38,6 @@
     resources :flatmate_members, param: :flatmate_member_id, only: %i[create]
     resources :pets, param: :pet_id, only: %i[index create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show create]
-    resources :properties, param: :property_id, only: %i[create]
     resources :user_properties, param: :user_property_id, only: %i[index]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
 
