@@ -23,5 +23,16 @@ module PmApi
         render json: { error: { property_id: ['Not Found.'] } }, status: :not_found
       end
     end
+
+    # POST /api/tenant_applications
+    def create
+      interact = PmApi::CreateProperty.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @property = interact.property
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
   end
 end
