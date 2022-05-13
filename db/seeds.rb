@@ -206,7 +206,8 @@ when 'development', 'staging'
     bathrooms: '2',
     garage: '2',
     availability: '2022-03-22',
-    rent_per_week: '750'
+    rent_per_week: '750',
+    views: 321
   })
 
   property2 = Property.create(user_agency_id: host.id, details: {
@@ -218,7 +219,8 @@ when 'development', 'staging'
     bathrooms: '1',
     garage: '1',
     availability: '2022-01-22',
-    rent_per_week: '450'
+    rent_per_week: '450',
+    views: 103
   })
 
   property3 = Property.create(user_agency_id: host.id, details: {
@@ -230,7 +232,8 @@ when 'development', 'staging'
     bathrooms: '1',
     garage: '1',
     availability: '2022-01-22',
-    rent_per_week: '430'
+    rent_per_week: '430',
+    views: 215
   })
 
   property4 = Property.create(user_agency_id: host1.id, details: {
@@ -242,7 +245,8 @@ when 'development', 'staging'
     bathrooms: '1',
     garage: '1',
     availability: '2022-04-22',
-    rent_per_week: '370'
+    rent_per_week: '370',
+    views: 416
   })
 
   # User saved properties.
