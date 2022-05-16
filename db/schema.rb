@@ -308,6 +308,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_10_024529) do
   create_table "user_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "property_id", null: false
+    t.boolean "is_applied", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_user_properties_on_property_id"
