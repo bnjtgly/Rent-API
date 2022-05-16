@@ -33,6 +33,9 @@ module Api
         @tenant_application.save
       end
 
+      @user_property = UserProperty.where(property_id: @tenant_application.property.id, user_id: current_user.id)
+                                   .update(is_applied: true)
+
       context.tenant_application = @tenant_application
     end
 
