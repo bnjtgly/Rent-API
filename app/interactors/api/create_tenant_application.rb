@@ -19,6 +19,7 @@ module Api
 
     def build
       @tenant_application = TenantApplication.new(payload)
+      @application_summary = Api::ProfileSummaryService.new(current_user).call
       @tenant_application_status = DomainReference.joins(:domain)
                                                   .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
 
@@ -26,7 +27,7 @@ module Api
       # For RSpec
       unless %w[test].any? { |keyword| Rails.env.include?(keyword) }
         @tenant_application.tenant_application_status_id = @tenant_application_status.id
-        setup_application_data
+        @tenant_application.application_data = @application_summary
       end
 
       TenantApplication.transaction do
@@ -54,28 +55,6 @@ module Api
         flatmate_id: data[:tenant_application][:flatmate_id],
         lease_length_id: data[:tenant_application][:lease_length_id],
         lease_start_date: data[:tenant_application][:lease_start_date],
-      }
-    end
-
-    def setup_application_data
-      @user = User.where(id: current_user.id).load_async.first
-      @employment = @user.incomes.where.associated(:employment).first
-      # @todo: Check if application for pending status or draft.
-
-      @tenant_application.application_data = {
-        personal_info: {
-          email: @user.email,
-          complete_name: @user.complete_name,
-          gender: @user.ref_gender.display,
-          date_of_birth: @user.date_of_birth_format,
-          phone: @user.phone,
-          mobile_number: @user.mobile_number
-        },
-        addresses: @user.addresses,
-        identities: @user.identities,
-        incomes: @user.incomes,
-        employment: @employment ? @employment.employment : [],
-        pets: @user.pets
       }
     end
   end
