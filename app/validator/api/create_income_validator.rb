@@ -15,7 +15,7 @@ module Api
       :proof
     )
 
-    validate :user_id_exist, :record_exist, :required, :valid_proof, :valid_amount, :valid_income_source_id, :valid_income_frequency_id, :valid_currency_id
+    validate :user_id_exist, :record_exist, :required, :valid_amount, :valid_income_source_id, :valid_income_frequency_id, :valid_currency_id
 
     def submit
       init
@@ -39,7 +39,7 @@ module Api
     end
 
     def record_exist
-      errors.add(:identity, RECORD_EXIST_MESSAGE)if Income.exists?(user_id: user_id, income_source_id: income_source_id, income_frequency_id: income_frequency_id, currency_id: currency_id, amount: amount)
+      errors.add(:incomes, RECORD_EXIST_MESSAGE)if Income.exists?(user_id: user_id, income_source_id: income_source_id, income_frequency_id: income_frequency_id, amount: amount)
     end
 
     def required
@@ -48,14 +48,7 @@ module Api
       errors.add(:income_frequency_id, REQUIRED_MESSAGE) if income_frequency_id.blank?
       errors.add(:currency_id, REQUIRED_MESSAGE) if currency_id.blank?
       errors.add(:amount, REQUIRED_MESSAGE) if amount.blank?
-      errors.add(:proof, REQUIRED_MESSAGE) if proof.blank?
     end
-
-    def valid_proof
-      errors.add(:proof, VALID_IDENTITY_PROOF_MESSAGE) unless valid_identity_proof?(proof)
-      errors.add(:proof, VALID_IMG_SIZE_MESSAGE) if proof.size > 5.megabytes
-      errors.add(:proof, VALID_BASE64_MESSAGE) unless valid_identity_proof?(proof)
-      end
 
     def valid_amount
       errors.add(:amount, VALID_AMOUNT) unless valid_float?(amount)
