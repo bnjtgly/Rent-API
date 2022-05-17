@@ -12,7 +12,7 @@ class Ability
         can %i[index mobile_verification resend_otp resend_email_verification setup_avatar update_personal_info update_account get_users], Api::UsersController
         can %i[index create update], Api::AddressesController
         can %i[index create], Api::IdentitiesController
-        can %i[index create], Api::IncomesController
+        can %i[index create update], Api::IncomesController
         can %i[index create], Api::EmploymentsController
         can %i[index create], Api::FlatmatesController
         can %i[create], Api::FlatmateMembersController

@@ -31,7 +31,7 @@
     resources :users, param: :user_id, only: %i[index update]
     resources :addresses, param: :address_id, only: %i[index create update]
     resources :identities, param: :identity_id, only: %i[index create]
-    resources :incomes, param: :income_id, only: %i[index create]
+    resources :incomes, param: :income_id, only: %i[index create update]
     resources :employments, param: :employment_id, only: %i[index create]
     resources :references, param: :reference_id, only: %i[update]
     resources :flatmates, param: :flatmate_id, only: %i[index create]
