@@ -42,6 +42,8 @@ module Api
         column_num = (table.singularize.camelize.safe_constantize.column_names & %w[first_name last_name email phone gender_id date_of_birth mobile_country_code_id mobile]).count
       elsif table.eql?('addresses')
         column_num = table.singularize.camelize.safe_constantize.column_names.excluding(%w[id valid_thru created_at updated_at]).count
+      elsif table.eql?('identities')
+        column_num = table.singularize.camelize.safe_constantize.column_names.excluding(%w[id_number]).count
       end
 
       column_num
@@ -55,6 +57,8 @@ module Api
                          model.column_names & %w[first_name last_name email phone gender_id date_of_birth mobile_country_code_id mobile]
                        elsif table.eql?('addresses')
                          model.column_names.excluding(%w[id valid_thru created_at updated_at])
+                       elsif table.eql?('identities')
+                         model.column_names.excluding(%w[id_number])
                        else
                          model.column_names.excluding(%w[id created_at updated_at])
                        end
