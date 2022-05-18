@@ -89,7 +89,10 @@ module Api
         incomes_details = {}
       end
 
-      incomes
+      {
+        total_income_summary: Api::IncomeService.new(@user.incomes).call,
+        data: incomes
+      }
     end
 
     def get_employment(employment = {})
