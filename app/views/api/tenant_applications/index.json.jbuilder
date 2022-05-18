@@ -15,6 +15,26 @@ json.data do
         json.null!
       end
     end
-    json.application_data data.application_data
+
+    json.application_data do
+      if data.application_data
+        json.personal_info data.application_data['personal_info']
+        json.addresses data.application_data['addresses']
+        json.identities data.application_data['identities']
+        json.incomes do
+          if data.application_data['incomes']
+            json.total_income_summary data.application_data['incomes']['total_income_summary']
+            json.data data.application_data['incomes']['data']
+          else
+            json.null!
+          end
+        end
+        json.employment data.application_data['employment']
+        json.pets data.application_data['pets']
+        json.flatmates data.application_data['flatmates']
+      else
+        json.null!
+      end
+    end
   end
 end
