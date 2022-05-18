@@ -34,12 +34,16 @@ class ChatroomsController < ApplicationController
       users = User.where(id: conversation.participants)
       conversation.title = sanitize_title conversation.title
 
-      users.map do |user|
-        participants << {
-          user_id: user.id,
-          complete_name: user.complete_name,
-          avatar: user.avatar.url,
-        }
+      users.each do |user|
+        unless user.id.eql?(current_user.id)
+          participants << {
+            user_id: user.id,
+            complete_name: user.complete_name,
+            avatar: user.avatar.url,
+            role: user.user_role.role.role_name
+          }
+        end
+
       end
 
       conversation.participants = participants
