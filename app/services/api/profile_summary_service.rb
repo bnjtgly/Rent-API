@@ -30,10 +30,8 @@ module Api
       }
     end
 
-    def get_addresses
-      address = []
-
-      @user.addresses.each_with_object({}) do |data, address_details|
+    def get_addresses(address = [], address_details = {})
+      @user.addresses.each_with_object({}) do |data|
         address_details[:id] = data.id
         address_details[:user_id] = data.user_id
         address_details[:state] = data.state
@@ -56,15 +54,14 @@ module Api
           address_details[:reference] = nil
         end
         address << address_details
+        address_details = {}
       end
 
       address
     end
 
-    def get_identities
-      identities = []
-
-      @user.identities.each_with_object({}) do |data, identities_details|
+    def get_identities(identities = [], identities_details = {})
+      @user.identities.each do |data |
         identities_details[:id] = data.id
         identities_details[:user_id] = data.user_id
         identities_details[:identity_type] = data.ref_identity_type.display
@@ -72,15 +69,14 @@ module Api
         identities_details[:file] = data.file.url
 
         identities << identities_details
+        identities_details = {}
       end
 
       identities
     end
 
-    def get_incomes
-      incomes = []
-
-      @user.incomes.each_with_object({}) do |data, incomes_details|
+    def get_incomes(incomes = [], incomes_details = {})
+      @user.incomes.each do |data|
         incomes_details[:id] = data.id
         incomes_details[:user_id] = data.user_id
         incomes_details[:income_source] = data.ref_income_source.display
@@ -90,13 +86,14 @@ module Api
         incomes_details[:proof] = data.proof.url
 
         incomes << incomes_details
+        incomes_details = {}
       end
+
       incomes
     end
 
-    def get_employment
+    def get_employment(employment = {})
       @employment = @user.incomes.where.associated(:employment).first.employment
-      employment = {}
 
       employment[:id] = @employment.id
       employment[:income_id] = @employment.income_id
@@ -125,10 +122,8 @@ module Api
       employment
     end
 
-    def get_pets
-      pets = []
-
-      @user.pets.each_with_object({}) do |data, pets_details|
+    def get_pets(pets = [], pets_details = {})
+      @user.pets.each do |data|
         pets_details[:id] = data.id
         pets_details[:user_id] = data.user_id
         pets_details[:pet_type] = data.ref_pet_type.display
@@ -153,15 +148,13 @@ module Api
           pets_details[:vaccination] = nil
         end
         pets << pets_details
+        pets_details = {}
       end
-      
       pets
     end
 
-    def get_flatmates
-      flatmates = []
-
-      @user.flatmates.each_with_object({}) do |data, flatmates_details|
+    def get_flatmates(flatmates = [], flatmates_details= {})
+      @user.flatmates.each_with_object({}) do |data, |
         flatmates_details[:id] = data.id
         flatmates_details[:group_name] = data.group_name
         if data.flatmate_members
@@ -185,9 +178,10 @@ module Api
         else
           flatmates_details[:members] = nil
         end
-
         flatmates << flatmates_details
+        flatmates_details= {}
       end
+
       flatmates
     end
       
