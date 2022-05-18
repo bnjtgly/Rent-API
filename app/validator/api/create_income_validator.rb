@@ -39,7 +39,7 @@ module Api
     end
 
     def record_exist
-      errors.add(:incomes, RECORD_EXIST_MESSAGE)if Income.exists?(user_id: user_id, income_source_id: income_source_id, income_frequency_id: income_frequency_id, amount: amount)
+      errors.add(:incomes, RECORD_EXIST_MESSAGE)if Income.exists?(user_id: user_id, income_source_id: income_source_id, income_frequency_id: income_frequency_id)
     end
 
     def required
