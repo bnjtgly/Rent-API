@@ -76,6 +76,8 @@ module Api
     end
 
     def get_incomes(incomes = [], incomes_details = {})
+      total_income_summary ||= Api::IncomeService.new(@user.incomes).call
+
       @user.incomes.each do |data|
         incomes_details[:id] = data.id
         incomes_details[:user_id] = data.user_id
@@ -90,7 +92,7 @@ module Api
       end
 
       {
-        total_income_summary: Api::IncomeService.new(@user.incomes).call,
+        total_income_summary: total_income_summary,
         data: incomes
       }
     end

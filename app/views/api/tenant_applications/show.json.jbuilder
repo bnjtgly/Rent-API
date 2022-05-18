@@ -13,4 +13,24 @@ json.property do
       json.null!
     end
 end
-json.application_data @tenant_application.application_data
+
+json.application_data do
+  if @tenant_application.application_data
+    json.personal_info @tenant_application.application_data['personal_info']
+    json.addresses @tenant_application.application_data['addresses']
+    json.identities @tenant_application.application_data['identities']
+    json.incomes do
+      if @tenant_application.application_data['incomes']
+        json.total_income_summary @tenant_application.application_data['incomes']['total_income_summary']
+        json.data @tenant_application.application_data['incomes']['data']
+      else
+        json.null!
+      end
+    end
+    json.employment @tenant_application.application_data['employment']
+    json.pets @tenant_application.application_data['pets']
+    json.flatmates @tenant_application.application_data['flatmates']
+  else
+    json.null!
+  end
+end
