@@ -9,7 +9,13 @@ module PmApi
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-      @properties= Property.includes(:user_agency).where(user_agency: { host_id: current_user.id })
+      @properties = Property.includes(user_agency: :agency).where(user_agency: { host_id: current_user.id })
+
+      @properties = @properties.where("lower(details->>'name') LIKE ?", "%#{params[:property_name].downcase}%") unless params[:property_name].blank?
+
+      @prop = params[:properties].split(',').map(&:strip)
+
+      ap Property.find(@prop)
 
       pagy, @properties = pagy(@properties, items: items_per_page)
       @pagination = pagy_metadata(pagy)
