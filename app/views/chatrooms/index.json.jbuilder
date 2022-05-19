@@ -4,8 +4,8 @@ json.data do
     json.title data.title
     json.is_online data.users.where.not(id: current_user.id).first.is_online
     json.message do
-      if !data.messages.order(:created_at).last.body.nil?
-        json.preview data.messages.order(:created_at).last.body.first(30)
+      if data.messages.order(created_at: :desc).first
+        json.preview data.messages.order(created_at: :desc).first.body
       else
         json.null!
       end
