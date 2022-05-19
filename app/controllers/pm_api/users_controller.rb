@@ -14,7 +14,7 @@ module PmApi
 
     # PATCH/PUT /pm_api/update_account/1
     def update_account
-      interact = Api::UpdateAccount.call(data: params, current_user: current_user)
+      interact = PmApi::UpdateAccount.call(data: params, current_user: current_user)
 
       if interact.success?
         render json: { message: 'Success' }
@@ -25,7 +25,7 @@ module PmApi
 
     # POST /pm_api/users/setup_avatar
     def setup_avatar
-      interact = Api::CreateOrUpdateAvatar.call(data: params, current_user: current_user)
+      interact = PmApi::CreateOrUpdateAvatar.call(data: params, current_user: current_user)
 
       if interact.success?
         render json: { message: 'Success' }
