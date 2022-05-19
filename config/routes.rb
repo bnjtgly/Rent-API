@@ -22,6 +22,9 @@
     resources :user_settings, param: :user_setting_id, only: %i[index update]
     resources :properties, param: :property_id, only: %i[index show create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
+
+    post 'users/setup_avatar', to: 'users#setup_avatar'
+    post 'users/update_account', to: 'users#update_account'
   end
 
   # This is for our Client or External api (Outside and Limited Access)
