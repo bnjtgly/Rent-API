@@ -8,13 +8,8 @@ module DeviseRequestHelpers
     login_as(resource, scope: scope)
   end
 
-  # def sign_out(resource_or_scope)
-  #   scope = Devise::Mapping.find_scope!(resource_or_scope)
-  #   logout(scope)
-  # end
-
-  def authorize_user
-    user = create(:user, api_client: create(:api_client))
+  def authorize_user(country_code = nil)
+    user = create(:user, api_client: create(:api_client), mobile_country_code_id: country_code)
     create(:user_role, role: create(:role), user: user)
 
     sign_in user

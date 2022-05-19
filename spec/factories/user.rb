@@ -5,6 +5,8 @@ FactoryBot.define do
     last_name { Faker::Name.last_name.gsub(/\W/, '').gsub("\u0000", '') }
     email { Faker::Internet.safe_email }
     password { alphanumeric_password }
+    mobile_country_code_id { nil }
+    mobile { Faker::PhoneNumber.subscriber_number(length: 10) }
   end
 end
 
