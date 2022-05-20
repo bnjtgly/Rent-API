@@ -2,7 +2,7 @@
 
 json.data do
   json.array! @notifications.each do |data|
-    application_data = OpenStruct.new(data.params[:tenant_application][:application_data].to_h)
+    application_data = OpenStruct.new(data.params[:tenant_application][:application_data])
 
     json.id data.id
     json.recipient_type data.recipient_type
