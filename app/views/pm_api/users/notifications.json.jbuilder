@@ -17,7 +17,7 @@ json.data do
         json.last_name data.params[:user][:last_name]
         json.avatar data.params[:user][:avatar]
       end
-      json.property data.params[:tenant_application][:application_data]['property']
+      json.application_data data.params[:tenant_application][:application_data]
     end
   end
 end
