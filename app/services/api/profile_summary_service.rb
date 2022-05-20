@@ -1,13 +1,15 @@
 module Api
   class ProfileSummaryService
-    attr_accessor :user
+    attr_accessor :user, :property
 
-    def initialize(user)
+    def initialize(user, property)
       @user = user
+      @property = property
     end
 
     def call
       {
+        property: get_property,
         personal_info: get_personal_info,
         addresses: get_addresses,
         identities: get_identities,
@@ -19,6 +21,13 @@ module Api
     end
 
     private
+    def get_property
+      {
+        property_id: @property.id,
+        user_agency_id: @property.user_agency_id,
+        details: @property.details
+      }
+    end
     def get_personal_info
       {
         email: @user.email,

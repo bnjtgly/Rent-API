@@ -19,7 +19,8 @@ module Api
 
     def build
       @tenant_application = TenantApplication.new(payload)
-      @application_summary = Api::ProfileSummaryService.new(current_user).call
+      property = Property.where(id: payload[:property_id]).first
+      @application_summary = Api::ProfileSummaryService.new(current_user, property).call
       @tenant_application_status = DomainReference.joins(:domain)
                                                   .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
 
