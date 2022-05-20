@@ -12,7 +12,12 @@ json.tenant_applications do
     json.lease_length data.ref_lease_length.display
     json.lease_start_date data.lease_start_date
     json.status data.ref_status.display
-    json.user data.user
+    json.user do
+      json.user_id data.user.id
+      json.email data.user.email
+      json.complete_name data.user.complete_name
+      json.avatar data.user.avatar
+    end
     json.application_data data.application_data
   end
 end
