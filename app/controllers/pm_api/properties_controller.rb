@@ -13,9 +13,7 @@ module PmApi
 
       @properties = @properties.where("lower(details->>'name') LIKE ?", "%#{params[:property_name].downcase}%") unless params[:property_name].blank?
 
-      @prop = params[:properties].split(',').map(&:strip)
-
-      ap Property.find(@prop)
+      # @prop = params[:properties].split(',').map(&:strip)
 
       pagy, @properties = pagy(@properties, items: items_per_page)
       @pagination = pagy_metadata(pagy)

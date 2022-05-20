@@ -22,6 +22,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :chatrooms, through: :messages
 
+  has_many :notifications, as: :recipient, dependent: :destroy
+
   # Domain References Association
   # List all domain_references columns in users table.
   belongs_to :ref_gender, class_name: 'DomainReference', foreign_key: 'gender_id', optional: true

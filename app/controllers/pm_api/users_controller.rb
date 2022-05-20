@@ -3,6 +3,8 @@ module PmApi
     before_action :authenticate_user!
     authorize_resource class: PmApi::UsersController
 
+    after_action { pagy_metadata(@pagy) if @pagy }
+
     # GET /pm_api/users
     def index
       @user = User.where(id: current_user.id).first
@@ -32,6 +34,16 @@ module PmApi
       else
         render json: { error: interact.error }, status: 422
       end
+    end
+
+    # GET /pm_api/users/notifications
+    def notifications
+      items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
+
+      @notifications = current_user.notifications.newest_first
+
+      pagy, @notifications = pagy(@notifications, items: items_per_page)
+      @pagination = pagy_metadata(pagy)
     end
   end
 end

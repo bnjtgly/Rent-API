@@ -13,4 +13,12 @@ class TenantApplication < ApplicationRecord
   belongs_to :ref_lease_length, class_name: 'DomainReference', foreign_key: 'lease_length_id', optional: true
 
   audited associated_with: :user
+
+  after_create_commit :notify_recipient
+
+  private
+
+  def notify_recipient
+    TenantApplicationNotification.with(tenant_application: self, user: user).deliver_later(property.user_agency.host)
+  end
 end

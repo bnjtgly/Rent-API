@@ -25,6 +25,8 @@
 
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_account', to: 'users#update_account'
+
+    get 'users/notifications', to: 'users#notifications'
   end
 
   # This is for our Client or External api (Outside and Limited Access)
