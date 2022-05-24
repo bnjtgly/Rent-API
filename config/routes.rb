@@ -21,7 +21,7 @@
     resources :users, param: :user_id, only: %i[index]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
     resources :properties, param: :property_id, only: %i[index show create]
-    resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index show update]
 
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_account', to: 'users#update_account'
