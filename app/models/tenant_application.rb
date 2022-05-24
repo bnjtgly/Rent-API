@@ -15,6 +15,7 @@ class TenantApplication < ApplicationRecord
   audited associated_with: :user
 
   after_create_commit :notify_recipient
+  after_commit :notify_recipient, on: [:create, :update]
 
   private
 
