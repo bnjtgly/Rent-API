@@ -13,5 +13,6 @@ class CreateAddresses < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :addresses, %i[user_id valid_from valid_thru], unique: true
   end
 end

@@ -7,5 +7,6 @@ class CreateUserSettings < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :user_settings, %i[user_id setting_id], unique: true
   end
 end

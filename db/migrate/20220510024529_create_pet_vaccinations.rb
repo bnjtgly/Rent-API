@@ -8,5 +8,6 @@ class CreatePetVaccinations < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :pet_vaccinations, %i[pet_id pet_vaccine_type_id], unique: true
   end
 end

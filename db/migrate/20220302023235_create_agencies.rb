@@ -8,5 +8,6 @@ class CreateAgencies < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :agencies, %i[name phone], unique: true
   end
 end

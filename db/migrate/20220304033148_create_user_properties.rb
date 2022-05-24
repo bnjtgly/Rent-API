@@ -7,5 +7,6 @@ class CreateUserProperties < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :user_properties, %i[user_id property_id], unique: true
   end
 end
