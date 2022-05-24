@@ -6,5 +6,6 @@ class CreateFlatmates < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :flatmates, %i[user_id group_name], unique: true
   end
 end

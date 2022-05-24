@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.datetime "valid_thru"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "valid_from", "valid_thru"], name: "index_addresses_on_user_id_and_valid_from_and_valid_thru", unique: true
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -35,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "phone"], name: "index_agencies_on_name_and_phone", unique: true
   end
 
   create_table "api_clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -44,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.boolean "is_deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "api_key", "secret_key"], name: "index_api_clients_on_name_and_api_key_and_secret_key", unique: true
   end
 
   create_table "audits", force: :cascade do |t|
@@ -68,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "chatrooms", force: :cascade do |t|
+  create_table "chatrooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.uuid "sender_id"
     t.jsonb "participants", default: "{}", null: false
@@ -142,6 +145,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.string "group_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "group_name"], name: "index_flatmates_on_user_id_and_group_name", unique: true
     t.index ["user_id"], name: "index_flatmates_on_user_id"
   end
 
@@ -181,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
 
   create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "body"
-    t.bigint "chatroom_id", null: false
+    t.uuid "chatroom_id", null: false
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -219,6 +223,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.string "proof"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["pet_id", "pet_vaccine_type_id"], name: "index_pet_vaccinations_on_pet_id_and_pet_vaccine_type_id", unique: true
     t.index ["pet_id"], name: "index_pet_vaccinations_on_pet_id"
     t.index ["pet_vaccine_type_id"], name: "index_pet_vaccinations_on_pet_vaccine_type_id"
   end
@@ -245,6 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.jsonb "details", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_agency_id", "details"], name: "index_properties_on_user_agency_id_and_details", unique: true
     t.index ["user_agency_id"], name: "index_properties_on_user_agency_id"
   end
 
@@ -314,6 +320,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agency_id"], name: "index_user_agencies_on_agency_id"
+    t.index ["host_id", "agency_id"], name: "index_user_agencies_on_host_id_and_agency_id", unique: true
     t.index ["host_id"], name: "index_user_agencies_on_host_id"
   end
 
@@ -324,6 +331,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_user_properties_on_property_id"
+    t.index ["user_id", "property_id"], name: "index_user_properties_on_user_id_and_property_id", unique: true
     t.index ["user_id"], name: "index_user_properties_on_user_id"
   end
 
@@ -333,6 +341,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
@@ -343,6 +352,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["setting_id"], name: "index_user_settings_on_setting_id"
+    t.index ["user_id", "setting_id"], name: "index_user_settings_on_user_id_and_setting_id", unique: true
     t.index ["user_id"], name: "index_user_settings_on_user_id"
   end
 

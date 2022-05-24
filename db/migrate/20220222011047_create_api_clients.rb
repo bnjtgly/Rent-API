@@ -8,5 +8,6 @@ class CreateApiClients < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :api_clients, %i[name api_key secret_key], unique: true
   end
 end
