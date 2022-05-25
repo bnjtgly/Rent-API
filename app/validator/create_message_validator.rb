@@ -10,7 +10,7 @@ class CreateMessageValidator
     :body
   )
 
-  validate :user_id_exist, :required
+  validate :user_id_exist, :required, :chatroom_id_exist
 
   def submit
     init

@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.jsonb "participants", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sender_id", "participants"], name: "index_chatrooms_on_sender_id_and_participants", unique: true
     t.index ["sender_id"], name: "index_chatrooms_on_sender_id"
   end
 
