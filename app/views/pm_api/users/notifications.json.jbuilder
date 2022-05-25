@@ -11,13 +11,12 @@ json.data do
     json.updated_at data.updated_at
     json.tenant_application do
       json.tenant_application_id data.params[:tenant_application][:id]
-      json.user do
-        json.user_id data.params[:user][:id]
-        json.first_name data.params[:user][:first_name]
-        json.last_name data.params[:user][:last_name]
-        json.avatar data.params[:user][:avatar]
-      end
-      json.application_data data.params[:tenant_application][:application_data]
+      json.lease_length_id data.params[:tenant_application][:lease_length_id]
+      json.lease_start_date data.params[:tenant_application][:lease_start_date]
+      json.flatmate data.params[:tenant_application][:flatmate]
+      json.status data.params[:tenant_application][:status]
+      json.user data.params[:tenant_application][:user]
+      json.property data.params[:tenant_application][:property]
     end
   end
 end

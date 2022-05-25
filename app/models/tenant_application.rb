@@ -20,6 +20,7 @@ class TenantApplication < ApplicationRecord
   private
 
   def notify_recipient
-    TenantApplicationNotification.with(tenant_application: self, user: user).deliver_later(property.user_agency.host)
+    application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call
+    TenantApplicationNotification.with(tenant_application: application_serializer).deliver_later(property.user_agency.host)
   end
 end
