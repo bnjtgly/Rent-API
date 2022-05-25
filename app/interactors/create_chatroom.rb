@@ -17,11 +17,17 @@ class CreateChatroom
   def build
     @user = User.where(id: payload[:user_id]).first
     @chatroom = @user.chatrooms.new(payload.except(:users, :user_id))
+    participants = add_users_to_chatroom
+    chatroom_exists = Chatroom.where("participants @> ?", participants.to_json).first
 
-    if @chatroom.save
-      participants = add_users_to_chatroom
+    unless chatroom_exists
+      Chatroom.transaction do
+        @chatroom.save
+      end
+
       @chatroom&.update(participants: participants)
-      @chatroom&.update(title: set_participants_name(@chatroom.participants).titleize)
+      @chatroom&.update(title: set_participants_name(@chatroom.participants))
+
     end
 
     context.chatroom = @chatroom
@@ -43,7 +49,7 @@ class CreateChatroom
   end
 
   def set_participants_name(participants)
-    User.find(participants).pluck(:first_name, :last_name).join(' ')
+    User.find(participants).pluck(:first_name, :last_name).join(' ').titleize
   end
 
   def add_users_to_chatroom

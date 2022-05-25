@@ -6,7 +6,14 @@ class ChatroomsController < ApplicationController
   def index
     @user = User.where(id: current_user.id).first
     @chatrooms = @user.chatrooms.uniq
+
+    unless params[:email].blank?
+      participant = User.select(:id).where(email: params[:email]).first
+      @chatrooms = @user.chatrooms.where("participants @> ?", participant.id.to_json)
+    end
+
     get_participants if @chatrooms
+
   end
 
   def show
@@ -38,10 +45,11 @@ class ChatroomsController < ApplicationController
         unless user.id.eql?(current_user.id)
           participants << {
             user_id: user.id,
+            email: user.email,
             complete_name: user.complete_name,
             avatar: user.avatar.url,
             role: user.user_role.role.role_name
-          }
+          }.to_h
         end
 
       end
