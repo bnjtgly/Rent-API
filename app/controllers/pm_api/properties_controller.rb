@@ -9,10 +9,11 @@ module PmApi
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-      @properties = Property.includes(user_agency: :agency).where(user_agency: { host_id: current_user.id })
+      @properties = Property.where(agency_id: current_user.user_agency.agency.id)
 
       @properties = @properties.where("lower(details->>'name') LIKE ?", "%#{params[:property_name].downcase}%") unless params[:property_name].blank?
 
+      # Add id to compare
       # @prop = params[:properties].split(',').map(&:strip)
 
       pagy, @properties = pagy(@properties, items: items_per_page)
@@ -21,7 +22,7 @@ module PmApi
 
     # GET /pm_api/properties/1
     def show
-      @property = Property.includes(:user_agency).where(id: params[:property_id], user_agency: { host_id: current_user.id }).first
+      @property = Property.where(id: params[:property_id], agency_id: current_user.user_agency.agency.id).first
 
       if @property.nil?
         render json: { error: { property_id: ['Not Found.'] } }, status: :not_found

@@ -247,12 +247,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
   end
 
   create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_agency_id", null: false
+    t.uuid "agency_id", null: false
     t.jsonb "details", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_agency_id", "details"], name: "index_properties_on_user_agency_id_and_details", unique: true
-    t.index ["user_agency_id"], name: "index_properties_on_user_agency_id"
+    t.index ["agency_id", "details"], name: "index_properties_on_agency_id_and_details", unique: true
+    t.index ["agency_id"], name: "index_properties_on_agency_id"
   end
 
   create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -316,13 +316,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
   end
 
   create_table "user_agencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "host_id"
+    t.uuid "user_id", null: false
     t.uuid "agency_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agency_id"], name: "index_user_agencies_on_agency_id"
-    t.index ["host_id", "agency_id"], name: "index_user_agencies_on_host_id_and_agency_id", unique: true
-    t.index ["host_id"], name: "index_user_agencies_on_host_id"
+    t.index ["user_id", "agency_id"], name: "index_user_agencies_on_user_id_and_agency_id", unique: true
+    t.index ["user_id"], name: "index_user_agencies_on_user_id"
   end
 
   create_table "user_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -413,7 +413,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
   add_foreign_key "pets", "domain_references", column: "pet_type_id"
   add_foreign_key "pets", "domain_references", column: "pet_weight_id"
   add_foreign_key "pets", "users"
-  add_foreign_key "properties", "user_agencies"
+  add_foreign_key "properties", "agencies"
   add_foreign_key "references", "addresses"
   add_foreign_key "references", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "references", "domain_references", column: "ref_position_id"
@@ -424,7 +424,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
   add_foreign_key "tenant_applications", "properties"
   add_foreign_key "tenant_applications", "users"
   add_foreign_key "user_agencies", "agencies"
-  add_foreign_key "user_agencies", "users", column: "host_id"
+  add_foreign_key "user_agencies", "users"
   add_foreign_key "user_properties", "properties"
   add_foreign_key "user_properties", "users"
   add_foreign_key "user_roles", "roles"

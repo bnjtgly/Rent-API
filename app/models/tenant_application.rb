@@ -21,6 +21,10 @@ class TenantApplication < ApplicationRecord
 
   def notify_recipient
     application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call
-    TenantApplicationNotification.with(tenant_application: application_serializer).deliver_later(property.user_agency.host)
+    @hosts = User.includes(:user_agency).where(user_agency: { agency_id: property.agency_id })
+
+    @hosts.each do |host|
+      TenantApplicationNotification.with(tenant_application: application_serializer).deliver_later(host)
+    end
   end
 end

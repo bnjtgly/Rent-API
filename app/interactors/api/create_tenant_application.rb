@@ -7,6 +7,7 @@ module Api
     delegate :data, :current_user, to: :context
 
     def call
+      init
       validate!
       build
     end
@@ -16,6 +17,11 @@ module Api
     end
 
     private
+
+    def init
+      @user = User.where(id: current_user.id).first
+      context.fail!(error: { profile: ['Please try again. Complete your profile first.'] }) unless is_profile_complete?
+    end
 
     def build
       @tenant_application = TenantApplication.new(payload)
@@ -31,6 +37,7 @@ module Api
         @tenant_application.application_data = @application_summary
       end
 
+      # @todo: Check if all profile details are present.
       TenantApplication.transaction do
         @tenant_application.save
       end
@@ -51,12 +58,18 @@ module Api
     def payload
       {
         audit_comment: 'Create Tenant Application',
-        user_id: current_user.id,
+        user_id: @user.id,
         property_id: data[:tenant_application][:property_id],
-        flatmate_id: data[:tenant_application][:flatmate_id],
+        flatmate_id: data[:tenant_application][:flatmate_id] ? data[:tenant_application][:flatmate_id] : nil,
         lease_length_id: data[:tenant_application][:lease_length_id],
         lease_start_date: data[:tenant_application][:lease_start_date],
       }
+    end
+
+    def is_profile_complete?
+      return true if @user.addresses.present? && @user.identities.present? && @user.incomes.present? && @user.pets.present?
+
+      false
     end
   end
 end

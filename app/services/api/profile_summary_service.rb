@@ -24,7 +24,7 @@ module Api
     def get_property
       {
         property_id: @property.id,
-        user_agency_id: @property.user_agency_id,
+        agency_id: @property.agency_id,
         details: @property.details
       }
     end

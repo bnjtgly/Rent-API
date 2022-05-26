@@ -16,4 +16,18 @@ json.user do
   json.sign_up_with @user.ref_sign_up_with.display
   json.avatar @user.avatar
   json.status @user.ref_user_status.display
+
+  json.agency do
+    json.agency @user.user_agency.agency
+  end
+
+  json.applications do
+    json.array! @tenant_applications.each do |data|
+      json.tenant_application_id data.id
+      json.property do
+        json.property_id data.property.id
+        json.name data.property.details['name']
+      end
+    end
+  end
 end

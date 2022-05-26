@@ -4,5 +4,5 @@ class Property < ApplicationRecord
   strip_attributes
   has_many :tenant_applications, dependent: :destroy
   has_many :user_properties, dependent: :destroy
-  belongs_to :user_agency
+  belongs_to :agency
 end

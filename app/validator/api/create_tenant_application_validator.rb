@@ -26,7 +26,7 @@ module Api
     def init
       @user = User.where(id: user_id).load_async.first
       @property = Property.where(id: property_id).load_async.first
-      @flatmate = Flatmate.where(id: flatmate_id).load_async.first
+      @flatmate = Flatmate.where(id: flatmate_id).load_async.first if flatmate_id
       @application = TenantApplication.exists?(property_id: property_id, user_id: user_id)
     end
 
@@ -39,7 +39,7 @@ module Api
     def required
       errors.add(:user_id, REQUIRED_MESSAGE) if user_id.blank?
       errors.add(:property_id, REQUIRED_MESSAGE) if property_id.blank?
-      errors.add(:flatmate_id, REQUIRED_MESSAGE) if flatmate_id.blank?
+      # errors.add(:flatmate_id, REQUIRED_MESSAGE) if flatmate_id.blank?
       errors.add(:lease_length_id, REQUIRED_MESSAGE) if lease_length_id.blank?
       errors.add(:lease_start_date, REQUIRED_MESSAGE) if lease_start_date.blank?
     end
@@ -53,7 +53,7 @@ module Api
       end
 
     def flatmate_id_exist
-      errors.add(:flatmate_id, NOT_FOUND) unless @flatmate
+      errors.add(:flatmate_id, NOT_FOUND) if flatmate_id && !@flatmate
     end
 
     def application_exist

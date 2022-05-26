@@ -8,6 +8,7 @@ module PmApi
     # GET /pm_api/users
     def index
       @user = User.where(id: current_user.id).first
+      @tenant_applications = TenantApplication.includes(:property).where(property: { agency_id: current_user.user_agency.agency.id })
 
       unless @user
         render json: { error: { user_id: ['Not Found.'] } }, status: :not_found

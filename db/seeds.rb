@@ -155,29 +155,29 @@ when 'development', 'staging'
 
   # Create superadmin account
   user = User.create(email: 'superadmin@sr.tenant.com', password: '@Test123', first_name: 'Admin', last_name: 'Strator',
-                     date_of_birth: '1993-01-01', mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456789, sign_up_with_id: sign_up_with_ref1.id,
+                     date_of_birth: '1993-01-01', mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456789, phone: '02 5550 4321', sign_up_with_id: sign_up_with_ref1.id,
                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_admin.id, user_status_id: user_status_ref.id)
 
   # Create user: tenant - Web
   user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith', date_of_birth: '1994-10-10',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, phone: '02 5550 4121', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
   # Create user: tenant - Ios
   user2 = User.create(email: 'aliciah@sr.tenant.com', password: 'Abc!23', first_name: 'Alicia', last_name: 'Henderson', date_of_birth: '1996-11-11',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7223456790, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7223456790, phone: '02 1123 4321', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_ios.id, user_status_id: user_status_ref.id)
 
   user3 = User.create(email: 'agnespaige@sr.tenant.com', password: 'Abc!23', first_name: 'Agnes', last_name: 'Paige', date_of_birth: '1992-12-10',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, phone: '02 3213 2231', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
   user4 = User.create(email: 'avaelliott@sr.tenant.com', password: '@Test123', first_name: 'Ava', last_name: 'Elliott', date_of_birth: '1990-11-12',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, phone: '02 3211 1123', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
   user5 = User.create(email: 'anagerard@sr.tenant.com', password: '@Test123', first_name: 'Ana', last_name: 'Gerard', date_of_birth: '1992-10-11',
-                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233311711, is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
+                      mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233311711, phone: '02 8550 4329', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
                       refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
 
   # Assign role to user
@@ -193,11 +193,11 @@ when 'development', 'staging'
   #Agency
   agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
   agency2 = Agency.create(name: 'Ray Black', desc: 'Ray Black North Perth', phone: '61412473321', url: 'rayblack.com.au')
-  host = UserAgency.create(host_id: user4.id, agency_id: agency1.id)
-  host1 = UserAgency.create(host_id: user5.id, agency_id: agency2.id)
+  host = UserAgency.create(user_id: user4.id, agency_id: agency1.id)
+  host1 = UserAgency.create(user_id: user5.id, agency_id: agency2.id)
 
   # Properties
-  property1 = Property.create(user_agency_id: host.id, details: {
+  property1 = Property.create(agency_id: agency1.id, details: {
     id: SecureRandom.uuid,
     name: 'Treehouse hosted by Mikheyla Fox',
     desc: '',
@@ -210,7 +210,7 @@ when 'development', 'staging'
     views: 321
   })
 
-  property2 = Property.create(user_agency_id: host.id, details: {
+  property2 = Property.create(agency_id: agency1.id, details: {
     id: SecureRandom.uuid,
     name: 'Resort Style Coastal Cottage - Walk to Beach',
     desc: '',
@@ -223,7 +223,7 @@ when 'development', 'staging'
     views: 103
   })
 
-  property3 = Property.create(user_agency_id: host.id, details: {
+  property3 = Property.create(agency_id: agency2.id, details: {
     id: SecureRandom.uuid,
     name: 'Master Bedroom on private level + & W.I.R!',
     desc: '',
@@ -236,7 +236,7 @@ when 'development', 'staging'
     views: 215
   })
 
-  property4 = Property.create(user_agency_id: host1.id, details: {
+  property4 = Property.create(agency_id: agency2.id, details: {
     id: SecureRandom.uuid,
     name: 'Little Cottage by the River in Healesville',
     desc: '',
@@ -252,7 +252,10 @@ when 'development', 'staging'
   # User saved properties.
   UserProperty.create(user_id: user1.id, property_id: property1.id)
   UserProperty.create(user_id: user1.id, property_id: property2.id)
+  UserProperty.create(user_id: user1.id, property_id: property3.id)
+  UserProperty.create(user_id: user1.id, property_id: property4.id)
   UserProperty.create(user_id: user2.id, property_id: property1.id)
+  UserProperty.create(user_id: user2.id, property_id: property2.id)
 
   # Sample Tenant Application
   address1 = Address.create(user_id: user1.id,
@@ -268,8 +271,6 @@ when 'development', 'staging'
                    ref_position_id: ref_position_ref2.id,
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
-
-  Identity.create(user_id: user1.id, identity_type_id: identity_type_ref.id, id_number: 'B01194', file: 'driver_license.jpg')
 
   flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
