@@ -5,7 +5,8 @@ module PmApi
 
         # GET /pm_api/tenant_applications
         def index
-            pagy, @tenant_applications = pagy(TenantApplication.includes(flatmate: :flatmate_members))
+            pagy, @tenant_applications = pagy(TenantApplication.includes(:property, flatmate: :flatmate_members)
+                                                               .where(property: { agency_id: current_user.user_agency.agency.id }))
 
             @tenant_applications = @tenant_applications.select('tenant_applications.*, NULL as income')
 

@@ -11,7 +11,7 @@ json.data do
     json.property do
       if data.property
         json.property_id data.property.id
-        json.user_agency_id data.property.user_agency_id
+        json.agency_id  data.property.agency_id
         json.details data.property.details.eql?('{}') ? nil : data.property.details
       else
         json.null!

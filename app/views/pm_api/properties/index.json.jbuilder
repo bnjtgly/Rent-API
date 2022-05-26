@@ -7,7 +7,7 @@ json.data do
     json.details data.details
     json.created_at data.created_at
     json.updated_at data.updated_at
-    json.agency data.user_agency.agency
+    json.agency data.agency
   end
 end
 

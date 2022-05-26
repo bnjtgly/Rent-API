@@ -18,13 +18,12 @@ module PmApi
     def build
       @property_data =  JSON.parse(payload.to_json)
       @property_exists = Property.where('details @> ?', { name: @property_data['details']['name'] }.to_json).load_async.first
-      @user_agency = UserAgency.where(host_id: current_user.id).load_async.first
 
       if @property_exists
         @property = @property_exists
       else
         @property = Property.new(payload)
-        @property.user_agency_id = @user_agency.id
+        @property.agency_id = current_user.user_agency.agency.id
         Property.transaction do
           @property.save
         end

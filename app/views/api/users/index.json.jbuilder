@@ -134,6 +134,16 @@ json.pets do
   end
 end
 
+json.applications do
+  json.array! @user.tenant_applications.each do |data|
+    json.tenant_application_id data.id
+    json.property do
+      json.property_id data.property.id
+      json.name data.property.details['name']
+    end
+  end
+end
+
 json.user_settings do
   json.array! @user.user_setting.each do |data|
     json.user_setting_id data.id
