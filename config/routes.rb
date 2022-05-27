@@ -60,6 +60,9 @@
   resources :messages, only: [:index, :create]
   resources :chatrooms, only: [:index, :create, :show]
 
+  # Testing
+  resources :tests
+
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',

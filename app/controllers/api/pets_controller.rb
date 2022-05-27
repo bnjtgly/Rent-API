@@ -22,7 +22,7 @@ module Api
 
       if interact.success?
         @pet = interact.pet
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call[:pets]
+        @profile_completion_percentage = Api::ProfileService.new(current_user).call
       else
         render json: { error: interact.error }, status: 422
       end
