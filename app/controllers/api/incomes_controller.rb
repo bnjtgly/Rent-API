@@ -23,7 +23,7 @@ module Api
 
       if interact.success?
         @income = interact.income
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call[:incomes]
+        @profile_completion_percentage = Api::ProfileService.new(current_user).call
         @total_income = Api::IncomeService.new(Income.where(user_id: current_user.id)).call
       else
         render json: { error: interact.error }, status: 422
