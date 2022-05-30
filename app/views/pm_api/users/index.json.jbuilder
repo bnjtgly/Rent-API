@@ -24,6 +24,19 @@ json.user do
   json.applications do
     json.array! @tenant_applications.each do |data|
       json.tenant_application_id data.id
+      json.lease_length_id data.ref_lease_length.display
+      json.lease_start_date data.lease_start_date
+      json.status data.ref_status.display
+      json.flatmate data.flatmate.nil? ? nil : data.flatmate.flatmate_members.count
+      json.user do
+        if data.user
+          json.user_id data.user.id
+          json.complete_name data.user.complete_name
+          json.avatar data.user.avatar
+        else
+          json.null!
+        end
+      end
       json.property do
         json.property_id data.property.id
         json.name data.property.details['name']
