@@ -40,6 +40,7 @@ json.user do
       json.property do
         json.property_id data.property.id
         json.name data.property.details['name']
+        json.img data.property.details['img']
       end
     end
   end
