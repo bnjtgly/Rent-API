@@ -20,12 +20,21 @@ module Api
     end
 
     def build
-      @pet_vaccination = PetVaccination.new(payload)
-      PetVaccination.transaction do
-        @pet_vaccination.save
+      payload[:vaccination_attributes].each do |value|
+        @pet_vaccination = PetVaccination.new(
+          {
+            pet_id: @pet.id,
+            pet_vaccine_type_id: value[:pet_vaccine_type_id],
+            vaccination_date: value[:vaccination_date],
+            proof: value[:proof]
+          })
+
+        PetVaccination.transaction do
+          @pet_vaccination.save
+        end
       end
 
-      context.pet_vaccination = @pet_vaccination
+      context.pet_vaccination = @pet.pet_vaccinations
     end
 
     def validate!
@@ -38,9 +47,7 @@ module Api
     def payload
       {
         pet_id: @pet.id,
-        pet_vaccine_type_id: data[:pet][:vaccination][:pet_vaccine_type_id],
-        vaccination_date: data[:pet][:vaccination][:vaccination_date],
-        proof: data[:pet][:vaccination][:proof]
+        vaccination_attributes: data[:pet][:vaccination]
       }
     end
   end

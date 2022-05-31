@@ -3,23 +3,22 @@ module PmApi
         before_action :authenticate_user!
         authorize_resource class: PmApi::TenantApplicationsController
 
+        after_action { pagy_metadata(@pagy) if @pagy }
+
         # GET /pm_api/tenant_applications
         def index
-            pagy, @tenant_applications = pagy(TenantApplication.includes(:property, flatmate: :flatmate_members)
-                                                               .where(property: { agency_id: current_user.user_agency.agency.id }))
+            items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-            @tenant_applications = @tenant_applications.select('tenant_applications.*, NULL as income')
+            @tenant_applications = TenantApplication.select('tenant_applications.*, NULL as income')
+                                                    .includes(:property, flatmate: :flatmate_members)
+                                                    .where(property: { agency_id: current_user.user_agency.agency.id })
 
-            unless params[:compare_id].blank?
-                # compare_ids = params[:compare_id].split(',').map(&:strip)
-                ap params[:compare_id]
-                @tenant_applications = @tenant_applications.where(id: params[:compare_id])
-                ap @tenant_applications
-            end
+            @tenant_applications = @tenant_applications.where(id: params[:compare_id]) unless params[:compare_id].blank?
 
+            pagy, @tenant_applications = pagy(@tenant_applications, items: items_per_page)
             @tenant_applications = PmApi::IncomeService.new(@tenant_applications).call
 
-            pagy_headers_merge(pagy)
+            @pagination = pagy_metadata(pagy)
         end
 
         # GET /pm_api/tenant_applications/1

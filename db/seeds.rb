@@ -258,8 +258,9 @@ when 'development', 'staging'
   UserProperty.create(user_id: user1.id, property_id: property2.id)
   UserProperty.create(user_id: user1.id, property_id: property3.id)
   UserProperty.create(user_id: user1.id, property_id: property4.id)
-  UserProperty.create(user_id: user2.id, property_id: property1.id)
-  UserProperty.create(user_id: user2.id, property_id: property2.id)
+  UserProperty.create(user_id: user3.id, property_id: property1.id)
+  UserProperty.create(user_id: user3.id, property_id: property2.id)
+  UserProperty.create(user_id: user3.id, property_id: property3.id)
 
   # Sample Tenant Application
   address1 = Address.create(user_id: user1.id,
@@ -275,6 +276,20 @@ when 'development', 'staging'
                    ref_position_id: ref_position_ref2.id,
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
+
+  address2 = Address.create(user_id: user3.id,
+                            state: 'NSW',
+                            suburb: 'Old Norfolk',
+                            address: 'Address 2',
+                            post_code: '7140',
+                            valid_from: '2020-01-01',
+                            valid_thru: '2021-03-01')
+  Reference.create(address_id: address2.id,
+                   full_name: 'Adam Warlock',
+                   email: 'aworlcok@go.team.au',
+                   ref_position_id: ref_position_ref2.id,
+                   mobile_country_code_id: mobile_country_code_ref.id,
+                   mobile: 4123336712)
 
   flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
@@ -310,8 +325,6 @@ when 'development', 'staging'
   EmpDocument.create(employment_id: emp1.id, document_type_id: doc_type_ref2.id, file: 'coe.jpg')
 
   TenantApplication.create(user_id: user1.id, property_id: property1.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
-  TenantApplication.create(user_id: user1.id, property_id: property2.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
-  TenantApplication.create(user_id: user2.id, property_id: property1.id, tenant_application_status_id: application_status_ref2.id)
 
   #USER SETTINGS
   user_ids = [user1.id, user2.id, user3.id, user4.id]

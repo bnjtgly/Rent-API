@@ -42,7 +42,6 @@ module Api
 
     def group_name_exist
       errors.add(:group_name, "#{PLEASE_CHANGE_MESSAGE} #{NAME_EXIST_MESSAGE}") if @flatmate
-      errors.add(:group_name, "#{PLEASE_CHANGE_MESSAGE} #{ENGLISH_ALPHABETS_ONLY_MESSAGE}") unless valid_english_alphabets?(group_name)
     end
   end
 end

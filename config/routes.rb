@@ -54,6 +54,7 @@
     post 'users/update_account', to: 'users#update_account'
 
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
+    get 'users/notifications', to: 'users#notifications'
   end
 
   resources :messages, only: [:index, :create]

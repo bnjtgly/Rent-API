@@ -90,6 +90,13 @@ module Api
         render json: { error: interact.error }, status: 422
       end
     end
+
+    # GET /api/users/notifications
+    def notifications
+      pagy, @notifications = pagy(current_user.notifications.newest_first)
+
+      pagy_headers_merge(pagy)
+    end
   end
 end
 
