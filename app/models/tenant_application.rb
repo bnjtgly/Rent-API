@@ -27,5 +27,10 @@ class TenantApplication < ApplicationRecord
 
     # Notify all PMs in the agency.
     TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(@hosts)
+
+    # @hosts.each do |host|
+    #   TenantApplicationNotification.with(latest_notification(host, application_serializer)).deliver_later(host)
+    # end
   end
+
 end

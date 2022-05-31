@@ -21,6 +21,8 @@ module Api
         lease_start_date: @resource.lease_start_date,
         status: @resource.ref_status.display,
         flatmate: @resource.flatmate.nil? ? nil : @resource.flatmate.flatmate_members.count,
+        created_at: @resource.created_at,
+        updated_at: @resource.updated_at,
         user: {
           user_id: @resource.user.id,
           complete_name: @resource.user.complete_name,
