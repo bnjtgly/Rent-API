@@ -2,9 +2,10 @@ module Api
   class ProfileSummaryService
     attr_accessor :user, :property
 
-    def initialize(user, property)
+    def initialize(user, property, flatmate)
       @user = user
       @property = property
+      @flatmate = flatmate
     end
 
     def call
@@ -16,7 +17,7 @@ module Api
         incomes: get_incomes,
         employment: get_employment,
         pets: get_pets,
-        flatmates: get_flatmates,
+        flatmates: @flatmate ? get_flatmates : [],
       }
     end
 
