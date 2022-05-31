@@ -14,17 +14,18 @@ class TenantApplication < ApplicationRecord
 
   audited associated_with: :user
 
-  after_create_commit :notify_recipient
-  after_commit :notify_recipient, on: [:create, :update]
+  after_commit :notify_property_manager, :notify_tenant, on: [:create, :update]
 
   private
-
-  def notify_recipient
+  def notify_tenant
+    application_serializer = Api::NotificationService.new({ tenant_application: self }).call
+    TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
+  end
+  def notify_property_manager
     application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call
     @hosts = User.includes(:user_agency).where(user_agency: { agency_id: property.agency_id })
 
-    @hosts.each do |host|
-      TenantApplicationNotification.with(tenant_application: application_serializer).deliver_later(host)
-    end
+    # Notify all PMs in the agency.
+    TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(@hosts)
   end
 end
