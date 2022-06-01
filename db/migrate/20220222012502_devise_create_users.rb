@@ -50,6 +50,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string :otp
       t.datetime :otp_sent_at
       t.boolean :is_online, default: false
+      t.jsonb :account_setup, null: false, default: '{}'
 
       t.timestamps null: false
     end

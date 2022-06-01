@@ -1,6 +1,7 @@
 module PmApi
   class UsersController < ApplicationController
-    before_action :authenticate_user!
+    include Custom::GlobalRefreshToken
+    before_action :authenticate_user!, except: %i[setup_password]
     authorize_resource class: PmApi::UsersController
 
     after_action { pagy_metadata(@pagy) if @pagy }
@@ -32,6 +33,30 @@ module PmApi
 
       if interact.success?
         render json: { message: 'Success' }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
+    # POST /admin_api/users/:email_token/setup_password
+    def setup_password
+      interact = PmApi::CreateSetupPassword.call(data: params)
+
+      if interact.success?
+        token = Warden::JWTAuth::UserEncoder.new.call(interact.user, :user, nil).first
+
+        render json: { access_token: token, refresh_token: login_refresh_token(token) }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
+    # POST /admin_api/users/setup_account
+    def setup_account
+      interact = PmApi::CreateSetupAccount.call(data: params, current_user: current_user)
+
+      if interact.success?
+        @user = interact.user
       else
         render json: { error: interact.error }, status: 422
       end

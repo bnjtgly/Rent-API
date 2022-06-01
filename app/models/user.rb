@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_one :otp_verification, dependent: :destroy
   has_many :tenant_applications, dependent: :destroy
   has_many :user_properties, dependent: :destroy
-  has_many :user_setting, dependent: :destroy
+  has_many :user_settings, dependent: :destroy
 
   has_many :addresses, dependent: :destroy
   has_many :identities, dependent: :destroy

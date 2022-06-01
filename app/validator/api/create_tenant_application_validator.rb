@@ -11,7 +11,8 @@ module Api
       :property_id,
       :flatmate_id,
       :lease_length_id,
-      :lease_start_date
+      :lease_start_date,
+      :cover_letter
     )
 
     validate :user_id_exist, :required, :property_id_exist, :flatmate_id_exist, :application_exist, :valid_date, :valid_lease_length_id
@@ -42,6 +43,7 @@ module Api
       # errors.add(:flatmate_id, REQUIRED_MESSAGE) if flatmate_id.blank?
       errors.add(:lease_length_id, REQUIRED_MESSAGE) if lease_length_id.blank?
       errors.add(:lease_start_date, REQUIRED_MESSAGE) if lease_start_date.blank?
+      errors.add(:cover_letter, REQUIRED_MESSAGE) if cover_letter.blank?
     end
 
     def user_id_exist

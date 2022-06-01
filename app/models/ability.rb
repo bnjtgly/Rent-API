@@ -9,7 +9,7 @@ class Ability
     if !user.id.nil?
       can :manage, :all if %w[SUPERADMIN].include? user.user_role.role.role_name
       if user.user_role.role.role_name.eql?('USER')
-        can %i[index mobile_verification resend_otp resend_email_verification setup_avatar update_personal_info update_account notifications], Api::UsersController
+        can %i[index mobile_verification resend_otp resend_email_verification setup_avatar update_personal_info update_account notifications update_account_setup], Api::UsersController
         can %i[index create update], Api::AddressesController
         can %i[index create], Api::IdentitiesController
         can %i[index create update], Api::IncomesController
@@ -22,7 +22,7 @@ class Ability
         can %i[update], Api::ReferencesController
         can %i[index update], Api::UserSettingsController
       elsif user.user_role.role.role_name.eql?('PROPERTY MANAGER')
-        can %i[index create update_account setup_avatar notifications], PmApi::UsersController
+        can %i[index create update_account setup_avatar notifications setup_account], PmApi::UsersController
         can %i[index update], PmApi::UserSettingsController
         can %i[index show], PmApi::DomainsController
         can %i[index show], PmApi::DomainReferencesController
@@ -31,6 +31,7 @@ class Ability
       end
     else
       can %i[confirm_email], Api::UsersController
+      can %i[setup_password], PmApi::UsersController
     end
 
     # The first argument to `can` is the action you are giving the user

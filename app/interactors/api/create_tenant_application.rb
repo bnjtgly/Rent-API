@@ -24,9 +24,9 @@ module Api
     end
 
     def build
-      @tenant_application = TenantApplication.new(payload)
+      @tenant_application = TenantApplication.new(payload.except(:cover_letter))
       property = Property.where(id: payload[:property_id]).first
-      @application_summary = Api::ProfileSummaryService.new(current_user, property, payload[:flatmate_id]).call
+      @application_summary = Api::ProfileSummaryService.new(current_user, property, payload[:flatmate_id], payload[:cover_letter]).call
       @tenant_application_status = DomainReference.joins(:domain)
                                                   .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
 
@@ -63,6 +63,7 @@ module Api
         flatmate_id: data[:tenant_application][:flatmate_id] ? data[:tenant_application][:flatmate_id] : nil,
         lease_length_id: data[:tenant_application][:lease_length_id],
         lease_start_date: data[:tenant_application][:lease_start_date],
+        cover_letter: data[:tenant_application][:application_data][:cover_letter]
       }
     end
 

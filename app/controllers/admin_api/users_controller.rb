@@ -36,11 +36,22 @@ module AdminApi
     end
 
     # POST /admin_api/users
-    def create
-      interact = AdminApi::CreateUser.call(data: params, current_user: current_user)
+    # def create
+    #   interact = AdminApi::CreateUser.call(data: params, current_user: current_user)
+    #
+    #   if interact.success?
+    #     @user = interact.user
+    #   else
+    #     render json: { error: interact.error }, status: 422
+    #   end
+    # end
+
+    # POST /admin_api/users/invite_user
+    def invite_user
+      interact = AdminApi::CreateInviteUser.call(data: params, current_user: current_user)
 
       if interact.success?
-        @user = interact.user
+        render json: { message: 'Success' }
       else
         render json: { error: interact.error }, status: 422
       end
