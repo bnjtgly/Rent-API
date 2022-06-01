@@ -161,16 +161,22 @@ when 'development', 'staging'
   # Create user: tenant - Web
   user1 = User.create(email: 'jsmith@sr.tenant.com', password: 'Abc!23', first_name: 'John', last_name: 'Smith', date_of_birth: '1994-10-10',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, phone: '02 5550 4121', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
-                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id, account_setup: {
+      cover_letter: 'I am hoping that I can get the property.'
+    })
 
   # Create user: tenant - Ios
   user2 = User.create(email: 'aliciah@sr.tenant.com', password: 'Abc!23', first_name: 'Alicia', last_name: 'Henderson', date_of_birth: '1996-11-11',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7223456790, phone: '02 1123 4321', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
-                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_ios.id, user_status_id: user_status_ref.id)
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id, account_setup: {
+      cover_letter: "I'm so excited to get the property."
+    })
 
   user3 = User.create(email: 'agnespaige@sr.tenant.com', password: 'Abc!23', first_name: 'Agnes', last_name: 'Paige', date_of_birth: '1992-12-10',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233456792, phone: '02 3213 2231', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
-                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id)
+                      refresh_token: SecureRandom.uuid, gender_id: user_gender_ref2.id, api_client_id: api_client_web.id, user_status_id: user_status_ref.id, account_setup: {
+      cover_letter: 'Looking forward for the property!'
+    })
 
   user4 = User.create(email: 'avaelliott@sr.tenant.com', password: '@Test123', first_name: 'Ava', last_name: 'Elliott', date_of_birth: '1990-11-12',
                       mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233331711, phone: '02 3211 1123', is_email_verified: true, is_mobile_verified: true, sign_up_with_id: sign_up_with_ref1.id,
@@ -258,6 +264,11 @@ when 'development', 'staging'
   UserProperty.create(user_id: user1.id, property_id: property2.id)
   UserProperty.create(user_id: user1.id, property_id: property3.id)
   UserProperty.create(user_id: user1.id, property_id: property4.id)
+
+  UserProperty.create(user_id: user2.id, property_id: property1.id)
+  UserProperty.create(user_id: user2.id, property_id: property3.id)
+  UserProperty.create(user_id: user2.id, property_id: property4.id)
+
   UserProperty.create(user_id: user3.id, property_id: property1.id)
   UserProperty.create(user_id: user3.id, property_id: property2.id)
   UserProperty.create(user_id: user3.id, property_id: property3.id)
@@ -277,23 +288,43 @@ when 'development', 'staging'
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
 
-  address2 = Address.create(user_id: user3.id,
-                            state: 'NSW',
-                            suburb: 'Old Norfolk',
+  address2 = Address.create(user_id: user2.id,
+                            state: 'Tasmania',
+                            suburb: 'Semi New Norfolk',
                             address: 'Address 2',
                             post_code: '7140',
                             valid_from: '2020-01-01',
                             valid_thru: '2021-03-01')
   Reference.create(address_id: address2.id,
+                   full_name: 'Ana Smith',
+                   email: 'anasmith@go.team.au',
+                   ref_position_id: ref_position_ref2.id,
+                   mobile_country_code_id: mobile_country_code_ref.id,
+                   mobile: 412335678)
+
+  address3 = Address.create(user_id: user3.id,
+                            state: 'NSW',
+                            suburb: 'Old Norfolk',
+                            address: 'Address 3',
+                            post_code: '7140',
+                            valid_from: '2020-01-01',
+                            valid_thru: '2021-03-01')
+  Reference.create(address_id: address3.id,
                    full_name: 'Adam Warlock',
                    email: 'aworlcok@go.team.au',
                    ref_position_id: ref_position_ref2.id,
                    mobile_country_code_id: mobile_country_code_ref.id,
-                   mobile: 4123336712)
+                   mobile: 4111336712)
 
   flatmate = Flatmate.create(user_id: user1.id, group_name: 'Friends')
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user2.id)
   FlatmateMember.create(flatmate_id: flatmate.id, user_id: user3.id)
+
+  flatmate2 = Flatmate.create(user_id: user2.id, group_name: 'Friends')
+  FlatmateMember.create(flatmate_id: flatmate2.id, user_id: user1.id)
+
+  flatmate3 = Flatmate.create(user_id: user3.id, group_name: 'Friends')
+  FlatmateMember.create(flatmate_id: flatmate3.id, user_id: user2.id)
 
   #PETS
   pet1 = Pet.create(user_id: user1.id,
@@ -303,8 +334,25 @@ when 'development', 'staging'
                     name: 'Miffie',
                     breed: 'Shi Zhu',
                     color: 'Brown')
-
   PetVaccination.create(pet_id: pet1.id, pet_vaccine_type_id: ref_pet_vac_type_ref1.id, vaccination_date: '208-01-05', proof: 'proof.jpg')
+
+  pet2 = Pet.create(user_id: user2.id,
+                    pet_type_id: pet_type_ref.id,
+                    pet_gender_id: pet_gender_ref.id,
+                    pet_weight_id: pet_weight_ref.id,
+                    name: 'Kenai',
+                    breed: 'Husky',
+                    color: 'Brown')
+  PetVaccination.create(pet_id: pet2.id, pet_vaccine_type_id: ref_pet_vac_type_ref1.id, vaccination_date: '208-01-05', proof: 'proof.jpg')
+
+  pet3 = Pet.create(user_id: user3.id,
+                    pet_type_id: pet_type_ref.id,
+                    pet_gender_id: pet_gender_ref.id,
+                    pet_weight_id: pet_weight_ref.id,
+                    name: 'Chowie',
+                    breed: 'Chow Chow',
+                    color: 'Brown')
+  PetVaccination.create(pet_id: pet3.id, pet_vaccine_type_id: ref_pet_vac_type_ref1.id, vaccination_date: '208-01-05', proof: 'proof.jpg')
 
   income1 = Income.create(user_id: user1.id,
                           income_source_id: income_source_ref2.id,
