@@ -18,6 +18,7 @@ json.data do
 
     json.application_data do
       if data.application_data
+        json.cover_letter data.application_data['cover_letter']
         json.personal_info data.application_data['personal_info']
         json.addresses data.application_data['addresses']
         json.identities data.application_data['identities']

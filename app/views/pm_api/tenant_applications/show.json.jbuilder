@@ -28,6 +28,7 @@ end
 
 json.application_data do
   if @tenant_application.application_data
+    json.cover_letter @tenant_application.application_data['cover_letter']
     json.personal_info @tenant_application.application_data['personal_info']
     json.addresses @tenant_application.application_data['addresses']
     json.identities @tenant_application.application_data['identities']
