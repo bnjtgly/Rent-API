@@ -37,6 +37,16 @@ module Api
       end
     end
 
+    def update_account_setup
+      interact = Api::UpdateAccountSetup.call(data: params, current_user: current_user)
+
+      if interact.success?
+        render json: { data: { account_setup: interact.user } }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
+
     # POST /api/users/mobile_verification
     def mobile_verification
       interact = Api::Organizers::MobileVerification.call(data: params)

@@ -16,5 +16,6 @@ json.data do
     json.sign_up_with @user.ref_sign_up_with.display
     json.avatar @user.avatar
     json.status @user.ref_user_status.display
+    json.account_setup @user.account_setup
   end
 end

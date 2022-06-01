@@ -16,6 +16,7 @@ json.user do
   json.sign_up_with @user.ref_sign_up_with.display
   json.avatar @user.avatar
   json.status @user.ref_user_status.display
+  json.account_setup @user.account_setup
 end
 
 json.profile_completion @profile_completion_percentage
@@ -150,7 +151,7 @@ json.applications do
 end
 
 json.user_settings do
-  json.array! @user.user_setting.each do |data|
+  json.array! @user.user_settings.each do |data|
     json.user_setting_id data.id
     json.setting data.ref_setting.display
     json.value data.value

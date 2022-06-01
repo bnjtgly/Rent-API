@@ -12,6 +12,9 @@
     resources :users, param: :user_id, only: %i[index show create update destroy]
     resources :properties, param: :property_id, only: %i[index show]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index]
+    resources :roles, param: :role_id, only: %i[index]
+
+    post 'users/invite_user', to: 'users#invite_user'
   end
 
   # This is for our Property Manager
@@ -25,6 +28,8 @@
 
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_account', to: 'users#update_account'
+    post 'users/:email_token/setup_password', to: 'users#setup_password'
+    post 'users/setup_account', to: 'users#setup_account'
 
     get 'users/notifications', to: 'users#notifications'
   end
@@ -52,6 +57,7 @@
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_personal_info', to: 'users#update_personal_info'
     post 'users/update_account', to: 'users#update_account'
+    post 'users/update_account_setup', to: 'users#update_account_setup'
 
     get 'users/:email_token/confirm_email/', to: 'users#confirm_email'
     get 'users/notifications', to: 'users#notifications'
