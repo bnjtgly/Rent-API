@@ -110,7 +110,10 @@ module Api
     end
 
     def get_employment(employment = {})
-      @employment = @user.incomes.where.associated(:employment).first.employment
+      @employment = @user.incomes.where.associated(:employment).first
+      return [] unless @employment
+
+      @employment = @employment.employment
 
       employment[:id] = @employment.id
       employment[:income_id] = @employment.income_id
