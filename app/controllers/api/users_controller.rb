@@ -105,6 +105,8 @@ module Api
     def notifications
       pagy, @notifications = pagy(current_user.notifications.newest_first)
 
+      @notifications = @notifications.where(id: params[:notification_id]) unless params[:notification_id].blank?
+
       pagy_headers_merge(pagy)
     end
   end
