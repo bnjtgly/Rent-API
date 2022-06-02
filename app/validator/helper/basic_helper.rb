@@ -1,3 +1,5 @@
+require 'uri'
+
 module Helper
   module BasicHelper
     PLEASE_CHANGE_MESSAGE = 'Please Change.'
@@ -29,6 +31,7 @@ module Helper
     ID_EXIST_MESSAGE = 'This ID number is already in use by another user.'
     ID_TYPE_EXISTS = 'ID type already exists.'
     INCORRECT_PASSWORD = 'Incorrect Password.'
+    INVALID_URL = 'Invalid URL.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
 
@@ -112,9 +115,16 @@ module Helper
 
     def valid_json?(value)
       JSON.parse(value)
-      return true
+      true
     rescue JSON::ParserError => e
-      return false
+      false
+    end
+
+    def valid_url?(value)
+      uri = URI.parse(value)
+      uri.is_a?(URI::HTTP) && !uri.host.nil?
+    rescue URI::InvalidURIError
+      false
     end
   end
 end

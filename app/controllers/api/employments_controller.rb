@@ -2,7 +2,6 @@
 
 module Api
   class EmploymentsController < ApplicationController
-    include EmploymentConcern
 
     before_action :authenticate_user!
     authorize_resource class: Api::EmploymentsController
@@ -11,7 +10,7 @@ module Api
     # GET /api/employments
     def index
       pagy, @employments = pagy(ProfileQuery.new(Employment.includes(:income)).call(current_user: current_user, include_table: :income))
-      @employment_completion_percentage = get_employment_completion_percentage(@employments, false)
+      @employment_completion_percentage = Api::EmploymentService.new(@employments, false).call
 
       pagy_headers_merge(pagy)
     end
@@ -22,7 +21,7 @@ module Api
 
       if interact.success?
         @employment = interact.employment
-        @employment_completion_percentage = get_employment_completion_percentage(@employment, true)
+        @employment_completion_percentage = Api::EmploymentService.new(@employment, true).call
       else
         render json: { error: interact.error }, status: 422
       end

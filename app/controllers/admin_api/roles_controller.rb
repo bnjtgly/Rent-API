@@ -7,12 +7,19 @@ module AdminApi
 
     # GET /admin_api/roles
     def index
-      pagy, @roles = pagy(Role.all)
+      items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-      @roles = @roles.where('LOWER(name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
-      @roles = @roles.where.not(name: 'USER') if params[:role].try(:upcase).eql?('TEAM')
+      @roles = Role.all
+      @roles = @roles.where('LOWER(role_name) LIKE ?', "%#{params[:role_name].downcase}%") unless params[:role_name].blank?
 
+      pagy, @roles = pagy(@roles, items: items_per_page)
       @pagination = pagy_metadata(pagy)
     end
+
+    # GET /admin_api/roles/1
+    def show
+      @role = Role.find(params[:role_id])
+    end
+
   end
 end

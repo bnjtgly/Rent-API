@@ -2,6 +2,7 @@
 json.data do
   json.array! @users.each do |data|
     json.id data.id
+    json.role data.user_role.role.role_name
     json.email data.email
     json.is_email_verified data.is_email_verified
     json.is_mobile_verified data.is_mobile_verified
@@ -21,6 +22,15 @@ json.data do
     json.status data.ref_user_status.display
     json.created_at data.created_at
     json.updated_at data.updated_at
+
+    if data.user_agency
+      json.agency do
+        json.id data.user_agency.agency.id
+        json.name data.user_agency.agency.name
+      end
+    else
+      json.agency nil
+    end
 
     if data.api_client
       json.api_client do
