@@ -7,6 +7,8 @@ class TenantApplication < ApplicationRecord
   belongs_to :flatmate, optional: true
   has_many :tenant_application_histories
 
+  has_noticed_notifications
+
   # Domain References Association
   # List all domain_references columns in users table.
   belongs_to :ref_status, class_name: 'DomainReference', foreign_key: 'tenant_application_status_id', optional: true
@@ -27,10 +29,6 @@ class TenantApplication < ApplicationRecord
 
     # Notify all PMs in the agency.
     TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(@hosts)
-
-    # @hosts.each do |host|
-    #   TenantApplicationNotification.with(latest_notification(host, application_serializer)).deliver_later(host)
-    # end
   end
 
 end
