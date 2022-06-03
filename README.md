@@ -75,3 +75,16 @@ $ bundle install
 $ rails s
 ```
 The server will run on **localhost:3000**.
+
+---
+
+### Folder Structure
+1. **Model** - It contains the models and data stored in our application's database.
+2. **View** - This folder contains the display templates to fill data in our application.
+3. **Controller** - All the controller files are stored here. A controller handles all the web requests from the user.
+4. **Interactors** - This folder have the appilcations business logic. It is called in controllers or organizers.
+5. **Queries** - It is a query object pattern that helps in decomposing the fat ActiveRecord models and keeping the code slim and readable by extracting complex SQL queries or scopes into the separated classes that are easy to reuse and test. This is currently used in Profile.
+6. **Serializers** - It convert a given object into a JSON format. Serializers control the particular attributes rendered when an object or model is converted into a JSON format.
+7. **Uploaders** - Carrierwave stores the configuration in this folder. Uploaders are included into some models.
+8. **Validators** - Custom validation for interactors.
+9. **Services** - It is a object pattern that can help separate business logic from controllers and models, enabling the models to be simply data layers and the controller entry point to the API.
