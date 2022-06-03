@@ -17,8 +17,9 @@ class CreateMessage
   private
 
   def build
-
     @message = Message.new(payload)
+    @message.body = @message.body.encode('utf-8', 'binary', :undef => :replace)
+
     Message.transaction do
       @message.save
     end

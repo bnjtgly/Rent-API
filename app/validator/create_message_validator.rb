@@ -11,6 +11,7 @@ class CreateMessageValidator
   )
 
   validate :user_id_exist, :required, :chatroom_id_exist
+  validates_length_of :body, maximum: 10000, message: 'Limit reached (10,000).'
 
   def submit
     init

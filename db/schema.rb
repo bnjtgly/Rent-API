@@ -185,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_025943) do
   end
 
   create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "body"
+    t.string "body", limit: 10000
     t.uuid "chatroom_id", null: false
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false

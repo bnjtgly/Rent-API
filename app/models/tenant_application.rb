@@ -7,6 +7,8 @@ class TenantApplication < ApplicationRecord
   belongs_to :flatmate, optional: true
   has_many :tenant_application_histories
 
+  has_noticed_notifications
+
   # Domain References Association
   # List all domain_references columns in users table.
   belongs_to :ref_status, class_name: 'DomainReference', foreign_key: 'tenant_application_status_id', optional: true
@@ -19,7 +21,11 @@ class TenantApplication < ApplicationRecord
   private
   def notify_tenant
     application_serializer = Api::NotificationService.new({ tenant_application: self }).call
-    TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
+    notification = TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
+    ap "Notification"
+    # Lookup Notifications where params: {post: @post}
+    ap self.notifications_as_tenant_application
+    ap "End"
   end
   def notify_property_manager
     application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call

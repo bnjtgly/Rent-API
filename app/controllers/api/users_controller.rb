@@ -108,6 +108,9 @@ module Api
       pagy, @notifications = pagy(current_user.notifications.newest_first)
 
       @notifications = @notifications.where(id: params[:notification_id]) unless params[:notification_id].blank?
+      unless params[:tenant_application_id].blank?
+        @notifications = @notifications.where('params @> ?', { tenant_application: { id: params[:tenant_application_id] } }.to_json)
+      end
 
       pagy_headers_merge(pagy)
     end
