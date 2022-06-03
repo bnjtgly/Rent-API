@@ -136,12 +136,27 @@ DomainReference.create(sort_order: '400', domain_id: lease_length.id, role: %W[#
 # Settings
 settings = Domain.create(domain_number: 2701, name: 'User Settings', domain_def: 'User Settings.')
 security_2fa = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: "Sms 2FA", value_str: 'sms 2fa')
-notif_property_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Property Updates', value_str: 'property updates')
-notif_profile_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Profile Updates', value_str: 'profile updates')
-notif_market_updates = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Market Updates', value_str: 'market updates')
-notif_suggested_property = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Suggested Properties', value_str: 'suggested properties')
-notif_application_status = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Application Status', value_str: 'application status')
-notif_news_guides = DomainReference.create(sort_order: '100', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'News & Guides', value_str: 'news & guides')
+notif_property_updates = DomainReference.create(sort_order: '200', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Property Updates', value_str: 'property updates')
+notif_profile_updates = DomainReference.create(sort_order: '300', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Profile Updates', value_str: 'profile updates')
+notif_market_updates = DomainReference.create(sort_order: '400', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Market Updates', value_str: 'market updates')
+notif_suggested_property = DomainReference.create(sort_order: '500', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Suggested Properties', value_str: 'suggested properties')
+notif_application_status = DomainReference.create(sort_order: '600', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Application Status', value_str: 'application status')
+notif_news_guides = DomainReference.create(sort_order: '700', domain_id: settings.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'News & Guides', value_str: 'news & guides')
+
+# User Scores
+score_category = Domain.create(domain_number: 2801, name: 'Score Category Type', domain_def: 'Score category type')
+credit_check = DomainReference.create(sort_order: '100', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                      display: "Credit Check", value_str: 'credit check')
+references_check = DomainReference.create(sort_order: '200', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                          display: "Reference Check", value_str: 'reference check')
+background_check = DomainReference.create(sort_order: '300', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                          display: "Background Check", value_str: 'background check')
+employment_check = DomainReference.create(sort_order: '400', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                          display: "Employment Check", value_str: 'employment check')
+eviction_check = DomainReference.create(sort_order: '500', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                        display: "Eviction Check", value_str: 'eviction check')
+income_check = DomainReference.create(sort_order: '600', domain_id: score_category.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id} #{role_guest.id}],
+                                      display: "Income Check", value_str: 'income check')
 
 case Rails.env
 when 'development', 'staging'
@@ -385,6 +400,71 @@ when 'development', 'staging'
     UserSetting.create(user_id: userid, setting_id: notif_market_updates.id, value: false, audit_comment: 'Seed data.')
     UserSetting.create(user_id: userid, setting_id: notif_news_guides.id, value: false, audit_comment: 'Seed data.')
   end
+
+  #  User Score
+  user1.user_scores.create([
+                             {
+                               score_category_type_id: credit_check.id,
+                               desc: 'Credit Check',
+                               score: 100,
+                               remark: 'Good.'
+                             },
+                             {
+                               score_category_type_id: references_check.id,
+                               desc: 'References Check',
+                               score: 100,
+                               remark: 'Positive.'
+                             },
+                             {
+                               score_category_type_id: background_check.id,
+                               desc: 'Background Check',
+                               score: 100,
+                               remark: 'No criminal record.'
+                             },
+                             {
+                               score_category_type_id: employment_check.id,
+                               desc: 'Employment Check',
+                               score: 100,
+                               remark: 'Stable.'
+                             },
+                             {
+                               score_category_type_id: eviction_check.id,
+                               desc: 'Eviction Check',
+                               score: 100,
+                               remark: 'No eviction.'
+                             },
+                             {
+                               score_category_type_id: income_check.id,
+                               desc: 'Income Check',
+                               score: 100,
+                               remark: '3x income to rent.'
+                             },
+                           ])
+
+  user2.user_scores.create([
+                             {
+                               score_category_type_id: credit_check.id,
+                               desc: 'Credit Check',
+                               score: 100,
+                               remark: 'Good.'
+                             },
+                             {
+                               score_category_type_id: references_check.id,
+                               desc: 'References Check',
+                               score: 100,
+                               remark: 'Positive.'
+                             }
+                           ])
+
+  user3.user_scores.create([
+                             {
+                               score_category_type_id: credit_check.id,
+                               desc: 'Credit Check',
+                               score: 100,
+                               remark: 'Good.'
+                             }
+                           ])
+
 
 else
   # type code here

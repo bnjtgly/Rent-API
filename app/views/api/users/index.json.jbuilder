@@ -21,6 +21,20 @@ end
 
 json.profile_completion @profile_completion_percentage
 
+json.scores do
+  json.overall_score "#{@user_overall_score}%"
+  json.score_details do
+    json.array! @user.user_scores.each do |data|
+      json.user_score_id data.id
+      json.user_id data.user_id
+      json.score_category_type data.ref_score_category_type.display
+      json.desc data.desc
+      json.score "#{data.score}%"
+      json.remark data.remark
+    end
+  end
+end
+
 json.addresses do
   json.array! @user.addresses.each do |data|
     json.address_id data.id

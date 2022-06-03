@@ -9,6 +9,7 @@ json.flatmate @tenant_application.flatmate.nil? ? nil : @tenant_application.flat
 json.user do
   if @tenant_application.user
     json.user_id @tenant_application.user.id
+    json.email @tenant_application.user.email
     json.complete_name @tenant_application.user.complete_name
     json.avatar @tenant_application.user.avatar
   else

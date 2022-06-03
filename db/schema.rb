@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_02_025943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -346,6 +346,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
+  create_table "user_scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "score_category_type_id"
+    t.string "desc"
+    t.float "score"
+    t.string "remark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["score_category_type_id"], name: "index_user_scores_on_score_category_type_id"
+    t.index ["user_id", "score_category_type_id"], name: "index_user_scores_on_user_id_and_score_category_type_id", unique: true
+    t.index ["user_id"], name: "index_user_scores_on_user_id"
+  end
+
   create_table "user_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "setting_id"
@@ -430,6 +443,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_231254) do
   add_foreign_key "user_properties", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "user_scores", "domain_references", column: "score_category_type_id"
+  add_foreign_key "user_scores", "users"
   add_foreign_key "user_settings", "domain_references", column: "setting_id"
   add_foreign_key "user_settings", "users"
   add_foreign_key "users", "api_clients"

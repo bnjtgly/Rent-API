@@ -12,6 +12,7 @@ json.data do
     json.user do
       if data.user
         json.user_id data.user.id
+        json.email data.user.email
         json.complete_name data.user.complete_name
         json.avatar data.user.avatar
       else
