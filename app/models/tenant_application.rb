@@ -21,11 +21,7 @@ class TenantApplication < ApplicationRecord
   private
   def notify_tenant
     application_serializer = Api::NotificationService.new({ tenant_application: self }).call
-    notification = TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
-    ap "Notification"
-    # Lookup Notifications where params: {post: @post}
-    ap self.notifications_as_tenant_application
-    ap "End"
+    TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
   end
   def notify_property_manager
     application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call
@@ -33,10 +29,6 @@ class TenantApplication < ApplicationRecord
 
     # Notify all PMs in the agency.
     TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(@hosts)
-
-    # @hosts.each do |host|
-    #   TenantApplicationNotification.with(latest_notification(host, application_serializer)).deliver_later(host)
-    # end
   end
 
 end
