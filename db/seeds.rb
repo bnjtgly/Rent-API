@@ -438,10 +438,10 @@ when 'development', 'staging'
                                desc: 'Income Check',
                                score: 100,
                                remark: '3x income to rent.'
-                             },
+                             }
                            ])
 
-  user2.user_scores.create([
+  user3.user_scores.create([
                              {
                                score_category_type_id: credit_check.id,
                                desc: 'Credit Check',
@@ -453,15 +453,30 @@ when 'development', 'staging'
                                desc: 'References Check',
                                score: 100,
                                remark: 'Positive.'
-                             }
-                           ])
-
-  user3.user_scores.create([
+                             },
                              {
-                               score_category_type_id: credit_check.id,
-                               desc: 'Credit Check',
+                               score_category_type_id: background_check.id,
+                               desc: 'Background Check',
                                score: 100,
-                               remark: 'Good.'
+                               remark: 'No criminal record.'
+                             },
+                             {
+                               score_category_type_id: employment_check.id,
+                               desc: 'Employment Check',
+                               score: 45,
+                               remark: 'Not Strong.'
+                             },
+                             {
+                               score_category_type_id: eviction_check.id,
+                               desc: 'Eviction Check',
+                               score: 100,
+                               remark: 'No eviction.'
+                             },
+                             {
+                               score_category_type_id: income_check.id,
+                               desc: 'Income Check',
+                               score: 60,
+                               remark: 'Less than 3x income to rent.'
                              }
                            ])
 
