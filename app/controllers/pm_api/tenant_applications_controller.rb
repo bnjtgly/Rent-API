@@ -27,7 +27,7 @@ module PmApi
 
         # GET /pm_api/tenant_applications/1
         def show
-            @tenant_application = TenantApplication.select('tenant_applications.*, NULL as income, NULL as overall_score')
+            @tenant_application = TenantApplication.select('tenant_applications.*, NULL as income')
                                                    .includes(:property)
                                                    .where(id: params[:tenant_application_id])
 
