@@ -12,12 +12,28 @@ json.tenant_applications do
     json.lease_length data.ref_lease_length.display
     json.lease_start_date data.lease_start_date
     json.status data.ref_status.display
+
     json.user do
       json.user_id data.user.id
       json.email data.user.email
       json.complete_name data.user.complete_name
       json.avatar data.user.avatar
     end
+
+    json.scores do
+      json.overall_score "#{PmApi::ProfileScoreService.new(data).call}%"
+      json.score_details do
+        json.array! data.user.user_scores.each do |data|
+          json.user_score_id data.id
+          json.user_id data.user_id
+          json.score_category_type data.ref_score_category_type.display
+          json.desc data.desc
+          json.score "#{data.score}%"
+          json.remark data.remark
+        end
+      end
+    end
+
     json.application_data data.application_data
   end
 end
