@@ -12,10 +12,12 @@ module PmApi
 
     private
     def add_details
+      # If more than 1 record.
       if @resources.kind_of?(Array)
         @resources.each do |resource|
           resource[:overall_score] = get_user_score(resource.user)[:overall_score]
         end
+      #  If single record.
       else
         get_user_score(@resources.user)[:overall_score]
       end
@@ -30,6 +32,8 @@ module PmApi
       initial_score = 0
 
       # Get Score Category Type.
+      # Domain number: 2801, name: 'Score Category Type'.
+      # Memoize
       score_category ||= DomainReference.includes(:domain).where(domains: { domain_number: 2801 }).pluck(:value_str)
 
       # Convert score category to hash as keys.
@@ -43,7 +47,7 @@ module PmApi
         end
       end
 
-      # Get average of scores.
+      # Get average value of scores.
       category[:overall_score] = (category.values.inject(0.0) { |sum, el| sum + el } / category.values.size).round(2)
 
       category
