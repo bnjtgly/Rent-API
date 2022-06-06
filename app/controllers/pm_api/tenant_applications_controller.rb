@@ -28,9 +28,11 @@ module PmApi
         # GET /pm_api/tenant_applications/1
         def show
             @tenant_application = TenantApplication.select('tenant_applications.*, NULL as income')
+                                                   .includes(:property)
                                                    .where(id: params[:tenant_application_id])
 
             @tenant_application = PmApi::IncomeService.new(@tenant_application).call.first
+            @user_overall_score = PmApi::ProfileScoreService.new(@tenant_application).call
 
             if @tenant_application.nil?
                 render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
