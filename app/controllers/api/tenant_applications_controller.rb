@@ -12,6 +12,8 @@ module Api
 
       @tenant_applications = @tenant_applications.where(user_id: current_user.id)
 
+      @user_overall_score = Api::ProfileScoreService.new(current_user).call['overall_score']
+
       pagy_headers_merge(pagy)
     end
 
