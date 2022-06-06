@@ -16,6 +16,19 @@ end
 
 json.application_data do
   if @tenant_application.application_data
+    json.scores do
+      json.overall_score "#{@user_overall_score}%"
+      json.score_details do
+        json.array! @tenant_application.user.user_scores.each do |data|
+          json.user_score_id data.id
+          json.user_id data.user_id
+          json.score_category_type data.ref_score_category_type.display
+          json.desc data.desc
+          json.score "#{data.score}%"
+          json.remark data.remark
+        end
+      end
+    end
     json.cover_letter @tenant_application.application_data['cover_letter']
     json.personal_info @tenant_application.application_data['personal_info']
     json.addresses @tenant_application.application_data['addresses']

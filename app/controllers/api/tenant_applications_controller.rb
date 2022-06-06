@@ -20,6 +20,7 @@ module Api
     # GET /api/tenant_applications/1
     def show
       @tenant_application = TenantApplication.where(id: params[:tenant_application_id], user_id: current_user.id).first
+      @user_overall_score = Api::ProfileScoreService.new(current_user).call['overall_score']
 
       if @tenant_application.nil?
         render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
