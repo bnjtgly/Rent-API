@@ -33,6 +33,7 @@
     post 'users/setup_account', to: 'users#setup_account'
 
     get 'users/notifications', to: 'users#notifications'
+    get 'top_applicants', to: 'tenant_applications#top_applicants'
   end
 
   # This is for our Client or External api (Outside and Limited Access)

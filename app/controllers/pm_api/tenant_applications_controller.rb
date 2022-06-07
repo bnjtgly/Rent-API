@@ -19,8 +19,8 @@ module PmApi
 
             pagy, @tenant_applications = pagy(@tenant_applications, items: items_per_page)
 
-            @tenant_applications = PmApi::IncomeService.new(@tenant_applications).call
-            @tenant_applications = PmApi::ProfileScoreService.new(@tenant_applications).call
+            @tenant_applications = PmApi::Incomes::IncomeService.new(@tenant_applications).call
+            @tenant_applications = PmApi::Profile::ProfileScoreService.new(@tenant_applications).call
 
             @pagination = pagy_metadata(pagy)
         end
@@ -31,8 +31,8 @@ module PmApi
                                                    .includes(:property)
                                                    .where(id: params[:tenant_application_id])
 
-            @tenant_application = PmApi::IncomeService.new(@tenant_application).call.first
-            @user_overall_score = PmApi::ProfileScoreService.new(@tenant_application).call
+            @tenant_application = PmApi::Incomes::IncomeService.new(@tenant_application).call.first
+            @user_overall_score = PmApi::Profile::ProfileScoreService.new(@tenant_application).call
 
             if @tenant_application.nil?
                 render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
@@ -48,6 +48,16 @@ module PmApi
             else
                 render json: { error: interact.error }, status: 422
             end
+        end
+
+        # GET /pm_api/tenant/rankings
+        def top_applicants
+            @tenant_applications = TenantApplication.all
+
+            @tenant_applications = PmApi::TenantApplications::TenantRankingService.new(@tenant_applications).call
+
+            ap @tenant_applications
+            # render json: { data: @ranking }
         end
     end
 end

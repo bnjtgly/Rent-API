@@ -21,7 +21,7 @@ json.tenant_applications do
     end
 
     json.scores do
-      json.overall_score "#{PmApi::ProfileScoreService.new(data).call}%"
+      json.overall_score "#{PmApi::Profile::ProfileScoreService.new(data).call}%"
       json.score_details do
         json.array! data.user.user_scores.each do |data|
           json.user_score_id data.id

@@ -1,5 +1,4 @@
 class ProfileQuery
-  # delegate :call, to: :new
   attr_accessor :initial_scope
 
   def initialize(initial_scope)

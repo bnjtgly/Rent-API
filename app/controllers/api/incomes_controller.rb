@@ -10,9 +10,9 @@ module Api
     def index
       pagy, @incomes = pagy(ProfileQuery.new(Income.all).call(current_user: current_user))
 
-      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:incomes]
+      @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call[:incomes]
 
-      @total_income = Api::IncomeService.new(@incomes).call
+      @total_income = Api::Incomes::IncomeService.new(@incomes).call
 
       pagy_headers_merge(pagy)
     end
@@ -23,8 +23,8 @@ module Api
 
       if interact.success?
         @income = interact.income
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call
-        @total_income = Api::IncomeService.new(Income.where(user_id: current_user.id)).call
+        @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call
+        @total_income = Api::Incomes::IncomeService.new(Income.where(user_id: current_user.id)).call
       else
         render json: { error: interact.error }, status: 422
       end

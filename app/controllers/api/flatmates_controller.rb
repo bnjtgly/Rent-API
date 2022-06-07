@@ -10,7 +10,7 @@ module Api
     def index
       pagy, @flatmates = pagy(ProfileQuery.new(Flatmate.all).call(current_user: current_user))
 
-      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:flatmates]
+      @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call[:flatmates]
 
       pagy_headers_merge(pagy)
     end
@@ -21,7 +21,7 @@ module Api
 
       if interact.success?
         @flatmate = interact.flatmate
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call
+        @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call
       else
         render json: { error: interact.error }, status: 422
       end

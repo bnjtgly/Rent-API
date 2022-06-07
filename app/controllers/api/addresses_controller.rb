@@ -10,7 +10,7 @@ module Api
     # GET /api/addresses
     def index
       pagy, @addresses = pagy(ProfileQuery.new(Address.all).call(current_user: current_user, sort_type: :desc, sort_column: :valid_thru))
-      @profile_completion_percentage = Api::ProfileService.new(current_user).call[:addresses]
+      @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call[:addresses]
 
       pagy_headers_merge(pagy)
     end
@@ -21,7 +21,7 @@ module Api
 
       if interact.success?
         @address = interact.address
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call
+        @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call
       else
         render json: { error: interact.error }, status: 422
       end
