@@ -30,6 +30,22 @@ $ rails db:migrate
 $ rails db:seed
 ```
 
+## Running app on Docker
+1. Change the host in config/database.yml to 'db'.
+2. Install Docker. https://docs.docker.com/desktop/windows/install/
+3. **Run** the following command. Or click on the Run icon beside services in docker-compose.yml.
+```bash
+$ docker-compose up
+```
+4. Run in a another terminal to migrate and seed data.
+```bash
+$ docker-compose run web rake db:create db:migrate db:seed
+```
+
+The server will run on **localhost:3000**.
+
+---
+
 ## Running app on localhost
 1. Clone the repo or pull deploy-to-dev branch.
 2. **Run** the following command.
