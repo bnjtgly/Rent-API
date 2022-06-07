@@ -20,11 +20,11 @@ class TenantApplication < ApplicationRecord
 
   private
   def notify_tenant
-    application_serializer = Api::NotificationService.new({ tenant_application: self }).call
+    application_serializer = Api::Notifications::NotificationService.new({ tenant_application: self }).call
     TenantApplicationNotification.with(type: 'TenantApplicationNotification', tenant_application: application_serializer).deliver_later(user)
   end
   def notify_property_manager
-    application_serializer = PmApi::NotificationService.new({ tenant_application: self }).call
+    application_serializer = PmApi::Notifications::NotificationService.new({ tenant_application: self }).call
     @hosts = User.includes(:user_agency).where(user_agency: { agency_id: property.agency_id })
 
     # Notify all PMs in the agency.

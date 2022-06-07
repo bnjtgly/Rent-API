@@ -8,9 +8,9 @@ module Api
     def index
       @user = User.where(id: current_user.id).first
 
-      @total_income = Api::IncomeService.new(@user.incomes).call if @user.incomes
-      @profile_completion_percentage = Api::ProfileService.new(current_user).call
-      @user_overall_score = Api::ProfileScoreService.new(current_user).call['overall_score']
+      @total_income = Api::Incomes::IncomeService.new(@user.incomes).call if @user.incomes
+      @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call
+      @user_overall_score = Api::Profile::ProfileScoreService.new(current_user).call['overall_score']
 
       unless @user
         render json: { error: { user_id: ['Not Found.'] } }, status: :not_found
@@ -33,7 +33,7 @@ module Api
 
       if interact.success?
         @user = interact.user
-        @profile_completion_percentage = Api::ProfileService.new(current_user).call
+        @profile_completion_percentage = Api::Profile::ProfileService.new(current_user).call
       else
         render json: { error: interact.error }, status: 422
       end
