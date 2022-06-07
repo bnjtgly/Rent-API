@@ -212,10 +212,15 @@ when 'development', 'staging'
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 
   #Agency
-  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White South Perth', phone: '61412470486', url: 'raywhite.com.au')
-  agency2 = Agency.create(name: 'Ray Black', desc: 'Ray Black North Perth', phone: '61412473321', url: 'rayblack.com.au')
-  host = UserAgency.create(user_id: user4.id, agency_id: agency1.id)
-  host1 = UserAgency.create(user_id: user5.id, agency_id: agency2.id)
+  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White is one of the oldest and biggest real estate companies in Australia.', phone: '61412470486', url: 'raywhite.com.au')
+  agency2 = Agency.create(name: 'RE/MAX', desc: 'Re/Max', phone: '61412473222', url: 'remax.com.au')
+  Agency.create(name: 'Harcourts', desc: 'Harcourts', phone: '61413373222', url: 'harcourts.com.au')
+  Agency.create(name: 'Century 21', desc: 'Century 21', phone: '61123473222', url: 'century21.com.au')
+  Agency.create(name: 'LJ Hooker', desc: 'LJ Hooker', phone: '61412433221', url: 'ljhooker.com.au')
+
+
+  UserAgency.create(user_id: user4.id, agency_id: agency1.id)
+  UserAgency.create(user_id: user5.id, agency_id: agency2.id)
 
   # Properties
   property1 = Property.create(agency_id: agency1.id, details: {
