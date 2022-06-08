@@ -11,7 +11,7 @@
     resources :domain_references, param: :domain_reference_id
     resources :users, param: :user_id, only: %i[index show create update destroy]
     resources :properties, param: :property_id, only: %i[index show]
-    resources :tenant_applications, param: :tenant_application_id, only: %i[index]
+    resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
     resources :roles, param: :role_id, only: %i[index show create update]
     resources :agencies, param: :agency_id, only: %i[index show create update]
 
@@ -26,6 +26,7 @@
     resources :user_settings, param: :user_setting_id, only: %i[index update]
     resources :properties, param: :property_id, only: %i[index show create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show update]
+    resources :tenants, param: :tenant_id, only: %i[index]
 
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_account', to: 'users#update_account'
@@ -33,7 +34,7 @@
     post 'users/setup_account', to: 'users#setup_account'
 
     get 'users/notifications', to: 'users#notifications'
-    get 'top_applicants', to: 'tenant_applications#top_applicants'
+    get 'tenants/top_applicants', to: 'tenants#top_applicants'
   end
 
   # This is for our Client or External api (Outside and Limited Access)
@@ -50,7 +51,7 @@
     resources :flatmate_members, param: :flatmate_member_id, only: %i[create]
     resources :pets, param: :pet_id, only: %i[index create]
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show create]
-    resources :user_properties, param: :user_property_id, only: %i[index]
+    resources :user_properties, param: :user_property_id, only: %i[index destroy]
     resources :user_settings, param: :user_setting_id, only: %i[index update]
 
     post 'users/mobile_verification', to: 'users#mobile_verification'

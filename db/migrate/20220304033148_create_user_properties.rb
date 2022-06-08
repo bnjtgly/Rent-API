@@ -4,6 +4,7 @@ class CreateUserProperties < ActiveRecord::Migration[7.0]
       t.references :user, null: false, foreign_key: true, type: :uuid
       t.references :property, null: false, foreign_key: true, type: :uuid
       t.boolean :is_applied, default: false
+      t.boolean :is_deleted, default: false
 
       t.timestamps
     end

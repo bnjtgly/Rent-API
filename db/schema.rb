@@ -329,6 +329,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_025943) do
     t.uuid "user_id", null: false
     t.uuid "property_id", null: false
     t.boolean "is_applied", default: false
+    t.boolean "is_deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_user_properties_on_property_id"
