@@ -49,15 +49,5 @@ module PmApi
                 render json: { error: interact.error }, status: 422
             end
         end
-
-        # GET /pm_api/tenant/rankings
-        def top_applicants
-            @tenant_applications = TenantApplication.all
-
-            @tenant_applications = PmApi::TenantApplications::TenantRankingService.new(@tenant_applications).call
-
-            ap @tenant_applications
-            # render json: { data: @ranking }
-        end
     end
 end

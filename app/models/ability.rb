@@ -18,7 +18,7 @@ class Ability
         can %i[create], Api::FlatmateMembersController
         can %i[index create], Api::PetsController
         can %i[index show create], Api::TenantApplicationsController
-        can %i[index], Api::UserPropertiesController
+        can %i[index destroy], Api::UserPropertiesController
         can %i[update], Api::ReferencesController
         can %i[index update], Api::UserSettingsController
       elsif user.user_role.role.role_name.eql?('PROPERTY MANAGER')
@@ -27,7 +27,8 @@ class Ability
         can %i[index show], PmApi::DomainsController
         can %i[index show], PmApi::DomainReferencesController
         can %i[index show create update], PmApi::PropertiesController
-        can %i[index show update top_applicants], PmApi::TenantApplicationsController
+        can %i[index show update], PmApi::TenantApplicationsController
+        can %i[index top_applicants], PmApi::TenantsController
       end
     else
       can %i[confirm_email], Api::UsersController
