@@ -188,6 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_025943) do
     t.string "body", limit: 10000
     t.uuid "chatroom_id", null: false
     t.uuid "user_id", null: false
+    t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"

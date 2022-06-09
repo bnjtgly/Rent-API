@@ -51,11 +51,9 @@ mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: 
 
 application_status = Domain.create(domain_number: 1401, name: 'Application Status', domain_def: 'Status of tenants application.')
 application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Accepted', value_str: 'accepted')
-application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Reviewed', value_str: 'reviewed')
-application_status_ref3 = DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Pending', value_str: 'pending')
+application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'New', value_str: 'new')
+DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Viewed', value_str: 'viewed')
 DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Rejected', value_str: 'rejected')
-DomainReference.create(sort_order: '500', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Draft', value_str: 'draft')
-DomainReference.create(sort_order: '600', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Closed', value_str: 'closed')
 
 # Identities
 identity_type = Domain.create(domain_number: 1501, name: 'Identity Type', domain_def: 'Identity ID type.')
