@@ -32,6 +32,7 @@ module Helper
     ID_TYPE_EXISTS = 'ID type already exists.'
     INCORRECT_PASSWORD = 'Incorrect Password.'
     INVALID_URL = 'Invalid URL.'
+    INVALID_ACCESS = 'You do no have access to modify this record.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
 
