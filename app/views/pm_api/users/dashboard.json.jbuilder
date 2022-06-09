@@ -2,6 +2,7 @@
 
 json.properties do
   json.total_properties @properties.count
+  json.property_views @property_views.total_views
   json.data do
     json.array! @properties.each do |data|
       json.property_id data.id

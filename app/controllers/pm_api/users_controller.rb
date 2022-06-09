@@ -76,16 +76,13 @@ module PmApi
     def dashboard
       @properties = Property.where(agency_id: current_user.user_agency.agency.id).load_async
       @properties = @properties.sort_by { |property| property[:details][:views] }
-
       @property_views = Property.select("sum((details->>'views')::integer) AS total_views")
-                                .where(agency_id: current_user.user_agency.agency.id).load_async
+                                .where(agency_id: current_user.user_agency.agency.id).load_async.first
 
       @applicants = TenantApplication.includes(:property).where(property: { agency_id: current_user.user_agency.agency.id }).load_async
 
       @tenant_applications = TenantApplication.all.load_async
       @tenant_applications = PmApi::TenantApplications::TenantRankingService.new(@tenant_applications).call
-
-      ap @property_views
     end
   end
 end
