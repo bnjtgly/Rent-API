@@ -10,7 +10,9 @@ module Api
     def index
       pagy, @user_properties = pagy(UserProperty.all)
 
-      @user_properties = @user_properties.where(user_id: current_user.id, is_deleted: false)
+      @user_properties = @user_properties.where(user_id: current_user.id)
+
+      @user_properties = @user_properties.where(is_deleted: params[:is_deleted]) unless params[:is_deleted].blank?
 
       @user_properties = @user_properties.where(id: params[:property_id]) unless params[:property_id].blank?
 
@@ -18,8 +20,8 @@ module Api
     end
 
     # DELETE /api/user_properties/1
-    def destroy
-      interact = Api::DestroyUserProperty.call(id: params[:user_property_id], current_user: current_user)
+    def update
+      interact = Api::UpdateUserProperty.call(data: params, current_user: current_user)
 
       if interact.success?
         render json: { message: 'Success' }
