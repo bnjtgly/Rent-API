@@ -7,7 +7,6 @@ module Api
     delegate :data, :current_user, to: :context
 
     def call
-      init
       validate!
       build
     end
@@ -15,15 +14,9 @@ module Api
     def rollback; end
 
     private
-
-    def init
+    def build
       @income = Income.where(id: payload[:income_id]).first
 
-      context.fail!(error: { income_id: ['Not found.'] }) unless @income
-      context.fail!(error: { user: ['You do not have access to edit this record.'] }) unless @income.user_id.eql?(payload[:user_id])
-    end
-
-    def build
       @income&.update(
         audit_comment: 'Update Income',
         proof: payload[:proof]
