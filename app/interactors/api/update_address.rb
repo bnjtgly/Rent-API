@@ -7,7 +7,6 @@ module Api
     delegate :data, :current_user, to: :context
 
     def call
-      init
       validate!
       build
     end
@@ -15,15 +14,9 @@ module Api
     def rollback; end
 
     private
-
-    def init
+    def build
       @address = Address.where(id: payload[:address_id]).first
 
-      context.fail!(error: { address_id: ['Not found.'] }) unless @address
-      context.fail!(error: { user: ['You do not have access to edit this address.'] }) unless @address.user_id.eql?(payload[:user_id])
-    end
-
-    def build
       @address&.update(
         audit_comment: 'Update Address',
         state: payload[:state],

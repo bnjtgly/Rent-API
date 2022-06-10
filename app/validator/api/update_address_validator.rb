@@ -16,8 +16,7 @@ module Api
       :valid_thru
     )
 
-    validate :address_id_exist, :user_id_exist, :required
-
+    validate :address_id_exist, :user_id_exist, :required, :valid_access
     def submit
       init
       persist!
@@ -67,6 +66,12 @@ module Api
 
     def no_space_allowed
       errors.add(:post_code, 'Please try again. No spaces allowed.') if !post_code.blank? && have_space?(post_code).eql?(true)
+    end
+
+    def valid_access
+      if @user && @address
+        errors.add(:user_id, INVALID_ACCESS) unless @address.user_id.eql?(@user.id)
+      end
     end
 
     def address_exist

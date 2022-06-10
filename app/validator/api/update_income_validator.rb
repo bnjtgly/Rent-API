@@ -11,7 +11,7 @@ module Api
       :proof
     )
 
-    validate :income_id_exist, :user_id_exist, :required, :valid_proof
+    validate :income_id_exist, :user_id_exist, :required, :valid_proof, :valid_access
 
     def submit
       init
@@ -43,6 +43,12 @@ module Api
 
     def user_id_exist
       errors.add(:user_id, USER_ID_NOT_FOUND) unless @user
+    end
+
+    def valid_access
+      if @user && @income
+        errors.add(:user_id, INVALID_ACCESS) unless @income.user_id.eql?(@user.id)
+      end
     end
 
     def valid_proof
