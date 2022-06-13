@@ -28,7 +28,7 @@ module Api
       property = Property.where(id: payload[:property_id]).first
       @application_summary = Api::Profile::ProfileSummaryService.new(current_user, property, payload[:flatmate_id], payload[:cover_letter]).call
       @tenant_application_status = DomainReference.joins(:domain)
-                                                  .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'pending' }).load_async.first
+                                                  .where(domains: { domain_number: 1401 }, domain_references: { value_str: 'new' }).load_async.first
 
       # Remove in production
       # For RSpec
