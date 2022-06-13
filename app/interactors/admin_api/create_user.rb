@@ -12,7 +12,7 @@ module AdminApi
     private
 
     def build
-      @user = User.new(payload.except(:role_id))
+      @user = User.new(payload.except(:role_id, :agency_id))
       @user.api_client_id = current_user.api_client_id
 
       User.transaction do
@@ -43,7 +43,8 @@ module AdminApi
         phone: data[:user][:phone],
         gender_id: data[:user][:gender_id],
         date_of_birth: data[:user][:date_of_birth],
-        role_id: data[:user][:role_id]
+        role_id: data[:user][:role_id],
+        agency_id: data[:user][:agency_id]
       }
     end
   end
