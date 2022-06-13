@@ -58,30 +58,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def setup_user
-    role_user = Role.where(role_name: 'USER').first
+    setup_account = RegistrationService.new(@user).call
 
-    if @user.create_user_role(role_id: role_user.id, audit_comment: 'Create User Role')
-      @user.generate_otp!
-      @user.create_otp_verification(mobile_country_code_id: @user.mobile_country_code_id, mobile: @user.mobile, otp: @user.otp, audit_comment: 'Generate OTP')
-      setup_user_settings
-
+    if setup_account
       sms_message = "Rento: Your security code is: #{@user.otp}. It expires in 10 minutes. Dont share this code with anyone."
       send_sms("+#{@user.ref_mobile_country_code.value_str}#{@user.mobile}", sms_message, 'Rento')
-    end
-  end
-
-  def setup_user_settings
-    predefined_settings = ['sms 2fa', 'property updates', 'profile updates', 'market updates',
-                           'suggested properties', 'application status', 'news & guides']
-    exclude = ['market updates', 'news & guides']
-    value = true
-
-    @settings = DomainReference.includes(:domain).where(value_str: predefined_settings, domain: {domain_number: 2701})
-
-    @settings.map do |setting|
-      value = false if exclude.include? setting.value_str
-
-      @user.user_setting.create(setting_id: setting.id, value: value, audit_comment: 'Create User Settings')
     end
   end
 end
