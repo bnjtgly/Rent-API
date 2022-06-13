@@ -15,24 +15,34 @@ module AdminApi
       :mobile,
       :phone,
       :gender_id,
-      :date_of_birth
+      :date_of_birth,
+      :role_id
     )
 
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates_confirmation_of :password
-    validate :email_exist, :required, :password_requirements, :valid_name, :valid_date,
+    validate :email_exist, :required, :password_requirements, :valid_name, :valid_date, :role_id_exist,
              :mobile_number_exist, :valid_mobile, :valid_mobile_country_code_id, :valid_gender_id
 
     def submit
+      init
       persist!
     end
 
     private
 
+    def init
+      @role = Role.where(id: role_id).first
+      ap @role
+    end
     def persist!
       return true if valid?
 
       false
+    end
+
+    def role_id_exist
+      errors.add(:role_id, NOT_FOUND) unless @role
     end
 
     def email_exist
@@ -50,6 +60,7 @@ module AdminApi
       errors.add(:phone, REQUIRED_MESSAGE) if phone.blank?
       errors.add(:gender_id, REQUIRED_MESSAGE) if gender_id.blank?
       errors.add(:date_of_birth, REQUIRED_MESSAGE) if date_of_birth.blank?
+      errors.add(:role_id, REQUIRED_MESSAGE) if role_id.blank?
     end
 
     def password_requirements

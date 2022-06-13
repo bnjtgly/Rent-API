@@ -12,10 +12,12 @@ module AdminApi
     private
 
     def build
-      @user = User.new(payload)
+      @user = User.new(payload.except(:role_id))
       @user.api_client_id = current_user.api_client_id
+
       User.transaction do
         @user.save
+        @user.create_user_role(role_id: payload[:role_id], audit_comment: 'Create User Role')
       end
 
       context.user = @user
@@ -40,7 +42,8 @@ module AdminApi
         mobile: data[:user][:mobile],
         phone: data[:user][:phone],
         gender_id: data[:user][:gender_id],
-        date_of_birth: data[:user][:date_of_birth]
+        date_of_birth: data[:user][:date_of_birth],
+        role_id: data[:user][:role_id]
       }
     end
   end

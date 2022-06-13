@@ -10,10 +10,11 @@ api_client_web = ApiClient.create(name: 'Tenant Application Web')
 api_client_ios = ApiClient.create(name: 'Tenant Application Ios')
 api_client_android = ApiClient.create(name: 'Tenant Application Android')
 
-role_admin = Role.create(role_name: 'SUPERADMIN', role_def: 'Tenant Application super administrator.')
-role_user = Role.create(role_name: 'USER', role_def: 'Tenant Application users/tenants.')
-role_guest = Role.create(role_name: 'GUEST', role_def: 'Tenant Application guests/visitors.')
-role_pm = Role.create(role_name: 'PROPERTY MANAGER', role_def: 'Tenant Application property managers.')
+role_admin = Role.create(role_name: 'SUPERADMIN', role_def: 'MyApply super administrator.')
+role_user = Role.create(role_name: 'USER', role_def: 'MyApply users/tenants.')
+role_guest = Role.create(role_name: 'GUEST', role_def: 'MyApply guests/visitors.')
+role_pm = Role.create(role_name: 'PROPERTY MANAGER', role_def: 'MyApply property managers.')
+role_support = Role.create(role_name: 'SUPPORT', role_def: 'MyApply support.')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SEED ON DEVELOPMENT, STAGING and PRODUCTION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

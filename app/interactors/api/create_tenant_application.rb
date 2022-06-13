@@ -37,7 +37,6 @@ module Api
         @tenant_application.application_data = @application_summary
       end
 
-      # @todo: Check if all profile details are present.
       TenantApplication.transaction do
         @tenant_application.save
       end
