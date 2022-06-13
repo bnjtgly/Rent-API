@@ -15,28 +15,31 @@ module AdminApi
       :mobile,
       :phone,
       :gender_id,
-      :date_of_birth
+      :date_of_birth,
+      :role_id,
+      :agency_id
     )
 
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates_confirmation_of :password
-    validate :email_exist, :required, :password_requirements, :valid_name, :valid_date,
+    validate :email_exist, :required, :password_requirements, :valid_name, :valid_date, :role_id_exist, :agency_id_exist,
              :mobile_number_exist, :valid_mobile, :valid_mobile_country_code_id, :valid_gender_id
 
     def submit
+      init
       persist!
     end
 
     private
 
+    def init
+      @role = Role.where(id: role_id).load_async.first
+      @agency = Agency.where(id: agency_id).load_async.first if agency_id
+    end
     def persist!
       return true if valid?
 
       false
-    end
-
-    def email_exist
-      errors.add(:email, "#{PLEASE_CHANGE_MESSAGE} #{EMAIL_EXIST_MESSAGE}") if User.exists?(email: email.try(:downcase).try(:strip))
     end
 
     def required
@@ -50,6 +53,22 @@ module AdminApi
       errors.add(:phone, REQUIRED_MESSAGE) if phone.blank?
       errors.add(:gender_id, REQUIRED_MESSAGE) if gender_id.blank?
       errors.add(:date_of_birth, REQUIRED_MESSAGE) if date_of_birth.blank?
+      errors.add(:role_id, REQUIRED_MESSAGE) if role_id.blank?
+      errors.add(:agency_id, REQUIRED_MESSAGE) if agency_id.blank? && @role && @role.role_name.eql?('PROPERTY MANAGER')
+    end
+
+    def role_id_exist
+      errors.add(:role_id, NOT_FOUND) unless @role
+    end
+
+    def agency_id_exist
+      if agency_id
+        errors.add(:agency_id, NOT_FOUND) unless @agency
+      end
+    end
+
+    def email_exist
+      errors.add(:email, "#{PLEASE_CHANGE_MESSAGE} #{EMAIL_EXIST_MESSAGE}") if User.exists?(email: email.try(:downcase).try(:strip))
     end
 
     def password_requirements
