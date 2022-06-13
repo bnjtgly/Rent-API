@@ -164,6 +164,12 @@ json.applications do
   end
 end
 
+json.user_security do
+  json.id @user.user_security.id
+  json.user_id @user.user_security.user_id
+  json.sms_notification @user.user_security.sms_notification
+end
+
 json.user_settings do
   json.array! @user.user_settings.each do |data|
     json.user_setting_id data.id

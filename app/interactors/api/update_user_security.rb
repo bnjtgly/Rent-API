@@ -15,7 +15,7 @@ module Api
     def build
       @user_security = UserSecurity.where(id: payload[:user_security_id]).first
       @user_security&.update(
-        audit_comment: 'Update User Settings',
+        audit_comment: 'Update User Security',
         sms_notification: payload[:sms_notification]
       )
     end
