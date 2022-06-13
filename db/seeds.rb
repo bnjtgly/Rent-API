@@ -395,6 +395,9 @@ when 'development', 'staging'
   #USER SETTINGS
   user_ids = [user1.id, user2.id, user3.id, user4.id]
   user_ids.each do |userid|
+    #USER SECURITY
+    UserSecurity.create(user_id: userid)
+
     UserSetting.create(user_id: userid, setting_id: security_2fa.id, value: true, audit_comment: 'Seed data.')
     UserSetting.create(user_id: userid, setting_id: notif_property_updates.id, value: true, audit_comment: 'Seed data.')
     UserSetting.create(user_id: userid, setting_id: notif_profile_updates.id, value: true, audit_comment: 'Seed data.')

@@ -11,7 +11,7 @@ module Api
       :value
     )
 
-    validate :user_id_exist, :user_setting_id_exist, :required, :valid_value
+    validate :user_id_exist, :user_setting_id_exist, :required, :valid_value, :valid_access
 
     def submit
       init
@@ -47,6 +47,12 @@ module Api
 
     def valid_value
       errors.add(:value, VALID_BOOLEAN_MESSAGE) unless is_true_false(value.to_s)
+    end
+
+    def valid_access
+      if @user && @user_setting
+        errors.add(:user_id, INVALID_ACCESS) unless @user_setting.user_id.eql?(@user.id)
+      end
     end
   end
 end
