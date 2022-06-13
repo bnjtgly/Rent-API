@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 module Api
-  class UpdateUserSetting
+  class UpdateUserSecurity
     include Interactor
 
     delegate :data, :current_user, to: :context
@@ -15,15 +13,15 @@ module Api
 
     private
     def build
-      @user_setting = UserSetting.where(id: payload[:user_setting_id]).first
-      @user_setting&.update(
+      @user_security = UserSecurity.where(id: payload[:user_security_id]).first
+      @user_security&.update(
         audit_comment: 'Update User Settings',
-        value: payload[:value]
+        sms_notification: payload[:sms_notification]
       )
     end
 
     def validate!
-      verify = Api::UpdateUserSettingValidator.new(payload)
+      verify = Api::UpdateUserSecurityValidator.new(payload)
 
       return true if verify.submit
 
@@ -32,9 +30,9 @@ module Api
 
     def payload
       {
-        user_setting_id: data[:user_setting_id],
+        user_security_id: data[:user_security_id],
         user_id: current_user.id,
-        value: data[:user_setting][:value]
+        sms_notification: data[:user_security][:sms_notification]
       }
     end
   end
