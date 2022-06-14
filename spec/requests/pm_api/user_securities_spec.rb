@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Api::UserSecurities", type: :request do
+RSpec.describe "PmApi::UserSecurities", type: :request do
   describe "GET /index" do
     context "When PM is logged in" do
       before do
-        authorize_user
+        authorize_pm
 
-        get '/api/user_securities', as: :json
+        get '/pm_api/user_securities', as: :json
       end
 
       it "returns http success" do
@@ -16,7 +16,7 @@ RSpec.describe "Api::UserSecurities", type: :request do
 
     context "When PM is not logged in" do
       before do
-        get '/api/user_securities', as: :json
+        get '/pm_api/user_securities', as: :json
       end
 
       it "returns http unauthorized" do
