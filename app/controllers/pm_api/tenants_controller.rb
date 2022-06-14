@@ -10,10 +10,6 @@ module PmApi
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
       @tenants = User.includes(user_role: :role, tenant_applications: :property)
 
-      # Filter USER only
-      user_role = Role.where(role_name: 'USER').first
-      @tenants = @tenants.where(user_role: { role_id: user_role.id })
-
       # Filter tenants by property's agency.
       @tenants = @tenants.where(property: { agency_id: current_user.user_agency.agency_id })
 

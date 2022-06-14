@@ -18,8 +18,16 @@ module DeviseRequestHelpers
 
   def authorize_pm
     user = create(:user, api_client: create(:api_client))
-    create(:user_role, role: create(:role, role_name: 'PROPERTY MANAGER', role_def: 'Tenant Application property managers.'), user: user)
-    create(:user_agency, agency: create(:agency), host: user)
+    create(:user_role, role: create(:role, role_name: 'PROPERTY MANAGER', role_def: 'MyApply property managers.'), user: user)
+    create(:user_agency, agency: create(:agency), user: user)
+
+    sign_in user
+    return user
+  end
+
+  def authorize_admin
+    user = create(:user, api_client: create(:api_client))
+    create(:user_role, role: create(:role, role_name: 'SUPERADMIN', role_def: 'MyApply super administrator.'), user: user)
 
     sign_in user
     return user

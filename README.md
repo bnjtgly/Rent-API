@@ -93,6 +93,11 @@ $ rails s
 The server will run on **localhost:3000**.
 
 ---
+### Testing
+```bash
+$ rspec spec/requests
+```
+---
 
 ### Folder Structure
 1. **Model** - It contains the models and data stored in our application's database.

@@ -26,21 +26,24 @@ RSpec.describe "PmApi::Properties", type: :request do
   end
 
   describe "POST /create" do
-    context "creates flatmate" do
+    context "creates property" do
       before do
         authorize_pm
-
+        
         params = {
           "property": {
             "details": {
               "id": "4282f033-689f-41c1-a874-939a2f9e8a58",
-              "name": "Treehouse hosted by Mikheyla Fox 1",
-              "address": "Sixth Avenue, New Norfolk TAS, Australia",
-              "bedrooms": "4",
-              "bathrooms": "3",
-              "garage": "2",
-              "availability": "2022-05-22",
-              "rent_per_week": "1100"
+              "name": 'Treehouse hosted by Mikheyla Fox',
+              "desc": '',
+              "img": 'https://cdn.pixabay.com/photo/2017/11/16/19/29/cottage-2955582_960_720.jpg',
+              "address": 'Dromana, Victoria, Australia',
+              "bedrooms": '5',
+              "bathrooms": '2',
+              "garage": '2',
+              "availability": '2022-03-22',
+              "rent_per_week": '750',
+              "views": 321
             }
           }
         }
