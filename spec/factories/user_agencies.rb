@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_agency do
     association :agency
-    association :host, :factory => :user
+    association :user, :factory => :user
   end
 end
