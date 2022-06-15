@@ -52,7 +52,7 @@ mobile_country_code_ref2 = DomainReference.create(sort_order: '100', domain_id: 
 
 application_status = Domain.create(domain_number: 1401, name: 'Application Status', domain_def: 'Status of tenants application.')
 application_status_ref1 = DomainReference.create(sort_order: '100', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Accepted', value_str: 'accepted')
-application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'New', value_str: 'new')
+application_status_ref2 = DomainReference.create(sort_order: '200', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Pending', value_str: 'pending')
 DomainReference.create(sort_order: '300', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Viewed', value_str: 'viewed')
 DomainReference.create(sort_order: '400', domain_id: application_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Rejected', value_str: 'rejected')
 
