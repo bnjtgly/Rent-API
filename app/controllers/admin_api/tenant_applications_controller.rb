@@ -11,7 +11,9 @@ module AdminApi
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-      @tenant_applications = TenantApplication.all
+      @tenant_applications = TenantApplication.includes(:user)
+      @tenant_applications = @tenant_applications.where(user: { email: params[:email].downcase }) unless params[:email].blank?
+      @tenant_applications = @tenant_applications.where(user_id: params[:user_id]) unless params[:user_id].blank?
 
       pagy, @tenant_applications = pagy(@tenant_applications, items: items_per_page)
       @pagination = pagy_metadata(pagy)

@@ -15,7 +15,8 @@ module Api
       :cover_letter
     )
 
-    validate :user_id_exist, :required, :property_id_exist, :flatmate_id_exist, :application_exist, :valid_date, :valid_lease_length_id
+    validate :user_id_exist, :required, :property_id_exist, :flatmate_id_exist, :application_exist, :valid_date,
+             :valid_lease_length_id, :valid_affordability
 
     def submit
       init
@@ -40,7 +41,6 @@ module Api
     def required
       errors.add(:user_id, REQUIRED_MESSAGE) if user_id.blank?
       errors.add(:property_id, REQUIRED_MESSAGE) if property_id.blank?
-      # errors.add(:flatmate_id, REQUIRED_MESSAGE) if flatmate_id.blank?
       errors.add(:lease_length_id, REQUIRED_MESSAGE) if lease_length_id.blank?
       errors.add(:lease_start_date, REQUIRED_MESSAGE) if lease_start_date.blank?
       errors.add(:cover_letter, REQUIRED_MESSAGE) if cover_letter.blank?
@@ -64,6 +64,16 @@ module Api
 
     def valid_date
       errors.add(:lease_start_date, VALID_DATE_MESSAGE) if valid_date?(lease_start_date).eql?(false)
+    end
+
+    def valid_affordability
+      monthly_income = Api::Incomes::IncomeService.new(@user.incomes).call[:monthly]
+
+      # Get the 30% of tenant's income.
+      monthly_income_30_percent = monthly_income * 0.30
+      rent_per_week = @property['details']['rent_per_week'].to_f
+
+      errors.add(:income, VALID_AFFORDABILITY) unless monthly_income_30_percent >= rent_per_week
     end
 
     def valid_lease_length_id

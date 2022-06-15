@@ -33,6 +33,7 @@ module Helper
     INCORRECT_PASSWORD = 'Incorrect Password.'
     INVALID_URL = 'Invalid URL.'
     INVALID_ACCESS = 'You do no have access to modify this record.'
+    VALID_AFFORDABILITY = 'Your total income is lower than the require 30%.'
 
     DOMAIN_STATUSES = ['Active', 'Coming Soon', 'Disabled'].freeze
 
