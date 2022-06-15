@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_011707) do
     t.string "suburb"
     t.string "address"
     t.string "post_code"
+    t.boolean "current_address", default: false
     t.datetime "valid_from", null: false
     t.datetime "valid_thru"
     t.datetime "created_at", null: false

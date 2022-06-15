@@ -298,6 +298,7 @@ when 'development', 'staging'
                             suburb: 'New Norfolk',
                             address: 'Address 1',
                             post_code: '7140',
+                            current_address: true,
                             valid_from: '2020-01-01',
                             valid_thru: '2021-03-01')
   Reference.create(address_id: address1.id,
@@ -307,11 +308,26 @@ when 'development', 'staging'
                    mobile_country_code_id: mobile_country_code_ref.id,
                    mobile: 412345678)
 
+  address11 = Address.create(user_id: user1.id,
+                            state: 'Queensland',
+                            suburb: 'Old Norfolk',
+                            address: 'Address 2',
+                            post_code: '7141',
+                            valid_from: '2017-10-10',
+                            valid_thru: '2021-01-01')
+  Reference.create(address_id: address11.id,
+                   full_name: 'Ana Smith',
+                   email: 'anna@go.team.au',
+                   ref_position_id: ref_position_ref2.id,
+                   mobile_country_code_id: mobile_country_code_ref.id,
+                   mobile: 413345633)
+
   address2 = Address.create(user_id: user2.id,
                             state: 'Tasmania',
                             suburb: 'Semi New Norfolk',
                             address: 'Address 2',
                             post_code: '7140',
+                            current_address: true,
                             valid_from: '2020-01-01',
                             valid_thru: '2021-03-01')
   Reference.create(address_id: address2.id,
@@ -326,6 +342,7 @@ when 'development', 'staging'
                             suburb: 'Old Norfolk',
                             address: 'Address 3',
                             post_code: '7140',
+                            current_address: true,
                             valid_from: '2020-01-01',
                             valid_thru: '2021-03-01')
   Reference.create(address_id: address3.id,
