@@ -41,6 +41,7 @@ json.addresses do
     json.suburb data.suburb
     json.address data.address
     json.post_code data.post_code
+    json.current_address data.current_address
     json.valid_from data.valid_from
     json.valid_thru data.valid_thru
 

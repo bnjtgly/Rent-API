@@ -14,6 +14,8 @@
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show]
     resources :roles, param: :role_id, only: %i[index show create update]
     resources :agencies, param: :agency_id, only: %i[index show create update]
+    resources :dashboard, only: %i[index]
+    resources :tenants, only: %i[index]
 
     post 'users/invite_user', to: 'users#invite_user'
   end

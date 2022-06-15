@@ -6,8 +6,7 @@ class CreateAddresses < ActiveRecord::Migration[7.0]
       t.string :suburb
       t.string :address
       t.string :post_code
-      # t.datetime :move_in_date
-      # t.datetime :move_out_date
+      t.boolean :current_address, default: false
       t.datetime :valid_from, null: false
       t.datetime :valid_thru
 

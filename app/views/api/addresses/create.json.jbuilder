@@ -5,6 +5,7 @@ json.data do
   json.suburb @address.suburb
   json.address @address.address
   json.post_code @address.post_code
+  json.current_address @address.current_address
   json.valid_from @address.valid_from
   json.valid_thru @address.valid_thru
   json.reference do
