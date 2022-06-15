@@ -14,20 +14,19 @@ module AdminApi
       private
       def get_completion_percentage
         @users.each do |user|
-          # if user.user_role.role.role_name.eql?('USER')
-            completion = get_percent(user.id)
+          completion = get_percent(user.id)
 
-            user[:profile_progress] = {
-              personal_info: "#{completion[:personal_info].round(2)}%",
-              addresses: "#{completion[:addresses].round(2)}%",
-              identities: "#{completion[:identities].round(2)}%",
-              incomes: "#{completion[:incomes].round(2)}%",
-              pets: "#{completion[:pets].round(2)}%",
-              flatmates: "#{completion[:flatmates].round(2)}%",
-              total_progress: "#{(completion.values.sum / completion.size).round(2)}%"
-            }
-          # end
+          user[:profile_progress] = {
+            personal_info: "#{completion[:personal_info].round(2)}%",
+            addresses: "#{completion[:addresses].round(2)}%",
+            identities: "#{completion[:identities].round(2)}%",
+            incomes: "#{completion[:incomes].round(2)}%",
+            pets: "#{completion[:pets].round(2)}%",
+            flatmates: "#{completion[:flatmates].round(2)}%",
+            total_progress: "#{(completion.values.sum / completion.size).round(2)}%"
+          }
         end
+        @users.sort_by { |k| k[:total_progress] }
       end
 
       def get_percent(user_id)
