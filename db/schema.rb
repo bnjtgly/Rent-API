@@ -31,12 +31,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_011707) do
   end
 
   create_table "agencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "mobile_country_code_id"
+    t.string "email", default: "", null: false
     t.string "name"
-    t.string "desc"
+    t.bigint "mobile"
     t.bigint "phone"
-    t.string "url"
+    t.jsonb "addresses", default: "{}", null: false
+    t.jsonb "links", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["mobile_country_code_id"], name: "index_agencies_on_mobile_country_code_id"
     t.index ["name", "phone"], name: "index_agencies_on_name_and_phone", unique: true
   end
 
@@ -414,6 +418,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_011707) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "agencies", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "chatrooms", "users", column: "sender_id"
   add_foreign_key "domain_references", "domains"
   add_foreign_key "emp_documents", "domain_references", column: "document_type_id"

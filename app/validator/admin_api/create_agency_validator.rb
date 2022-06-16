@@ -5,12 +5,16 @@ module AdminApi
 
     attr_accessor(
       :name,
-      :desc,
+      :email,
+      :mobile_country_code_id,
+      :mobile,
       :phone,
-      :url
+      :links,
+      :addresses
     )
 
-    validate :required, :name_exist, :valid_phone, :valid_url
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validate :required, :name_exist, :valid_phone, :valid_mobile_country_code_id, :valid_mobile, :valid_address
 
     def submit
       persist!
@@ -26,9 +30,12 @@ module AdminApi
 
     def required
       errors.add(:name, REQUIRED_MESSAGE) if name.blank?
-      errors.add(:desc, REQUIRED_MESSAGE) if desc.blank?
+      errors.add(:email, REQUIRED_MESSAGE) if email.blank?
+      errors.add(:mobile_country_code_id, REQUIRED_MESSAGE) if mobile_country_code_id.blank?
+      errors.add(:mobile, REQUIRED_MESSAGE) if mobile.blank?
       errors.add(:phone, REQUIRED_MESSAGE) if phone.blank?
-      errors.add(:url, REQUIRED_MESSAGE) if url.blank?
+      errors.add(:links, REQUIRED_MESSAGE) if links.blank?
+      errors.add(:addresses, REQUIRED_MESSAGE) if addresses.blank?
     end
 
     def name_exist
@@ -37,12 +44,39 @@ module AdminApi
       end
     end
 
+    def valid_address
+      address_requirements = %w[state address]
+      addresses.each_with_index do |address, index|
+        unless address.keys.eql?(address_requirements)
+          errors.add("addresses[#{index}]".to_sym, "#{address_requirements.join(", ")} keys are required.")
+        end
+      end
+
+    end
+
     def valid_phone
       errors.add(:phone, VALID_PHONE_MESSAGE) unless Phonelib.parse(phone).valid_for_country? 'AU'
     end
 
-    def valid_url
-      errors.add(:url, "#{PLEASE_CHANGE_MESSAGE} #{INVALID_URL}") unless valid_url?(url)
+    def valid_mobile
+      mobile_number = Phonelib.parse(mobile)
+      if %w[development staging].any? { |keyword| Rails.env.include?(keyword) }
+        errors.add(:mobile, VALID_MOBILE_MESSAGE) unless mobile_number.valid_for_country? 'PH'
+      else
+        errors.add(:mobile, VALID_MOBILE_MESSAGE) unless mobile_number.valid_for_country? 'AU'
+      end
+    end
+
+    def valid_mobile_country_code_id
+      unless mobile_country_code_id.blank?
+        domain_reference = DomainReference.joins(:domain).where(domains: { domain_number: 1301 },
+                                                                domain_references: { id: mobile_country_code_id }).first
+        unless domain_reference
+          references = DomainReference.joins(:domain).where(domains: { domain_number: 1301 },
+                                                            domain_references: { status: 'Active' })
+          errors.add(:mobile_country_code_id, "#{PLEASE_CHANGE_MESSAGE} Valid values are #{references.pluck(:value_str).to_sentence}.")
+        end
+      end
     end
   end
 end

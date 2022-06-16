@@ -211,12 +211,12 @@ when 'development', 'staging'
   OtpVerification.create(user_id: user1.id, mobile_country_code_id: mobile_country_code_ref.id, mobile: 9123456790, otp: 432098, audit_comment: 'Seed data.')
 
   #Agency
-  agency1 = Agency.create(name: 'Ray White', desc: 'Ray White is one of the oldest and biggest real estate companies in Australia.', phone: '61412470486', url: 'raywhite.com.au')
-  agency2 = Agency.create(name: 'RE/MAX', desc: 'Re/Max', phone: '61412473222', url: 'remax.com.au')
-  Agency.create(name: 'Harcourts', desc: 'Harcourts', phone: '61413373222', url: 'harcourts.com.au')
-  Agency.create(name: 'Century 21', desc: 'Century 21', phone: '61123473222', url: 'century21.com.au')
-  Agency.create(name: 'LJ Hooker', desc: 'LJ Hooker', phone: '61412433221', url: 'ljhooker.com.au')
-
+  agency1 = Agency.create(name: 'Ray White', email: 'info@raywhite.com.au', mobile_country_code_id: mobile_country_code_ref.id, mobile: 7233201700,
+                          phone: '61412470486', links: { facebook: 'fb.com/raywhite', linkedin: 'linkedin.com/raywhite', twitter: 'twitter.com/raywhite' },
+                          addresses: [{ state: 'Queendsland', address: 'Level 26, 111 Eagle Street, Brisbane, 400' }, { state: 'Victoria', address: 'City Road, 3006' }])
+  agency2 = Agency.create(name: 'RE/MAX', email: 'info@remax.com.au', mobile_country_code_id: mobile_country_code_ref.id, mobile: 7230011799,
+                          phone: '61412470106', links: { facebook: 'fb.com/remax', linkedin: 'linkedin.com/remax', twitter: 'twitter.com/remax' },
+                          addresses: [{ state: 'Queendsland', address: 'Tiger Street, Brisbane, 400' }])
 
   UserAgency.create(user_id: user4.id, agency_id: agency1.id)
   UserAgency.create(user_id: user5.id, agency_id: agency2.id)
