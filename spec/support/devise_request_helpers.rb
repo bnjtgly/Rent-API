@@ -27,7 +27,13 @@ module DeviseRequestHelpers
 
   def authorize_admin
     user = create(:user, api_client: create(:api_client))
-    create(:user_role, role: create(:role, role_name: 'SUPERADMIN', role_def: 'MyApply super administrator.'), user: user)
+
+    admin_role = create(:role, role_name: 'SUPERADMIN', role_def: 'MyApply super administrator.')
+    create(:role, role_name: 'USER', role_def: 'MyApply users/tenants.')
+    create(:role, role_name: 'PROPERTY MANAGER', role_def: 'MyApply property managers.')
+    create(:role, role_name: 'SUPPORT', role_def: 'MyApply support.')
+
+    create(:user_role, role: admin_role, user: user)
 
     sign_in user
     return user

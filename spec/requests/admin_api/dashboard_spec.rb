@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "AdminApi::Tenants", type: :request do
+RSpec.describe "AdminApi::Dashboards", type: :request do
   describe "GET /index" do
     context "When PM is logged in" do
       before do
         authorize_admin
 
-        get '/admin_api/tenants', as: :json
+        get '/admin_api/dashboard', as: :json
       end
 
       it "returns http success" do
@@ -16,7 +16,7 @@ RSpec.describe "AdminApi::Tenants", type: :request do
 
     context "When PM is not logged in" do
       before do
-        get '/admin_api/tenants', as: :json
+        get '/admin_api/dashboard', as: :json
       end
 
       it "returns http unauthorized" do
