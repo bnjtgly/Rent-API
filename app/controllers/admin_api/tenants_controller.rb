@@ -8,10 +8,12 @@ module AdminApi
     # GET /admin_api/tenants
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
+      tenants = Role.where(role_name: 'USER').load_async.first
 
       @tenants = User.select('users.*, NULL as profile_progress')
                      .includes(user_role: :role)
-                     .where(user_role: { role_id: Role.where(role_name: 'USER').first.id })
+                     .where(user_role: { role_id: tenants.id })
+                     .load_async
 
       pagy, @tenants = pagy(@tenants, items: items_per_page)
 
