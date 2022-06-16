@@ -35,9 +35,12 @@ module AdminApi
   def payload
     {
       name: data[:agency][:name],
-      desc: data[:agency][:desc],
+      email: data[:agency][:email],
+      mobile_country_code_id: data[:agency][:mobile_country_code_id],
+      mobile: data[:agency][:mobile],
       phone: data[:agency][:phone],
-      url: data[:agency][:url]
+      links: data[:agency][:links],
+      addresses: data[:agency][:addresses]
     }
   end
 end
