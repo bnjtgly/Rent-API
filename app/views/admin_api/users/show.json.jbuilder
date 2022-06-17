@@ -44,6 +44,8 @@ json.addresses do
     json.current_address data.current_address
     json.valid_from data.valid_from
     json.valid_thru data.valid_thru
+    json.created_at data.created_at
+    json.updated_at data.updated_at
 
     json.reference do
       if data.reference
@@ -55,6 +57,8 @@ json.addresses do
         json.mobile_country_code data.reference.ref_mobile_country_code.display
         json.mobile data.reference.mobile
         json.mobile_number data.reference.mobile_number
+        json.created_at data.reference.created_at
+        json.updated_at data.reference.updated_at
       else
         json.null!
       end
@@ -69,6 +73,8 @@ json.identities do
     json.identity_type data.ref_identity_type.display
     json.id_number data.id_number
     json.file data.file
+    json.created_at data.created_at
+    json.updated_at data.updated_at
   end
 end
 
@@ -81,6 +87,8 @@ json.incomes do
     json.currency data.ref_currency.display
     json.amount data.amount
     json.proof data.proof
+    json.created_at data.created_at
+    json.updated_at data.updated_at
     json.total_income_summary @total_income
     json.employment do
       if data.employment
@@ -93,6 +101,8 @@ json.incomes do
         json.suburb data.employment.suburb
         json.address data.employment.address
         json.post_code data.employment.post_code
+        json.created_at data.employment.created_at
+        json.updated_at data.employment.updated_at
         json.documents do
           if data.employment.emp_documents
             json.array! data.employment.emp_documents.each do |data|
@@ -100,6 +110,8 @@ json.incomes do
               json.employment_id data.employment_id
               json.document_type_id data.document_type_id
               json.file data.file
+              json.created_at data.created_at
+              json.updated_at data.updated_at
             end
           else
             json.null!
@@ -117,10 +129,14 @@ json.flatmates do
     json.flatmate_id data.id
     json.user_id data.user_id
     json.group_name data.group_name
+    json.created_at data.created_at
+    json.updated_at data.updated_at
     json.members do
       json.array! data.flatmate_members.each do |data|
         json.user_id data.user.id
         json.complete_name data.user.complete_name
+        json.created_at data.created_at
+        json.updated_at data.updated_at
       end
     end
   end
@@ -136,6 +152,8 @@ json.pets do
     json.name data.name
     json.breed data.breed
     json.color data.color
+    json.created_at data.created_at
+    json.updated_at data.updated_at
     json.vaccination do
       json.array! data.pet_vaccinations.each do |data|
         json.pet_vaccination_id data.id
@@ -143,6 +161,8 @@ json.pets do
         json.pet_vaccine_type data.ref_pet_vaccine_type.display
         json.vaccination_date data.vaccination_date
         json.proof data.proof
+        json.created_at data.created_at
+        json.updated_at data.updated_at
       end
     end
   end
