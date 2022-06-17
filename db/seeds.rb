@@ -250,7 +250,7 @@ when 'development', 'staging'
     views: 103
   })
 
-  property3 = Property.create(agency_id: agency2.id, details: {
+  property3 = Property.create(agency_id: agency1.id, details: {
     id: SecureRandom.uuid,
     name: 'Master Bedroom on private level + & W.I.R!',
     desc: '',

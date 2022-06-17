@@ -9,8 +9,10 @@ module AdminApi
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
-      @agencies = Agency.all
+      @agencies = Agency.all.load_async
       @agencies = @agencies.where('LOWER(name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
+
+      @top_agencies = Agency.joins(:properties).load_async.group(:name).count(:name)
 
       pagy, @agencies = pagy(@agencies, items: items_per_page)
       @pagination = pagy_metadata(pagy)
