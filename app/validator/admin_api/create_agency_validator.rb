@@ -51,7 +51,6 @@ module AdminApi
           errors.add("addresses[#{index}]".to_sym, "#{address_requirements.join(", ")} keys are required.")
         end
       end
-
     end
 
     def valid_phone

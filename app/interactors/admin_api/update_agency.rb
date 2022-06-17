@@ -18,9 +18,12 @@ module AdminApi
 
       @agency&.update(
         name: payload[:name],
-        desc: payload[:desc],
+        email: payload[:email],
+        mobile_country_code_id: payload[:mobile_country_code_id],
+        mobile: payload[:mobile],
         phone: payload[:phone],
-        url: payload[:url],
+        links: payload[:links],
+        addresses: payload[:addresses]
       )
     end
 
@@ -36,9 +39,12 @@ module AdminApi
       {
         agency_id: data[:agency_id],
         name: data[:agency][:name],
-        desc: data[:agency][:desc],
+        email: data[:agency][:email],
+        mobile_country_code_id: data[:agency][:mobile_country_code_id],
+        mobile: data[:agency][:mobile],
         phone: data[:agency][:phone],
-        url: data[:agency][:url]
+        links: data[:agency][:links],
+        addresses: data[:agency][:addresses]
       }
     end
   end
