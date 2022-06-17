@@ -108,4 +108,4 @@ $ rspec spec/requests
 6. **Serializers** - It convert a given object into a JSON format. Serializers control the particular attributes rendered when an object or model is converted into a JSON format.
 7. **Uploaders** - Carrierwave stores the configuration in this folder. Uploaders are included into some models.
 8. **Validators** - Custom validation for interactors.
-9. **Services** - It is a object pattern that can help separate business logic from controllers and models, enabling the models to be simply data layers and the controller entry point to the API.
+9. **Services** - It is a object pattern that can help separate business logic from controllers and models, enabling the models to be simply data layers and the controller entry point to the API. In the app, it is used to manipulate data. Such as; calculations, profile completion, getting the top agents or properties, etc.
