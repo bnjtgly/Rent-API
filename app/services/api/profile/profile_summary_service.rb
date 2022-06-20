@@ -53,6 +53,8 @@ module Api
           address_details[:post_code] = data.post_code
           address_details[:valid_from] = data.valid_from
           address_details[:valid_thru] = data.valid_thru
+          address_details[:created_at] = data.created_at
+          address_details[:updated_at] = data.updated_at
           if data.reference
             address_details[:reference] = {
               id: data.reference.id,
@@ -61,7 +63,9 @@ module Api
               email: data.reference.email,
               position: data.reference.ref_ref_position.display,
               mobile_country_code: data.reference.ref_mobile_country_code.display,
-              mobile: data.reference.mobile
+              mobile: data.reference.mobile,
+              created_at: data.reference.created_at,
+              updated_at: data.reference.updated_at
             }
           else
             address_details[:reference] = nil
@@ -80,6 +84,8 @@ module Api
           identities_details[:identity_type] = data.ref_identity_type.display
           identities_details[:id_number] = data.id_number
           identities_details[:file] = data.file.url
+          identities_details[:created_at] = data.created_at
+          identities_details[:updated_at] = data.updated_at
 
           identities << identities_details
           identities_details = {}
@@ -99,6 +105,8 @@ module Api
           incomes_details[:currency] = data.ref_currency.display
           incomes_details[:amount] = data.amount
           incomes_details[:proof] = data.proof.url
+          incomes_details[:created_at] = data.created_at
+          incomes_details[:updated_at] = data.updated_at
 
           incomes << incomes_details
           incomes_details = {}
@@ -125,14 +133,18 @@ module Api
         employment[:suburb] = @employment.suburb
         employment[:address] = @employment.address
         employment[:post_code] = @employment.post_code
+        employment[:created_at] = @employment.created_at
+        employment[:updated_at] = @employment.updated_at
         if @employment.emp_documents
           documents = []
           @employment.emp_documents.each do |doc|
             documents << {
               id: doc.id,
               employment_id: doc.employment_id,
-              document_type_id: doc.document_type_id,
-              file: doc.file.url
+              document_type_id: doc.ref_document_type.display,
+              file: doc.file.url,
+              created_at: doc.created_at,
+              updated_at: doc.updated_at
             }
           end
           employment[:documents] = documents
@@ -153,6 +165,8 @@ module Api
           pets_details[:name] = data.name
           pets_details[:breed] = data.breed
           pets_details[:color] = data.color
+          pets_details[:created_at] = data.created_at
+          pets_details[:updated_at] = data.updated_at
           if data.pet_vaccinations
             vaccination = []
             data.pet_vaccinations.each do |vaccine|
@@ -161,7 +175,9 @@ module Api
                 pet_id: vaccine.pet_id,
                 pet_vaccine_type: vaccine.ref_pet_vaccine_type.display,
                 vaccination_date: vaccine.vaccination_date,
-                proof: vaccine.proof.url
+                proof: vaccine.proof.url,
+                created_at: vaccine.created_at,
+                updated_at: vaccine.updated_at
               }
             end
             pets_details[:vaccination] = vaccination
@@ -192,7 +208,9 @@ module Api
                 gender: mem.user.ref_gender.display,
                 phone: mem.user.phone,
                 mobile_number: mem.user.mobile_number,
-                avatar: mem.user.avatar.url
+                avatar: mem.user.avatar.url,
+                created_at: data.flatmate_members.created_at,
+                updated_at: data.flatmate_members.updated_at
               }
             end
             flatmates_details[:members] = members
