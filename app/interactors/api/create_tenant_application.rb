@@ -41,6 +41,13 @@ module Api
         @tenant_application.save
       end
 
+      @tenant_application.tenant_application_histories.create(
+        application_status_id: @tenant_application.tenant_application_status_id,
+        version: 1,
+        application_data: @tenant_application.application_data,
+        valid_thru: nil
+      )
+
       @user_property = UserProperty.where(property_id: @tenant_application.property.id, user_id: current_user.id)
                                    .update(is_applied: true)
 
