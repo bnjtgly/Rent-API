@@ -408,8 +408,6 @@ when 'development', 'staging'
   EmpDocument.create(employment_id: emp1.id, document_type_id: doc_type_ref.id, file: 'payslip.jpg')
   EmpDocument.create(employment_id: emp1.id, document_type_id: doc_type_ref2.id, file: 'coe.jpg')
 
-  TenantApplication.create(user_id: user1.id, property_id: property1.id, flatmate_id: flatmate.id, lease_length_id: lease_length_ref1.id, lease_start_date: '2022-03-01', tenant_application_status_id: application_status_ref2.id)
-
   #USER SETTINGS
   user_ids = [user1.id, user2.id, user3.id, user4.id]
   user_ids.each do |userid|
