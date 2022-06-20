@@ -294,12 +294,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_011707) do
 
   create_table "tenant_application_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "tenant_application_id", null: false
+    t.uuid "application_status_id"
     t.jsonb "application_data", default: "{}", null: false
     t.integer "version"
     t.datetime "valid_from", default: -> { "now()" }, null: false
     t.datetime "valid_thru"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["application_status_id"], name: "index_tenant_application_histories_on_application_status_id"
     t.index ["tenant_application_id"], name: "index_tenant_application_histories_on_tenant_application_id"
   end
 
@@ -447,6 +449,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_011707) do
   add_foreign_key "references", "addresses"
   add_foreign_key "references", "domain_references", column: "mobile_country_code_id"
   add_foreign_key "references", "domain_references", column: "ref_position_id"
+  add_foreign_key "tenant_application_histories", "domain_references", column: "application_status_id"
   add_foreign_key "tenant_application_histories", "tenant_applications"
   add_foreign_key "tenant_applications", "domain_references", column: "lease_length_id"
   add_foreign_key "tenant_applications", "domain_references", column: "tenant_application_status_id"

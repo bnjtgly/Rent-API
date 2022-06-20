@@ -22,6 +22,9 @@ module PmApi
     # GET /pm_api/tenants/top_applicants
     def top_applicants
       @tenant_applications = TenantApplication.all
+
+      @tenant_applications = @tenant_applications.where(property_id: params[:property_id]) unless params[:property_id].blank?
+
       @tenant_applications = PmApi::TenantApplications::TenantRankingService.new(@tenant_applications).call
     end
   end
