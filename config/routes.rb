@@ -18,6 +18,8 @@
     resources :tenants, only: %i[index]
 
     post 'users/invite_user', to: 'users#invite_user'
+
+    get 'tenants/top_applicants', to: 'tenants#top_applicants'
   end
 
   # This is for our Property Manager
