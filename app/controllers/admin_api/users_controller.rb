@@ -8,15 +8,18 @@ module AdminApi
     # GET /admin_api/users
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
-      @users = User.includes(user_role: :role)
+      @users = User.includes(:user_agency, user_role: :role)
 
       @users = @users.where('LOWER(email) LIKE ?', "%#{params[:email].downcase}%") unless params[:email].blank?
       @users = @users.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{params[:name].downcase}%") unless params[:name].blank?
 
       unless params[:role].blank?
         @users = @users.where(user_role: { role_id: Role.where(role_name: 'SUPERADMIN').first.id }) if params[:role].try(:upcase).eql?('SUPERADMIN')
-        @users = @users.where(user_role: { role_id: Role.where(role_name: 'PROPERTY MANAGER').first.id }) if params[:role].try(:upcase).eql?('PROPERTY MANAGER')
         @users = @users.where(user_role: { role_id: Role.where(role_name: 'USER').first.id }) if params[:role].try(:upcase).eql?('USER')
+        if params[:role].try(:upcase).eql?('PROPERTY MANAGER')
+          @users = @users.where(user_role: { role_id: Role.where(role_name: 'PROPERTY MANAGER').first.id })
+          @users = @users.where(user_agency: { agency_id: params[:agency_id] }) unless params[:agency_id].blank?
+        end
       end
 
       pagy, @users = pagy(@users, items: items_per_page)
