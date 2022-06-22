@@ -12,6 +12,7 @@ module AdminApi
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
       @properties = Property.all
+      @properties = @properties.where(agency_id: params[:agency_id]) unless params[:agency_id].blank?
 
       pagy, @properties = pagy(@properties, items: items_per_page)
       @pagination = pagy_metadata(pagy)
