@@ -28,7 +28,7 @@ class Ability
         can %i[index show], PmApi::DomainsController
         can %i[index show], PmApi::DomainReferencesController
         can %i[index show create update], PmApi::PropertiesController
-        can %i[index show update], PmApi::TenantApplicationsController
+        can %i[index show update history], PmApi::TenantApplicationsController
         can %i[index top_applicants], PmApi::TenantsController
         can %i[index update], PmApi::UserSecuritiesController
       end

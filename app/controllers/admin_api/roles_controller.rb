@@ -18,7 +18,8 @@ module AdminApi
 
     # GET /admin_api/roles/1
     def show
-      @role = Role.find(params[:role_id])
+      @role = Role.where(id: params[:role_id]).first
+      render json: { error: { role_id: ['Not Found.'] } }, status: :not_found if @role.nil?
     end
 
   end
