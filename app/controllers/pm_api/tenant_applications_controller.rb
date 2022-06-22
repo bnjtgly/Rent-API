@@ -54,8 +54,6 @@ module PmApi
         def history
             @tenant_application_history = TenantApplicationHistory.where(tenant_application_id: params[:tenant_application_id])
                                                                   .order(:created_at)
-
-            render json: { data: @tenant_application_history }
         end
     end
 end
