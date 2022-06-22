@@ -49,5 +49,11 @@ module PmApi
                 render json: { error: interact.error }, status: 422
             end
         end
+
+        # GET /pm_api/tenant_applications/1/history
+        def history
+            @tenant_application_history = TenantApplicationHistory.where(tenant_application_id: params[:tenant_application_id])
+                                                                  .order(:created_at)
+        end
     end
 end

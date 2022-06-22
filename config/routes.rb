@@ -16,9 +16,17 @@
     resources :agencies, param: :agency_id, only: %i[index show create update]
     resources :dashboard, only: %i[index]
     resources :tenants, only: %i[index]
+    resources :addresses, param: :address_id, only: %i[index show update]
+    resources :identities, param: :identity_id, only: %i[index show update]
+    resources :incomes, param: :income_id, only: %i[index show update]
+    resources :employments, param: :employment_id, only: %i[index show update]
+    resources :pets, param: :pet_id, only: %i[index show update]
+    resources :flatmates, param: :flatmate_id, only: %i[index show update]
+    resources :references, param: :reference_id, only: %i[index show update]
 
     post 'users/invite_user', to: 'users#invite_user'
 
+    get 'tenant_applications/:tenant_application_id/history', to: 'tenant_applications#history'
     get 'tenants/top_applicants', to: 'tenants#top_applicants'
   end
 
@@ -41,6 +49,7 @@
     get 'users/notifications', to: 'users#notifications'
     get 'users/dashboard', to: 'users#dashboard'
     get 'tenants/top_applicants', to: 'tenants#top_applicants'
+    get 'tenant_applications/:tenant_application_id/history', to: 'tenant_applications#history'
   end
 
   # This is for our Client or External api (Outside and Limited Access)

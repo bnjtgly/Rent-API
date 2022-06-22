@@ -27,5 +27,11 @@ module AdminApi
         render json: { error: { tenant_application_id: ['Not Found.'] } }, status: :not_found
       end
     end
+
+    # GET /admin_api/tenant_applications/1/history
+    def history
+      @tenant_application_history = TenantApplicationHistory.where(tenant_application_id: params[:tenant_application_id])
+                                                            .order(:created_at)
+    end
   end
 end

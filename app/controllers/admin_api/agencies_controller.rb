@@ -21,6 +21,8 @@ module AdminApi
     # GET /admin_api/agencies/1
     def show
       @agency = Agency.find(params[:agency_id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: { agency_id: ['Not Found.'] } }, status: :not_found
     end
 
     # POST /admin_api/agencies
