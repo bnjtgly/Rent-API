@@ -26,6 +26,7 @@
 
     post 'users/invite_user', to: 'users#invite_user'
 
+    get 'tenant_applications/:tenant_application_id/history', to: 'tenant_applications#history'
     get 'tenants/top_applicants', to: 'tenants#top_applicants'
   end
 
