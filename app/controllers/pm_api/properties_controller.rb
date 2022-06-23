@@ -11,8 +11,8 @@ module PmApi
 
       @properties = Property.where(agency_id: current_user.user_agency.agency.id)
 
-      unless params[:is_pm].blank?
-        @properties = @properties.where(id: current_user.user_agency.user_agency_properties.pluck(:property_id)) if params[:is_pm]
+      if !params[:is_pm].blank? && params[:is_pm].to_s.downcase.eql?('true')
+        @properties = @properties.where(id: current_user.user_agency.user_agency_properties.pluck(:property_id))
       end
 
       @properties = @properties.where("lower(details->>'name') LIKE ?", "%#{params[:property_name].downcase}%") unless params[:property_name].blank?
