@@ -67,5 +67,5 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   
   # @todo: Remove in production
-  config.action_cable.allowed_request_origins = ['http://admin.localhost:3001']
+  config.action_cable.allowed_request_origins = [ "http://localhost:3001/", /http:\/\/localhost:3001.*/, "http://admin.localhost:3001/", /http:\/\/admin.localhost:3001.*/ ]
 end

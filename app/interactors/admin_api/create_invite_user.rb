@@ -33,9 +33,6 @@ module AdminApi
         @user.create_user_agency(agency_id: payload[:agency_id], audit_comment: 'Create User Agency')
       end
 
-      ap "Email Token"
-      ap @user.is_email_verified_token
-
       email_invite_user({ user_id: @user.id, subject: 'Invitation', template_name: 'rento', template_version: 'v1' })
     end
 
