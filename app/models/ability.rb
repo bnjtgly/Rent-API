@@ -31,6 +31,8 @@ class Ability
         can %i[index show update history], PmApi::TenantApplicationsController
         can %i[index top_applicants], PmApi::TenantsController
         can %i[index update], PmApi::UserSecuritiesController
+        can %i[index], PmApi::UserAgenciesController
+        can %i[index show], PmApi::UserAgencyPropertiesController
       end
     else
       can %i[confirm_email], Api::UsersController

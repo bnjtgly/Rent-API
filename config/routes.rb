@@ -40,6 +40,8 @@
     resources :tenant_applications, param: :tenant_application_id, only: %i[index show update]
     resources :tenants, param: :tenant_id, only: %i[index]
     resources :user_securities, param: :user_security_id, only: %i[index update]
+    resources :user_agencies, param: :user_agency_id, only: %i[index]
+    resources :user_agency_properties, param: :user_agency_property_id, only: %i[index show]
 
     post 'users/setup_avatar', to: 'users#setup_avatar'
     post 'users/update_account', to: 'users#update_account'

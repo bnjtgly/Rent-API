@@ -218,8 +218,8 @@ when 'development', 'staging'
                           phone: '61412470106', links: { facebook: 'fb.com/remax', linkedin: 'linkedin.com/remax', twitter: 'twitter.com/remax' },
                           addresses: [{ state: 'Queendsland', address: 'Tiger Street, Brisbane, 400' }])
 
-  UserAgency.create(user_id: user4.id, agency_id: agency1.id)
-  UserAgency.create(user_id: user5.id, agency_id: agency2.id)
+  user_agency1 = UserAgency.create(user_id: user4.id, agency_id: agency1.id)
+  user_agency2 = UserAgency.create(user_id: user5.id, agency_id: agency2.id)
 
   # Properties
   property1 = Property.create(agency_id: agency1.id, details: {
@@ -291,6 +291,11 @@ when 'development', 'staging'
   UserProperty.create(user_id: user3.id, property_id: property1.id)
   UserProperty.create(user_id: user3.id, property_id: property2.id)
   UserProperty.create(user_id: user3.id, property_id: property3.id)
+
+  # PM assigned properties.
+  UserAgencyProperty.create(user_agency_id: user_agency1.id, property_id: property1.id)
+  UserAgencyProperty.create(user_agency_id: user_agency1.id, property_id: property2.id)
+  UserAgencyProperty.create(user_agency_id: user_agency2.id, property_id: property3.id)
 
   # Sample Tenant Application
   address1 = Address.create(user_id: user1.id,
