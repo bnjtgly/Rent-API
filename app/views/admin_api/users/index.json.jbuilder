@@ -20,12 +20,17 @@ json.data do
     json.sign_up_with data.ref_sign_up_with.display
     json.avatar data.avatar
     json.status data.ref_user_status.display
-    json.addresses data.addresses.where(current_address: true).each do |data|
-      json.state data.state
-      json.suburb data.suburb
-      json.address data.address
-      json.post_code data.post_code
+    unless data.addresses.blank?
+      json.addresses data.addresses.where(current_address: true).each do |data|
+        json.state data.state
+        json.suburb data.suburb
+        json.address data.address
+        json.post_code data.post_code
+      end
+    else
+      json.addresses nil
     end
+
     json.created_at data.created_at
     json.updated_at data.updated_at
 
