@@ -51,12 +51,7 @@ class User < ApplicationRecord
   end
 
   def mobile_number
-    if !mobile_country_code_id.nil?
-      "+#{ref_mobile_country_code.value_str}#{mobile}"
-    else
-      nil
-    end
-    # "#{mobile_country_code_id.nil? ? '' : '+'}#{ref_mobile_country_code.value_str}#{mobile}"
+    !mobile_country_code_id.nil? ? "+#{ref_mobile_country_code.value_str}#{mobile}" : nil
   end
 
   def date_of_birth_format
