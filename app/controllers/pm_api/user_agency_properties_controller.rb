@@ -5,7 +5,7 @@ module PmApi
 
     after_action { pagy_metadata(@pagy) if @pagy }
 
-    # GET /pm_api/properties
+    # GET /pm_api/user_agency_properties
     def index
       items_per_page = !params[:max_items].blank? ? params[:max_items].to_i : 20
 
@@ -17,9 +17,9 @@ module PmApi
       @pagination = pagy_metadata(pagy)
     end
 
-    # GET /pm_api/properties/1
+    # GET /pm_api/user_agency_properties/1
     def show
-      @property = Property.where(id: params[:property_id], agency_id: current_user.user_agency.agency.id).first
+      @property = Property.where(id: params[:property_id]).first
 
       if @property.nil?
         render json: { error: { property_id: ['Not Found.'] } }, status: :not_found
