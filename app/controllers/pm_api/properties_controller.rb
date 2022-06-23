@@ -11,6 +11,10 @@ module PmApi
 
       @properties = Property.where(agency_id: current_user.user_agency.agency.id)
 
+      unless params[:is_pm].blank?
+        @properties = @properties.where(id: current_user.user_agency.user_agency_properties.pluck(:property_id)) if params[:is_pm]
+      end
+
       @properties = @properties.where("lower(details->>'name') LIKE ?", "%#{params[:property_name].downcase}%") unless params[:property_name].blank?
 
       pagy, @properties = pagy(@properties, items: items_per_page)
