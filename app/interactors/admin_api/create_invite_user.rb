@@ -15,6 +15,8 @@ module AdminApi
     private
 
     def build
+      pending_status = DomainReference.includes(:domain)
+                                      .where(domains: { domain_number: 1101 }, domain_references: { value_str: 'pending' }).first
       @user = User.new(payload.except(:role_id, :agency_id))
       # Generate temporary password.
       password = Devise.friendly_token.first(15)
@@ -23,6 +25,7 @@ module AdminApi
       @user.api_client_id = current_user.api_client_id
       @user.password = password
       @user.password_confirmation = password
+      @user.user_status_id = pending_status.id
 
       User.transaction do
         @user.save
