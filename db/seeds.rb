@@ -29,6 +29,8 @@ user_status = Domain.create(domain_number: 1101, name: 'User Status', domain_def
 user_status_ref = DomainReference.create(sort_order: '100', domain_id: user_status.id, display: 'Active', value_str: 'active')
 DomainReference.create(sort_order: '200', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Disabled', value_str: 'disabled')
 DomainReference.create(sort_order: '300', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Banned', value_str: 'banned')
+DomainReference.create(sort_order: '400', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Pending', value_str: 'pending')
+DomainReference.create(sort_order: '500', domain_id: user_status.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Accepted', value_str: 'accepted')
 
 sign_up_with = Domain.create(domain_number: 1201, name: 'User Signup With', domain_def: 'Platform used in registration.')
 sign_up_with_ref = DomainReference.create(sort_order: '100', domain_id: sign_up_with.id, role: %W[#{role_admin.id} #{role_user.id} #{role_pm.id}], display: 'Google', value_str: 'google')
