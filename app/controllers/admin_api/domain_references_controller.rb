@@ -37,7 +37,6 @@ module AdminApi
 
       if interact.success?
         @domain_reference = interact.domain_reference
-        render json: { message: 'Success' }
       else
         render json: { error: interact.error }, status: 422
       end
@@ -48,7 +47,7 @@ module AdminApi
       interact = AdminApi::UpdateDomainReference.call(data: params)
 
       if interact.success?
-        @domain_reference = interact.domain_reference
+        render json: { message: 'Success' }
       else
         render json: { error: interact.error }, status: 422
       end
