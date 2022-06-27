@@ -11,13 +11,11 @@ module AdminApi
     def index
       pagy, @domain_references = pagy(DomainReference.joins(:domain))
 
-      unless params[:name].blank?
-        @domain_references = @domain_references.where('LOWER(domains.name) LIKE ?', "%#{params[:name].downcase}%")
-      end
+      @domain_references = @domain_references.where('LOWER(domains.name) LIKE ?', "%#{params[:name].downcase}%") unless params[:name].blank?
 
-      unless params[:domain_number].blank?
-        @domain_references = @domain_references.where(domain: { domain_number: params[:domain_number] })
-      end
+      @domain_references = @domain_references.where(domain: { domain_number: params[:domain_number] }) unless params[:domain_number].blank?
+
+      @domain_references = @domain_references.where(is_deleted: params[:is_deleted]) unless params[:is_deleted].blank?
 
       @pagination = pagy_metadata(pagy)
     end
