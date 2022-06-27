@@ -24,11 +24,11 @@ module AdminApi
     end
 
     def reference_exist
-      exempted_tables = %w[schema_migrations ar_internal_metadata audits sendgrid_templates domain_references]
-      ActiveRecord::Base.connection.tables.map do |model|
-        if !exempted_tables.include?(model) && !model.capitalize.singularize.camelize.safe_constantize.where("to_tsvector(#{model}::text) @@ to_tsquery('#{domain_reference.id}')").blank?
-          errors.add(model, "Access denied. Domain reference: #{domain_reference.display} is being used in #{model}.")
-        end
+      tables = %w[addresses agencies emp_documents identities incomes otp_verifications pets pet_vaccinations tenant_applications tenant_application_histories user_scores user_settings users ]
+
+      tables.each do |table|
+        domain_reference_exist = table.singularize.camelize.safe_constantize.where("to_tsvector(#{table}::text) @@ to_tsquery('#{domain_reference.id}')")
+        errors.add(table, "Access denied. Domain reference: #{domain_reference.display} is being used in #{table}.") unless domain_reference_exist.blank?
       end
     end
   end
