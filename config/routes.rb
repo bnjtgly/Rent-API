@@ -47,6 +47,7 @@
     post 'users/:email_token/setup_password', to: 'users#setup_password'
     post 'users/setup_account', to: 'users#setup_account'
 
+    get 'users/:email_token/account_details', to: 'users#account_details'
     get 'users/notifications', to: 'users#notifications'
     get 'users/dashboard', to: 'users#dashboard'
     get 'tenants/top_applicants', to: 'tenants#top_applicants'

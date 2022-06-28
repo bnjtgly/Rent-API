@@ -35,7 +35,7 @@ class Ability
       end
     else
       can %i[confirm_email], Api::UsersController
-      can %i[setup_password], PmApi::UsersController
+      can %i[setup_password account_details], PmApi::UsersController
     end
 
     # The first argument to `can` is the action you are giving the user
