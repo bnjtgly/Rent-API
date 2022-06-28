@@ -1,7 +1,7 @@
 module PmApi
   class UsersController < ApplicationController
     include Custom::GlobalRefreshToken
-    before_action :authenticate_user!, except: %i[setup_password]
+    before_action :authenticate_user!, except: %i[setup_password account_details]
     authorize_resource class: PmApi::UsersController
 
     after_action { pagy_metadata(@pagy) if @pagy }
@@ -38,7 +38,7 @@ module PmApi
       end
     end
 
-    # POST /admin_api/users/:email_token/setup_password
+    # POST /pm_api/users/:email_token/setup_password
     def setup_password
       interact = PmApi::CreateSetupPassword.call(data: params)
 
@@ -51,7 +51,7 @@ module PmApi
       end
     end
 
-    # POST /admin_api/users/setup_account
+    # POST /pm_api/users/setup_account
     def setup_account
       interact = PmApi::CreateSetupAccount.call(data: params, current_user: current_user)
 
@@ -59,6 +59,16 @@ module PmApi
         @user = interact.user
       else
         render json: { error: interact.error }, status: 422
+      end
+    end
+
+    # Get account details for invited user.
+    # GET /pm_api/users/:email_token/account_details
+    def account_details
+      @user = User.where(is_email_verified_token: params[:email_token]).first
+
+      unless @user
+        render json: { error: { email_token: ['Not Found.'] } }, status: :not_found
       end
     end
 
