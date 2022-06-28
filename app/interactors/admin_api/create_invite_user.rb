@@ -51,7 +51,9 @@ module AdminApi
       {
         email: data[:user][:email],
         agency_id: data[:user][:agency_id],
-        role_id: data[:user][:role_id]
+        role_id: data[:user][:role_id],
+        first_name: data[:user][:first_name],
+        last_name: data[:user][:last_name]
       }
     end
 
