@@ -23,15 +23,15 @@ module AdminApi
     end
 
     # PATCH/PUT /admin_api/identities/1
-    # def update
-    #   interact = AdminApi::UpdateAddress.call(data: params, current_user: current_user)
-    #
-    #   if interact.success?
-    #     render json: { message: 'Success' }
-    #   else
-    #     render json: { error: interact.error }, status: 422
-    #   end
-    # end
+    def update
+      interact = AdminApi::UpdateIdentity.call(data: params)
+
+      if interact.success?
+        render json: { message: 'Success' }
+      else
+        render json: { error: interact.error }, status: 422
+      end
+    end
 
   end
 end

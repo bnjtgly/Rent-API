@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.id @flatmate.id
+json.user_id @flatmate.user_id
 json.group_name @flatmate.group_name
 json.members do
   json.array! @flatmate.flatmate_members.each do |data|
