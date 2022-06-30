@@ -1,6 +1,7 @@
 json.data do
   json.array! @flatmates.each do |data|
     json.id data.id
+    json.user_id data.user_id
     json.group_name data.group_name
     json.members do
       json.array! data.flatmate_members.each do |data|

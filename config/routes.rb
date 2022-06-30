@@ -28,6 +28,7 @@
 
     get 'tenant_applications/:tenant_application_id/history', to: 'tenant_applications#history'
     get 'tenants/top_applicants', to: 'tenants#top_applicants'
+
   end
 
   # This is for our Property Manager
