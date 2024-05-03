@@ -271,7 +271,7 @@ GEM
     ruby_http_client (3.5.5)
     sendgrid-ruby (6.6.2)
       ruby_http_client (~> 3.4)
-    spring (4.0.0)
+    spring (4.2.1)
     ssrf_filter (1.0.7)
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
